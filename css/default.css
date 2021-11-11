@@ -39,6 +39,11 @@ e. Others
    min-width: 100%;
    min-height: 100%;
  }
+ @media (max-width: 767px){
+   .elementor:not(.elementor-edit-area-active) .elementor-hidden-phone {
+       display: block;
+      }
+   }
 
 /* ------------------------------------------------------------------
 /* b. Reset
