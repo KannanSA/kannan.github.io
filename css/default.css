@@ -39,10 +39,7 @@ e. Others
    min-width: 100%;
    min-height: 100%;
  }
- .myVideo .webvideo {
-   display: block;
-   margin: 0 auto;
-}
+
 /* ------------------------------------------------------------------
 /* b. Reset
       Adapted from:
