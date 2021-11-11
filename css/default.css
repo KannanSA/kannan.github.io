@@ -31,14 +31,18 @@ e. Others
 @import url("fontello/css/fontello.css");
 @import url("font-awesome/css/font-awesome.min.css");
 
-#myVideo {
+.myVideo {
+   text-align: center
    position: fixed;
    right: 0;
    bottom: 0;
    min-width: 100%;
    min-height: 100%;
  }
-
+ .myVideo .webvideo {
+   display: block;
+   margin: 0 auto;
+}
 /* ------------------------------------------------------------------
 /* b. Reset
       Adapted from:
