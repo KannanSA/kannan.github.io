@@ -1,601 +1,535 @@
 <!DOCTYPE html>
-<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kannan Sekar Annu Radha - Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        /* Root Variables for Easy Theming */
+        :root {
+            --primary-color: #0071e3; /* Apple-like blue accent */
+            --background-color: #fff;
+            --text-color: #333;
+            --secondary-color: #555;
+            --hover-color: #005bb5;
+            --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+        }
 
-    <!--- basic page needs
-    ================================================== -->
-    <meta charset="utf-8">
-    <title>Kannan's Personal Website</title>
-	<meta name="description" content="Kannan's Personal Website">
-	<meta name="author" content="Kannan Sekar Annu Radha">
-    <meta name="keywords" content="Kannan, Sekar, Annu, Radha, sakannan">
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
 
-    <!-- mobile specific metas
-    ================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        /* Header Styles */
+        header {
+            background-color: var(--background-color);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
 
-    <!-- CSS
-    ================================================== -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/vendor.css">
+        header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
 
-    <!-- script
-    ================================================== -->
-    <script defer src="js/vendor/fontawesome/all.min.js"></script>
+        header p {
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
 
-    <!-- favicons
-    ================================================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
+        /* Contact Links as Buttons */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-212730390-1">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        .contact-links a {
+            text-decoration: none;
+            color: var(--background-color);
+            background-color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
 
-  gtag('config', 'UA-212730390-1');
-</script>
+        .contact-links a:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
 
+        /* Navigation Bar */
+        nav {
+            background-color: var(--background-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 60px;
+        }
+
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+        }
+
+        /* About Section */
+        #about p {
+            font-size: 1.1em;
+            color: var(--secondary-color);
+        }
+
+        /* Education and Experience Sections */
+        .education-item, .experience-item {
+            margin-bottom: 30px;
+        }
+
+        .education-item h3, .experience-item h3 {
+            font-size: 1.5em;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+
+        .education-item p, .experience-item p {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .education-item ul, .experience-item ul {
+            list-style: disc inside;
+            color: var(--secondary-color);
+        }
+
+        /* Technical Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skills-grid div {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skills-grid div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .skills-grid div strong {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Skills & Interests Section */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .interests-grid div {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .interests-grid div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--background-color);
+            border: 1px solid #eaeaea;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .project-content p {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .project-content a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 700;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+
+        .project-content a:hover {
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--background-color);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #eaeaea;
+            color: var(--secondary-color);
+            font-size: 0.9em;
+        }
+
+        footer .footer-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        footer .footer-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--hover-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+    </style>
 </head>
+<body>
 
-<body id="top" class="ss-preload">
+    <!-- Header Section -->
+    <header>
+        <h1>Kannan Sekar Annu Radha</h1>
+        <p>Physics Student at King’s College London</p>
+        <div class="contact-links">
+            <a href="mailto:kannansekara@gmail.com">Email Me</a>
+            <a href="https://linkedin.com/in/kannan-sekar/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/KannanSAhttps://github.com/KannanSA" target="_blank">GitHub</a>
+        </div>
+    </header>
 
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Work Experience</a></li>
+            <li><a href="#skills">Technical Skills</a></li>
+            <li><a href="#interests">Skills & Interests</a></li>
+            <li><a href="#projects">Projects</a></li>
+        </ul>
+    </nav>
 
-    <!-- preloader
-    ================================================== -->
-    <div id="preloader">
-        <div id="loader"></div>
+    <!-- Main Content Container -->
+    <div class="container">
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Passionate Physics student with a strong background in Computer Science. Experienced in developing machine learning models, natural language processing, and building innovative software applications. Adept at problem-solving and eager to contribute to cutting-edge projects in artificial intelligence and beyond.</p>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>BSc Physics</h3>
+                <p><strong>King’s College London</strong>, London, United Kingdom</p>
+                <p><em>2024 – 2027</em> | 1st Class Predicted</p>
+                <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
+            </div>
+            <div class="education-item">
+                <h3>MEng Computer Science</h3>
+                <p><strong>University College London</strong>, London, United Kingdom</p>
+                <p><em>2021 – 2023</em></p>
+                <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+            </div>
+            <div class="education-item">
+                <h3>A Levels</h3>
+                <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
+                <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
+                <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+            </div>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section id="experience">
+            <h2>Work Experience</h2>
+            <div class="experience-item">
+                <h3>Data Science Intern</h3>
+                <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
+                <p><em>November 2019</em></p>
+                <ul>
+                    <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Intern</h3>
+                <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
+                <p><em>November 2019</em></p>
+                <ul>
+                    <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
+                    <li>Worked on image classification and digit classification using MNIST datasets.</li>
+                    <li>Developed an LSTM-based cryptocurrency trading bot.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div>
+                    <strong>Programming Languages</strong>
+                    <p>Python, C, C++, Java, Haskell, Swift</p>
+                </div>
+                <div>
+                    <strong>Frameworks & Tools</strong>
+                    <p>TensorFlow, Flask, Matplotlib, Scikit-learn, Word2Vec, TSNE, LSTM, Arduino, ESP32</p>
+                </div>
+                <div>
+                    <strong>Operating Systems</strong>
+                    <p>Windows, macOS, Linux</p>
+                </div>
+                <div>
+                    <strong>Other</strong>
+                    <p>Microsoft Office, Photoshop, Final Cut Pro</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Interests Section -->
+        <section id="interests">
+            <h2>Skills & Interests</h2>
+            <div class="interests-grid">
+                <div>
+                    <strong>Languages</strong>
+                    <p>English (Native), Tamil (Native), Spanish (Full Professional Proficiency)</p>
+                </div>
+                <div>
+                    <strong>Achievements</strong>
+                    <ul>
+                        <li>CS50x Harvard University Certificate (ID: 6e593e86fca2494b8b1c9af455a8d29d)</li>
+                        <li>Machine Learning Stanford University Certificate (ID: WZPCZKU8PJA9)</li>
+                        <li>DeepLearning.AI Certificate (ID: BDYCCTSVUHD3)</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Interests</strong>
+                    <p>Artificial Intelligence, Machine Learning, Cryptocurrency Trading, Augmented Reality, Game Development</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="images/NHS.png" alt="NLP Project at NHS Digital">
+                    <div class="project-content">
+                        <h3>NLP Project at NHS Digital</h3>
+                        <p>Developed a Natural Language Processing project using TensorFlow, Matplotlib, and Scikit-learn to predict patient diagnoses.</p>
+                        <a href="https://github.com/KannanSA/NLPK" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/TradingBotYote1.png" alt="Cryptocurrency Trading App">
+                    <div class="project-content">
+                        <h3>Cryptocurrency Trading App</h3>
+                        <p>Created an automated cryptocurrency trading web application in Python using Flask and TensorFlow.</p>
+                        <a href="https://github.com/KannanSA/TradingBotYote6M" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/Yotee.png" alt="YoteCoin">
+                    <div class="project-content">
+                        <h3>YoteCoin</h3>
+                        <p>Developed a cryptocurrency for the Ethereum smart chain.</p>
+                        <a href="https://github.com/KannanSA/YoteCoin" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/pong.png" alt="iPong Game">
+                    <div class="project-content">
+                        <h3>iPong Game</h3>
+                        <p>Designed an iPong game for Apple Watch using Swift and CoreML.</p>
+                        <a href="https://github.com/KannanSA/iPong" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/ddab.png" alt="DabCounter App">
+                    <div class="project-content">
+                        <h3>DabCounter App</h3>
+                        <p>Built a DabCounter app for Apple Watch with Swift and CoreMotion.</p>
+                        <a href="https://github.com/KannanSA/DabCounter" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/robot.png" alt="Robot Abstraction">
+                    <div class="project-content">
+                        <h3>Robot Abstraction</h3>
+                        <p>Implemented robot abstraction in C language.</p>
+                        <a href="https://github.com/KannanSA/C-Robot-Abstraction" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images//tetrris.png" alt="TetrisAI">
+                    <div class="project-content">
+                        <h3>TetrisAI</h3>
+                        <p>Developed an AI to play Tetris using Python.</p>
+                        <a href="https://github.com/KannanSA/TetrisAI" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/knucklesyote.png" alt="AR Snapchat Lens">
+                    <div class="project-content">
+                        <h3>AR Snapchat Lens</h3>
+                        <p>Created an Augmented Reality Snapchat Lens with 2.52 million views and 100K downloads.</p>
+                        <a href="https://github.com/KannanSA/Argumented-Reality-SC" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/bioreactor.png" alt="Bioreactor">
+                    <div class="project-content">
+                        <h3>Bioreactor</h3>
+                        <p>Programmed an Arduino-based Bioreactor using C and ESP32 microcontroller.</p>
+                        <a href="https://github.com/KannanSA/Bioreactor-UI" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-
-    <!-- header
-    ================================================== -->
-    <header class="s-header">
-        <div class="row s-header__nav-wrap">
-            <nav class="s-header__nav">
-                <ul>
-                    <li class="current"><a class="smoothscroll" href="#hero">Home</a></li>
-                    <li><a class="smoothscroll" href="#about">About</a></li>
-                    <li><a class="smoothscroll" href="#resume">Resume</a></li>
-                    <li><a class="smoothscroll" href="#portfolio">Works</a></li>
-                    <li><a class="smoothscroll" href="#contact">Say Hello</a></li>
-                </ul>
-            </nav>
-        </div> <!-- end row -->
-        
-        <a class="s-header__menu-toggle" href="#0" title="Menu">
-            <span class="s-header__menu-icon"></span>
-        </a>
-    </header> <!-- end s-header -->
- 
-
-    <!-- hero
-    ================================================== -->
-    <section id="hero" class="s-hero target-section">
-
-        <div class="container">
-            <video playsinline autoplay muted loop id="myVideo">
-                <source src="images/background.mp4" type="video/mp4">
-              </video>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Kannan Sekar Annu Radha. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://linkedin.com/in/kannansekara" target="_blank">LinkedIn</a>
+            <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
         </div>
-            <div class="overlay">
-        <div class="s-hero__bg rellax" data-rellax-speed="-7"></div>
-        <div class="row s-hero__content">
-            <div class="column">
-                
-
-                <div class="s-hero__content-about">
-
-                    <h1>Kannan Sekar</h1>
-
-                    <h3>
-                        <h3> <span>Data Scientist</span> | <span>Software Engineer</span> </h3>
-                    </h3>
-
-                    <div class="s-hero__content-social">
-                        <!-- <a href="#0"><i class="fab fa-facebook-square" aria-hidden="true"></i></a> -->
-                        <a href="https://github.com/kannansa"><i class="fab fa-github" aria-hidden="true"></i></a>
-                        <a href="https://www.linkedin.com/in/kannan-sekar/"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="mailto:kannansekara@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
-                        <a href="https://join.skype.com/invite/jyFyf88lvHfq"><i class="fab fa-skype" aria-hidden="true"></i></a>
-                    </div>
-                </div> <!-- end s-hero__content-about -->
-            </div>
-            </div>
-        </div>
-
-        <div class="s-hero__scroll">
-            <a href="#about" class="s-hero__scroll-link smoothscroll">
-                <span class="scroll-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M18.707 12.707L17.293 11.293 13 15.586 13 6 11 6 11 15.586 6.707 11.293 5.293 12.707 12 19.414z"></path></svg>
-                </span>
-                <span class="scroll-text">Scroll Down</span>
-            </a>
-            
-        </div> <!-- s-hero__scroll -->
-    </section> <!-- end s-hero -->
-
-
-    <!-- about
-    ================================================== -->
-    <section id="about" class="s-about target-section">
-
-        <div class="row">
-            <div class="column large-3 tab-12">
-                <h3><img class="media" src="images/profilepic.jpeg" alt=""></h3>
-            </div>
-            <div class="column large-9 tab-12 s-about__content">
-               <!-- <img class="s-about__pic" src="images/profilepic.jpeg" alt=""> -->
-                <h3>About Me</h3>
-                <p>I'm a King's College London undergraduate student in BSc Artificial Intelligence ex UCL Computer Science student.</p>
-                <p>Currently, I'm seeking a full time software engineering position in London. If you think I'm a good fit, please contact me via <a href="mailto:kannansekara@gmail.com">kannansekara@gmail.com</a>.</p>
-
-                <hr>
-
-                <div class="row s-about__content-bottom">
-                    <div class="column w-1000-stack">
-                        <h3>Info</h3>
-    
-                        <p>
-                        Kannan Sekar Annu Radha <br>
-                        <!-- D.O.B: 19/02/2001 <br> -->
-                        London, United Kingdom <br>
-                        <!-- <a href="tel:+1975432345">+197 543 2345</a> <br> -->
-                        <a href="mailto:kannansekara@gmail.com">kannansekara@gmail.com</a>
-                        </p>
-                        
-                    </div>
-                    <div class="column w-1000-stack">
-                        <a href="Resume-Kannan-Sekar.pdf" class="btn btn--download">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M12 16L16 11 13 11 13 4 11 4 11 11 8 11z"></path><path d="M20,18H4v-7H2v7c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2v-7h-2V18z"></path></svg>
-                            Download CV
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- end row -->
-    </section> <!-- end s-about -->
-
-
-    <!-- resume
-    ================================================== -->
-    <section id="resume" class="s-resume target-section">
-        
-        <div class="row s-resume__section">
-            <div class="column large-3 tab-12">
-                <h3 class="section-header-allcaps">Career</h3>
-            </div>
-            <div class="column large-9 tab-12">
-                <div class="resume-block">
-
-                    <div class="resume-block__header">
-                        <h4 class="h3"><a href="https://digital.nhs.uk/" target="_blank">NHS Digital</a></h4>
-                        <p class="resume-block__header-meta">
-                            <span>Data Science Intern</span> 
-                            <span class="resume-block__header-date">
-                                November 2019
-                            </span>
-                        </p>
-                    </div>
-
-                    <p>
-                        Developed a Natural Language Processing project (for Patient Diagnoses mapping) in Python to predict ICD9 codes by using word embedding tools such as Word2Vec, dimensional reduction (TSNE), and then training an LSTM recurrent neural network on a sequence of ICD9 codes of past patient data to prognostically predict future diagnoses.
-
-                        Attended sprint planning sessions, agile sessions. Took on a NLP project, and presented it. 
-                    </p>
-
-                </div> <!-- end resume-block -->
-
-                <div class="resume-block">
-
-                    <div class="resume-block__header">
-                        <h4 class="h3"><a href="https://www.kennedy.ox.ac.uk/" target="_blank">Kennedy Institute of Rheumatology, University of Oxford</a></h4>
-                        <p class="resume-block__header-meta">
-                            <span>Internship</span> 
-                            <span class="resume-block__header-date">
-                                November 2019
-                            </span>
-                        </p>
-                    </div>
-
-                    <p>
-                        Shadowing Informatics manager, coming back for more work experience later. Currently learning about how neural networks work fundamentally and how to implement them in Tensorflow. Image classification and digit classification using MINST datasets.
-                    </p>
-
-                </div> <!-- end resume-block -->
-            </div>
-        </div> <!-- s-resume__section -->
-
-
-        <div class="row s-resume__section">
-            <div class="column large-3 tab-12">
-                <h3 class="section-header-allcaps">Education</h3>
-            </div>
-            <div class="column large-9 tab-12">
-
-                <div class="resume-block">
-
-                    <div class="resume-block__header">
-                        <h4 class="h3"><a href="https://www.kcl.ac.uk/study/undergraduate/courses/artificial-intelligence-bsc" target="_blank">King's College London</a></h4>
-                        <p class="resume-block__header-meta">
-                            <span>BSc Artificial Intelligence</span> 
-                            <span class="resume-block__header-date">
-                               September 2024 - June 2027
-                            </span>
-                        </p>
-                    </div>
-
-                    <!-- <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore 
-                    vero quidem nobis maxime dolorem aliquam quisquam eum ipsum amet. Vitae 
-                    aut atque fuga dolorem. Vel voluptatibus fugiat nam. Impedit aperiam 
-                    nesciunt facilis! Porro architecto dicta inventore tempora ratione quia odio.
-                    </p> -->
-
-                </div> <!-- end resume-block -->
-
-                <div class="resume-block">
-
-                    <div class="resume-block__header">
-                        <h4 class="h3"><a href="https://www.ucl.ac.uk/computer-science/" target="_blank">University College London</a></h4>
-                        <p class="resume-block__header-meta">
-                            <span>MEng Computer Science</span> 
-                            <span class="resume-block__header-date">
-                               September 2021 - June 2023
-                            </span>
-                        </p>
-                    </div>
-
-                    <!-- <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Inventore 
-                    vero quidem nobis maxime dolorem aliquam quisquam eum ipsum amet. Vitae 
-                    aut atque fuga dolorem. Vel voluptatibus fugiat nam. Impedit aperiam 
-                    nesciunt facilis! Porro architecto dicta inventore tempora ratione quia odio.
-                    </p> -->
-
-                </div> <!-- end resume-block -->
-
-                <div class="resume-block">
-
-                    <div class="resume-block__header">
-                        <h4 class="h3"><a href="https://www.rgs.newcastle.sch.uk/" target="_blank">Royal Grammar School Newcastle</a></h4>
-                        <p class="resume-block__header-meta">
-                            <span>High School Degree</span> 
-                            <span class="resume-block__header-date">
-                                September 2012 - August 2020
-                            </span>
-                        </p>
-                    </div>
-
-                    <p>
-                        <li>
-                        Results:
-                        A level: A*A*A*
-                        A* Mathematics, A* Further Mathematics, A* Physics
-                    </li>
-                    <li>
-                        GCSE: 7A*s 4As, with A*s in Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish. As in Further Mathematics, English, Geography and History.
-                    </li>
-                        <li>
-                        Awarded the Headmaster's Prize for 3 consecutive years in Year 9, 10 and 11 of schooling.
-                        </li>
-                    
-                    </p>
-
-                </div> <!-- end resume-block -->
-            </div>
-        </div> <!-- s-resume__section -->
-
-
-        <div class="row s-resume__section">
-            <div class="column large-3 tab-12">
-                <h3 class="section-header-allcaps">Skills</h3>
-            </div>
-            <div class="column large-9 tab-12">
-                <div class="resume-block">
-
-                    <p>I'm an independent teamworker strong in research and coding. My areas of expertise are computer science and natural language processing. Below are highlights of my technical skills:</p>
-
-                    <ul class="skill-bars-fat">
-                        <li>
-                        <div class="progress percent100"></div>
-                        <strong>Python</strong>
-                        </li>
-                        <li>
-                        <div class="progress percent90"></div>
-                        <strong>C/C++</strong>
-                        </li>
-                        <li>
-                        <div class="progress percent90"></div>
-                        <strong>Java</strong>
-                        </li>
-                        <li>
-                        <div class="progress percent70"></div>
-                        <strong>JS/CSS/HTML</strong>
-                        </li>
-                        <li>
-                        <div class="progress percent90"></div>
-                        <strong>MS Suite</strong>
-                        </li>
-                        <!-- <li>
-                        <div class="progress percent60"></div>
-                        <strong>Photoshop</strong>
-                        </li> -->
-                    </ul>
-
-                </div> <!-- end resume-block -->
-
-            </div>
-        </div> <!-- s-resume__section -->
-
-    </section> <!-- end s-resume -->
-
-
-    <!-- portfolio
-    ================================================== -->
-    <section id="portfolio" class="s-portfolio target-section">
-
-        <div class="row s-portfolio__header">
-            <div class="column large-12">
-                <h3>A Few Of My Latest Creations</h3>
-            </div>
-        </div>
-
-        <div class="row collapse block-large-1-4 block-medium-1-3 block-tab-1-2 block-500-stack folio-list">
-
-            <div class="column folio-item">
-                <a href="#modal-01" class="folio-item__thumb">
-                    <img src="images/NLP3.jpeg" 
-                         srcset="images/NLP3.jpeg 1x, 
-                         images/NLP3.jpeg 2x" alt="">
-                </a>
-            </div> <!-- end folio-item -->
-
-            <div class="column folio-item">
-                <a href="#modal-02" class="folio-item__thumb">
-                    <img src="images/ETH1.png" 
-                         srcset="images/ETH1.png 1x, 
-                         images/ETH1.png 2x" alt="">
-                </a>
-            </div> <!-- end folio-item -->
-
-            <div class="column folio-item">
-                <a href="#modal-03" class="folio-item__thumb">
-                    <img src="images/yote.jpeg" 
-                         srcset="images/yote.jpeg 1x, 
-                         images/yote.jpeg 2x" alt="">
-                </a>
-            </div> <!-- end folio-item -->
-
-            <div class="column folio-item">
-                <a href="#modal-04" class="folio-item__thumb">
-                    <img src="images/fish.jpg" 
-                         srcset="images/fish.jpg 1x, 
-                         images/fish.jpg 2x" alt="">
-                </a>
-            </div> <!-- end folio-item -->
-
-            <div class="column folio-item">
-                <a href="#modal-05" class="folio-item__thumb">
-                    <img src="images/snapcode.png" 
-                         srcset="images/snapcode.png 1x, 
-                         images/snapcode.png 2x" alt="">
-                </a>
-            </div> <!-- end folio-item -->
-
-            <div class="column folio-item">
-                <a href="#modal-06" class="folio-item__thumb">
-                    <img src="images/TradingBotYote.png" 
-                         srcset="images/TradingBotYote.png 1x, 
-                         images/TradingBotYote.png 2x" alt="">
-                </a>
-            </div> <!-- end folio-item -->
-        </div> <!-- end folio-list -->
-
-
-        <!-- Modal Templates Popup
-        =========================================================== -->
-        <div id="modal-01" hidden>
-            <div class="modal-popup">
-                <img src="images/NLP1.png" alt="" />
-    
-                <div class="modal-popup__desc">
-                    <h5>NLP</h5>
-                    <p>NHS Digital Data Science Internship Project November 2019</p>
-                    <ul class="modal-popup__cat">
-                        <li>Word2Vec</li>
-                        <li>LSTM</li>
-                    </ul>
-                </div>
-    
-                <a href="https://github.com/KannanSA/NLPK" class="modal-popup__details">Project link</a>
-            </div>
-        </div> <!-- end modal -->
-
-        <div id="modal-02" hidden>
-            <div class="modal-popup">
-                <img src="images/ETH1.png" alt="" />
-    
-                <div class="modal-popup__desc">
-                    <h5>Cryptocurrency Trading Bot</h5>
-                    <p>Kennedy Institute of Rheumatology University of Oxford Project November 2019</p>
-                    <ul class="modal-popup__cat">
-                        <li>Machine Learning</li>
-                    </ul>
-                </div>
-    
-                <a href="https://github.com/KannanSA/TradingBot6M" class="modal-popup__details">Project link</a>
-            </div>
-        </div> <!-- end modal -->
-
-        <div id="modal-03" hidden>
-            <div class="modal-popup">
-                <img src="images/yote.jpeg" alt="" />
-    
-                <div class="modal-popup__desc">
-                    <h5>YoteCoin Cryptocurrency</h5>
-                    <p>ERC20 token YoteCoin ICO.</p>
-                    <ul class="modal-popup__cat">
-                        <li>Ethereum</li>
-                    </ul>
-                </div>
-    
-                <a href="https://github.com/KannanSA/YoteCoin" class="modal-popup__details">Project link</a>
-            </div>
-        </div> <!-- end modal -->
-
-        <div id="modal-04" hidden>
-            <div class="modal-popup">
-                <img src="images/fish.jpg" alt="" />
-    
-                <div class="modal-popup__desc">
-                    <h5>IceFiSh Browser</h5>
-                    <p>iOS Web Browser</p>
-                    <ul class="modal-popup__cat">
-                        <li>Swift</li>
-                    </ul>
-                </div>
-    
-                <a href="#0" class="modal-popup__details">Project link</a>
-            </div>
-        </div> <!-- end modal -->
-
-        <div id="modal-05" hidden>
-            <div class="modal-popup">
-
-                <img src="images/snapcode.png" alt="" />
-    
-                <div class="modal-popup__desc">
-                    <h5>AR Filter</h5>
-                    <p>Augmented Reality Experience for Snapchat</p>
-                    <ul class="modal-popup__cat">
-                        <li>Snapchat</li>
-                    </ul>
-                </div>
-    
-                <a href="https://www.snapchat.com/unlock/?type=SNAPCODE&uuid=1acf4ea8a52648b6b3f0a977f3a3ffac&metadata=01" class="modal-popup__details">Project link</a>
-            </div>
-        </div> <!-- end modal -->
-
-
-            <div id="modal-06" hidden>
-                <div class="modal-popup">
-    
-                    <img src="images/TradingBotYote.png" alt="" />
-        
-                    <div class="modal-popup__desc">
-                        <h5>TradingBotYote Web platform</h5>
-                        <p>Crypto automated trading platform</p>
-                        <ul class="modal-popup__cat">
-                            <li>TradingBotYote</li>
-                        </ul>
-                    </div>
-        
-                    <a href="https://github.com/KannanSA/TradingBotYote" class="modal-popup__details">Project link</a>
-                </div>
-        
-        </div> <!-- end modal -->
-
-    </section> <!-- end s-portfolio -->
-
-
-    </section> <!-- end s-cta -->
-
-    <!-- contact
-    ================================================== -->
-    <section id="contact" class="s-contact target-section">
-
-        <div class="row s-contact__header">
-            <div class="column large-12">
-                <h3 class="section-header-allcaps">Say Hello</h3>
-            </div>
-        </div>
-
-        <div class="row s-contact__content">
-
-            <div class="column large-7 medium-12">
-
-                <h4 class="huge-text">
-                Job opportunity? Have a new project in mind? 
-                </h4>
-
-            </div>
-
-            <div class="column large-4 medium-12">
-
-                <div class="row contact-infos">
-                    <div class="column large-12 medium-6 tab-12">
-                        <div class="contact-block">
-                            <h5 class="contact-block__header">
-                                Email
-                            </h5>
-                            <p class="contact-block__content">
-                                <a class="mailtoui" href="mailto:kannansekara@gmail.com">kannansekara@gmail.com</a>
-                            </p>
-                        </div> <!-- end contact-block -->
-                    </div>
-                    <div class="column large-12 medium-6 tab-12">
-                        <div class="contact-block">
-                            <h5 class="contact-block__header">
-                                <!-- Phone -->
-                            </h5>
-                            <p class="contact-block__content">
-                                <!-- <a href="tel:+1975432345">+197 543 2345</a> -->
-                            </p>
-                        </div> <!-- end contact-block -->
-                    </div>
-
-                    <div class="column large-12">
-                        <a href="mailto:kannansekara@gmail.com" class="mailtoui btn btn--primary h-full-width">Let's Talk</a>
-                    </div>
-                </div> <!-- end contact-infos -->
-
-            </div>
-        </div> <!-- s-contact__content -->
-
-    </section> <!-- end s-contact -->
-    
-
-    <!-- footer
-    ================================================== -->
-    <footer class="s-footer">
-        <div class="row">
-            <div class="column large-4 medium-6 w-1000-stack s-footer__social-block">
-                <ul class="s-footer__social">
-                    <li><a href="https://github.com/kannansa"><i class="fab fa-github" aria-hidden="true"></i></a></li>
-                    <li><a href="https://www.linkedin.com/in/kannan-sekar/"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                    <li><a href="mailto:kannansekara@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
-                    <li><a href="https://join.skype.com/invite/jyFyf88lvHfq"><i class="fab fa-skype" aria-hidden="true"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="column large-7 medium-6 w-1000-stack ss-copyright">
-                <span>© Copyright Kannan Sekar 2024</span> 
-            </div>
-        </div>
-
-        <div class="ss-go-top">
-            <a class="smoothscroll" title="Back to Top" href="#top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 4h12v2H6zm5 10v6h2v-6h5l-6-6-6 6z"/></svg>
-             </a>
-        </div> <!-- end ss-go-top -->
     </footer>
 
-
-    <!-- Java Script
-    ================================================== -->
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-
 </body>
-
 </html>
-

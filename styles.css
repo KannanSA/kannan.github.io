@@ -1,0 +1,35 @@
+/* Custom Button Hover Effects */
+.btn-primary:hover {
+    background-color: #1a73e8; /* Slightly lighter blue on hover */
+    border-color: #1a73e8;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Link Hover Effects */
+a.text-light:hover {
+    color: #ffc107 !important; /* Amber color on hover */
+    text-decoration: underline;
+}
+
+/* Adjusting Font Sizes for Better Readability */
+h1.display-4 {
+    font-size: 3rem;
+}
+
+h3, h5 {
+    font-weight: 700;
+}
+
+/* Ensuring Images Have Borders for Better Visibility */
+img.rounded-circle {
+    border: 4px solid #f8f9fa;
+}
+
+/* Social Icons Hover Effect */
+.social-icons a:hover i {
+    color: #ffc107;
+}
