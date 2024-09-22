@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kannan Sekar Annu Radha - Resume</title>
+    <title>Kannan Sekar Annu Radha</title>
     <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* CSS Reset */
@@ -29,6 +29,17 @@
             color: var(--text-color);
             background-color: var(--background-color);
             line-height: 1.6;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         /* Header Styles */
@@ -37,6 +48,16 @@
             padding: 40px 20px;
             text-align: center;
             position: relative;
+            animation: slideInFromTop 1s ease-in-out;
+        }
+
+        @keyframes slideInFromTop {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         header h1 {
@@ -58,6 +79,19 @@
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
+            animation: bounceIn 1s ease-in-out;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
         }
 
         .contact-links a {
@@ -82,6 +116,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         nav .nav-container {
@@ -164,18 +199,6 @@
             }
         }
 
-        /* Animation for Mobile Menu */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* Main Content Container */
         .container {
             max-width: 1200px;
@@ -186,6 +209,16 @@
         /* Section Styles */
         section {
             margin-bottom: 60px;
+            animation: slideInFromBottom 1s ease-in-out;
+        }
+
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         section h2 {
@@ -215,6 +248,20 @@
         /* Education and Experience Sections */
         .education-item, .experience-item {
             margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .education-item img, .experience-item img {
+            width: 80px;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .education-item img:hover, .experience-item img:hover {
+            transform: scale(1.1);
         }
 
         .education-item h3, .experience-item h3 {
@@ -238,6 +285,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .skills-grid div {
@@ -263,6 +311,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            animation: fadeIn 1.2s ease-in-out;
         }
 
         .interests-grid div {
@@ -357,30 +406,6 @@
         footer .footer-links a:hover {
             color: var(--hover-color);
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5em;
-            }
-
-            header p {
-                font-size: 1em;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 10px 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -429,22 +454,31 @@
         <section id="education">
             <h2>Education</h2>
             <div class="education-item">
-                <h3>BSc Physics</h3>
-                <p><strong>King’s College London</strong>, London, United Kingdom</p>
-                <p><em>2024 – 2027</em> | 1st Class Predicted</p>
-                <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
+                <img src="images/KCL.png" alt="King's College London Logo">
+                <div>
+                    <h3>BSc Physics</h3>
+                    <p><strong>King’s College London</strong>, London, United Kingdom</p>
+                    <p><em>2024 – 2027</em> | 1st Class Predicted</p>
+                    <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
+                </div>
             </div>
             <div class="education-item">
-                <h3>MEng Computer Science</h3>
-                <p><strong>University College London</strong>, London, United Kingdom</p>
-                <p><em>2021 – 2023</em></p>
-                <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+                <img src="images/UCL.png" alt="University College London Logo">
+                <div>
+                    <h3>MEng Computer Science</h3>
+                    <p><strong>University College London</strong>, London, United Kingdom</p>
+                    <p><em>2021 – 2023</em></p>
+                    <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+                </div>
             </div>
             <div class="education-item">
-                <h3>A Levels</h3>
-                <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
-                <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
-                <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+                <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo">
+                <div>
+                    <h3>A Levels</h3>
+                    <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
+                    <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
+                    <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+                </div>
             </div>
         </section>
 
