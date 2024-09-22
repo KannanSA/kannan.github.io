@@ -280,62 +280,6 @@
             color: var(--secondary-color);
         }
 
-        /* Work Experience Section */
-        #experience {
-            margin-bottom: 60px;
-        }
-
-        .experience-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .experience-card {
-            background-color: #f9f9f9;
-            border: 1px solid #eaeaea;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            align-items: flex-start;
-            padding: 20px;
-            gap: 15px;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .experience-card img {
-            width: 60px;
-            height: auto;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        .experience-content {
-            max-width: 80%;
-        }
-
-        .experience-content h3 {
-            font-size: 1.5em;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
-
-        .experience-content p {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .experience-content ul {
-            list-style-type: disc;
-            margin-left: 20px;
-            color: var(--secondary-color);
-        }
-
         /* Technical Skills Section */
         .skills-grid {
             display: grid;
@@ -607,31 +551,23 @@
         <!-- Work Experience Section -->
         <section id="experience">
             <h2>Work Experience</h2>
-            <div class="experience-grid">
-                <div class="experience-card">
-                    <img src="images/NHS.png" alt="NHS Digital Logo">
-                    <div class="experience-content">
-                        <h3>Data Science Intern</h3>
-                        <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
-                        <p><em>November 2019</em></p>
-                        <ul>
-                            <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="experience-card">
-                    <img src="images/Kennedy.png" alt="Kennedy Institute Logo">
-                    <div class="experience-content">
-                        <h3>Intern</h3>
-                        <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
-                        <p><em>November 2019</em></p>
-                        <ul>
-                            <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
-                            <li>Worked on image classification and digit classification using MNIST datasets.</li>
-                            <li>Developed an LSTM-based cryptocurrency trading bot.</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="experience-item">
+                <h3>Data Science Intern</h3>
+                <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
+                <p><em>November 2019</em></p>
+                <ul>
+                    <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Intern</h3>
+                <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
+                <p><em>November 2019</em></p>
+                <ul>
+                    <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
+                    <li>Worked on image classification and digit classification using MNIST datasets.</li>
+                    <li>Developed an LSTM-based cryptocurrency trading bot.</li>
+                </ul>
             </div>
         </section>
 
@@ -783,7 +719,7 @@
 
         // Optional: Close the menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !hamburger contains(e.target)) {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('open');
             }
