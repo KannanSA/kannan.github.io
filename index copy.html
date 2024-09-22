@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kannan Sekar Annu Radha - Resume</title>
+    <title>Kannan Sekar Annu Radha</title>
     <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* CSS Reset */
@@ -29,6 +29,17 @@
             color: var(--text-color);
             background-color: var(--background-color);
             line-height: 1.6;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         /* Header Styles */
@@ -37,6 +48,16 @@
             padding: 40px 20px;
             text-align: center;
             position: relative;
+            animation: slideInFromTop 1s ease-in-out;
+        }
+
+        @keyframes slideInFromTop {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         header h1 {
@@ -58,6 +79,19 @@
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
+            animation: bounceIn 1s ease-in-out;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
         }
 
         .contact-links a {
@@ -82,17 +116,22 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        nav .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-
-        nav ul li {
-            margin: 0 15px;
+            gap: 15px;
         }
 
         nav ul li a {
@@ -108,6 +147,58 @@
             border-bottom: 2px solid var(--primary-color);
         }
 
+        /* Hamburger Button Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--text-color);
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .hamburger:hover span {
+            background-color: var(--primary-color);
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: var(--background-color);
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 20px 0;
+                border-top: 1px solid #eaeaea;
+                display: none; /* Hidden by default */
+            }
+
+            nav ul.active {
+                display: flex;
+                animation: fadeIn 0.3s ease-in-out;
+            }
+
+            /* Hamburger Button Display */
+            .hamburger {
+                display: flex;
+            }
+        }
+
         /* Main Content Container */
         .container {
             max-width: 1200px;
@@ -118,6 +209,16 @@
         /* Section Styles */
         section {
             margin-bottom: 60px;
+            animation: slideInFromBottom 1s ease-in-out;
+        }
+
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         section h2 {
@@ -147,6 +248,20 @@
         /* Education and Experience Sections */
         .education-item, .experience-item {
             margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .education-item img, .experience-item img {
+            width: 80px;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .education-item img:hover, .experience-item img:hover {
+            transform: scale(1.1);
         }
 
         .education-item h3, .experience-item h3 {
@@ -165,11 +280,68 @@
             color: var(--secondary-color);
         }
 
+        /* Work Experience Section */
+        #experience {
+            margin-bottom: 60px;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .experience-card {
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .experience-card img {
+            width: 60px;
+            height: auto;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .experience-content {
+            max-width: 80%;
+        }
+
+        .experience-content h3 {
+            font-size: 1.5em;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .experience-content p {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .experience-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            color: var(--secondary-color);
+        }
+
         /* Technical Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .skills-grid div {
@@ -195,6 +367,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            animation: fadeIn 1.2s ease-in-out;
         }
 
         .interests-grid div {
@@ -290,27 +463,69 @@
             color: var(--hover-color);
         }
 
-        /* Responsive Design */
+        /* Mobile Optimization */
         @media (max-width: 768px) {
+            /* Reduce Header Font Size and Padding */
             header h1 {
-                font-size: 2.5em;
+                font-size: 2em;
             }
 
             header p {
                 font-size: 1em;
             }
 
+            header {
+                padding: 20px 10px;
+            }
+
+            /* Adjust Spacing in Contact Links */
             .contact-links {
                 flex-direction: column;
                 gap: 10px;
             }
 
-            nav ul {
-                flex-direction: column;
+            /* Reduce Padding in Sections */
+            section {
+                padding: 20px 10px;
             }
 
-            nav ul li {
-                margin: 10px 0;
+            /* Navigation Menu */
+            nav ul {
+                padding: 20px;
+            }
+
+            /* Stack Education and Experience Items Vertically */
+            .education-item, .experience-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .education-item img, .experience-item img {
+                margin-bottom: 15px;
+            }
+
+            /* Full-width Images in Projects */
+            .project-card {
+                width: 100%;
+            }
+
+            .project-card img {
+                height: auto;
+            }
+
+            /* Single-column layout for grids */
+            .skills-grid, .interests-grid, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Reduce font size in technical skills and interests */
+            .skills-grid div p, .interests-grid div p {
+                font-size: 0.9em;
+            }
+
+            /* Footer adjustments */
+            footer {
+                padding: 15px;
             }
         }
     </style>
@@ -324,20 +539,28 @@
         <div class="contact-links">
             <a href="mailto:kannansekara@gmail.com">Email Me</a>
             <a href="https://linkedin.com/in/kannan-sekar/" target="_blank">LinkedIn</a>
-            <a href="https://github.com/KannanSAhttps://github.com/KannanSA" target="_blank">GitHub</a>
+            <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
         </div>
     </header>
 
     <!-- Navigation Bar -->
     <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#experience">Work Experience</a></li>
-            <li><a href="#skills">Technical Skills</a></li>
-            <li><a href="#interests">Skills & Interests</a></li>
-            <li><a href="#projects">Projects</a></li>
-        </ul>
+        <div class="nav-container">
+            <ul id="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Work Experience</a></li>
+                <li><a href="#skills">Technical Skills</a></li>
+                <li><a href="#interests">Skills & Interests</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+            <!-- Hamburger Button -->
+            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 
     <!-- Main Content Container -->
@@ -353,45 +576,62 @@
         <section id="education">
             <h2>Education</h2>
             <div class="education-item">
-                <h3>BSc Physics</h3>
-                <p><strong>King’s College London</strong>, London, United Kingdom</p>
-                <p><em>2024 – 2027</em> | 1st Class Predicted</p>
-                <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
+                <img src="images/KCL.png" alt="King's College London Logo">
+                <div>
+                    <h3>BSc Physics</h3>
+                    <p><strong>King’s College London</strong>, London, United Kingdom</p>
+                    <p><em>2024 – 2027</em> | 1st Class Predicted</p>
+                    <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
+                </div>
             </div>
             <div class="education-item">
-                <h3>MEng Computer Science</h3>
-                <p><strong>University College London</strong>, London, United Kingdom</p>
-                <p><em>2021 – 2023</em></p>
-                <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+                <img src="images/UCL.png" alt="University College London Logo">
+                <div>
+                    <h3>MEng Computer Science</h3>
+                    <p><strong>University College London</strong>, London, United Kingdom</p>
+                    <p><em>2021 – 2023</em></p>
+                    <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+                </div>
             </div>
             <div class="education-item">
-                <h3>A Levels</h3>
-                <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
-                <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
-                <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+                <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo">
+                <div>
+                    <h3>A Levels</h3>
+                    <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
+                    <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
+                    <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+                </div>
             </div>
         </section>
 
         <!-- Work Experience Section -->
         <section id="experience">
             <h2>Work Experience</h2>
-            <div class="experience-item">
-                <h3>Data Science Intern</h3>
-                <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
-                <p><em>November 2019</em></p>
-                <ul>
-                    <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
-                </ul>
-            </div>
-            <div class="experience-item">
-                <h3>Intern</h3>
-                <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
-                <p><em>November 2019</em></p>
-                <ul>
-                    <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
-                    <li>Worked on image classification and digit classification using MNIST datasets.</li>
-                    <li>Developed an LSTM-based cryptocurrency trading bot.</li>
-                </ul>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <img src="images/NHS.png" alt="NHS Digital Logo">
+                    <div class="experience-content">
+                        <h3>Data Science Intern</h3>
+                        <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
+                        <p><em>November 2019</em></p>
+                        <ul>
+                            <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img src="images/Kennedy.png" alt="Kennedy Institute Logo">
+                    <div class="experience-content">
+                        <h3>Intern</h3>
+                        <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
+                        <p><em>November 2019</em></p>
+                        <ul>
+                            <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
+                            <li>Worked on image classification and digit classification using MNIST datasets.</li>
+                            <li>Developed an LSTM-based cryptocurrency trading bot.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -494,7 +734,7 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="images//tetrris.png" alt="TetrisAI">
+                    <img src="images/tetrris.png" alt="TetrisAI">
                     <div class="project-content">
                         <h3>TetrisAI</h3>
                         <p>Developed an AI to play Tetris using Python.</p>
@@ -530,6 +770,34 @@
             <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
         </div>
     </footer>
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        const hamburger = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('open');
+        });
+
+        // Optional: Close the menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('open');
+            }
+        });
+
+        // Optional: Close the menu when a link is clicked
+        const navItems = document.querySelectorAll('nav ul li a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('open');
+            });
+        });
+    </script>
 
 </body>
 </html>
