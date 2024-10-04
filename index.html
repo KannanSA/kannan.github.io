@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kannan Sekar Annu Radha</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Combined CSS -->
     <style>
         /* CSS Reset */
         *, *::before, *::after {
@@ -34,12 +36,19 @@
 
         /* Fade-in animation */
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Canvas Background */
+        #physics-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none; /* Prevents interaction with canvas */
         }
 
         /* Header Styles */
@@ -52,12 +61,8 @@
         }
 
         @keyframes slideInFromTop {
-            0% {
-                transform: translateY(-100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
         }
 
         header h1 {
@@ -83,15 +88,9 @@
         }
 
         @keyframes bounceIn {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-15px);
-            }
-            60% {
-                transform: translateY(-10px);
-            }
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-10px); }
         }
 
         .contact-links a {
@@ -204,39 +203,13 @@
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
+            text-align: center; /* Center the content */
         }
 
         /* Section Styles */
         section {
             margin-bottom: 60px;
-            animation: slideInFromBottom 1s ease-in-out;
-        }
-
-        @keyframes slideInFromBottom {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            position: relative;
-            display: inline-block;
-        }
-
-        section h2::after {
-            content: '';
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-color);
-            position: absolute;
-            left: 0;
-            bottom: -5px;
+            text-align: center; /* Center the content within sections */
         }
 
         /* About Section */
@@ -251,6 +224,8 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            justify-content: center; /* Center the flex items */
+            text-align: left; /* Left-align text inside flex items */
         }
 
         .education-item img, .experience-item img {
@@ -289,6 +264,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            justify-items: center; /* Center grid items */
         }
 
         .experience-card {
@@ -301,6 +277,7 @@
             align-items: flex-start;
             padding: 20px;
             gap: 15px;
+            max-width: 600px; /* Limit the width for better centering */
         }
 
         .experience-card:hover {
@@ -317,6 +294,7 @@
 
         .experience-content {
             max-width: 80%;
+            text-align: left; /* Left-align text inside the card */
         }
 
         .experience-content h3 {
@@ -342,6 +320,7 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             animation: fadeIn 1s ease-in-out;
+            justify-items: center; /* Center grid items */
         }
 
         .skills-grid div {
@@ -349,6 +328,7 @@
             padding: 20px;
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 300px; /* Limit the width for better centering */
         }
 
         .skills-grid div:hover {
@@ -368,6 +348,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             animation: fadeIn 1.2s ease-in-out;
+            justify-items: center; /* Center grid items */
         }
 
         .interests-grid div {
@@ -375,6 +356,7 @@
             padding: 20px;
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 300px; /* Limit the width for better centering */
         }
 
         .interests-grid div:hover {
@@ -387,6 +369,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
+            justify-items: center; /* Center grid items */
         }
 
         .project-card {
@@ -396,6 +379,7 @@
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 400px; /* Limit the width for better centering */
         }
 
         .project-card:hover {
@@ -411,6 +395,7 @@
 
         .project-content {
             padding: 20px;
+            text-align: left; /* Left-align text inside the card */
         }
 
         .project-content h3 {
@@ -511,6 +496,10 @@
                 margin-bottom: 15px;
             }
 
+            .experience-content, .education-content {
+                text-align: center; /* Center text on mobile */
+            }
+
             /* Full-width Images in Projects */
             .project-card {
                 width: 100%;
@@ -533,6 +522,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Canvas for Physics Simulation Background -->
+    <canvas id="physics-canvas"></canvas>
 
     <!-- Header Section -->
     <header>
@@ -579,7 +571,7 @@
             <h2>Education</h2>
             <div class="education-item">
                 <img src="images/KCL.png" alt="King's College London Logo">
-                <div>
+                <div class="education-content">
                     <h3>BSc Physics</h3>
                     <p><strong>King’s College London</strong>, London, United Kingdom</p>
                     <p><em>2024 – 2027</em> | 1st Class Predicted</p>
@@ -588,7 +580,7 @@
             </div>
             <div class="education-item">
                 <img src="images/UCL.png" alt="University College London Logo">
-                <div>
+                <div class="education-content">
                     <h3>MEng Computer Science</h3>
                     <p><strong>University College London</strong>, London, United Kingdom</p>
                     <p><em>2021 – 2023</em></p>
@@ -597,7 +589,7 @@
             </div>
             <div class="education-item">
                 <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo">
-                <div>
+                <div class="education-content">
                     <h3>A Levels</h3>
                     <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
                     <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
@@ -801,5 +793,71 @@
         });
     </script>
 
+    <!-- JavaScript for Quantum Simulation Background -->
+    <script>
+        const canvas = document.getElementById('physics-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Resize canvas to fit the window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Quantum simulation parameters
+        const particles = [];
+        const numParticles = 100;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.angle = Math.random() * 2 * Math.PI;
+                this.speed = Math.random() * 0.5 + 0.5;
+                this.size = Math.random() * 3 + 1;
+            }
+
+            update() {
+                // Simulate quantum randomness by changing angle slightly
+                this.angle += (Math.random() - 0.5) * 0.1;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+
+                // Wrap around edges
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+                ctx.fillStyle = `hsl(${(this.x + this.y) % 360}, 70%, 50%)`;
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < numParticles; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            particles.push(new Particle(x, y));
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
