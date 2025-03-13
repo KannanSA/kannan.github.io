@@ -1,863 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kannan Sekar Annu Radha</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Combined CSS -->
-    <style>
-        /* CSS Reset */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Root Variables for Easy Theming */
-        :root {
-            --primary-color: #0071e3; /* Apple-like blue accent */
-            --background-color: #fff;
-            --text-color: #333;
-            --secondary-color: #555;
-            --hover-color: #005bb5;
-            --font-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            --font-secondary: 'Roboto', sans-serif;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            color: var(--text-color);
-            background-color: var(--background-color);
-            line-height: 1.6;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Canvas Background */
-        #physics-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none; /* Prevents interaction with canvas */
-        }
-
-        /* Header Styles */
-        header {
-            background-color: var(--background-color);
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-            animation: slideInFromTop 1s ease-in-out;
-        }
-
-        @keyframes slideInFromTop {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(0); }
-        }
-
-        header h1 {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
-
-        header p {
-            font-size: 1.2em;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        /* Contact Links as Buttons */
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            animation: bounceIn 1s ease-in-out;
-        }
-
-        @keyframes bounceIn {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-15px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        .contact-links a {
-            text-decoration: none;
-            color: var(--background-color);
-            background-color: var(--primary-color);
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .contact-links a:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-2px);
-        }
-
-        /* Navigation Bar */
-        nav {
-            background-color: var(--background-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        nav .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            padding: 5px 10px;
-            transition: color 0.3s ease, border-bottom 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        /* Hamburger Button Styles */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 25px;
-            height: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: var(--text-color);
-            border-radius: 2px;
-            transition: background-color 0.3s ease;
-        }
-
-        .hamburger:hover span {
-            background-color: var(--primary-color);
-        }
-
-        /* Mobile Navigation Styles */
-        @media (max-width: 768px) {
-            nav ul {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background-color: var(--background-color);
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                padding: 20px 0;
-                border-top: 1px solid #eaeaea;
-                display: none; /* Hidden by default */
-            }
-
-            nav ul.active {
-                display: flex;
-                animation: fadeIn 0.3s ease-in-out;
-            }
-
-            /* Hamburger Button Display */
-            .hamburger {
-                display: flex;
-            }
-        }
-
-        /* Main Content Container */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            text-align: center; /* Center the content */
-        }
-
-        /* Section Styles */
-        section {
-            margin-bottom: 60px;
-            text-align: center; /* Center the content within sections */
-        }
-
-        /* About Section */
-        #about p {
-            font-size: 1.1em;
-            color: var(--secondary-color);
-        }
-
-        /* Education and Experience Sections */
-        .education-item, .experience-item {
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            justify-content: center; /* Center the flex items */
-            text-align: left; /* Left-align text inside flex items */
-        }
-
-        .education-item img, .experience-item img {
-            width: 80px;
-            height: auto;
-            border-radius: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .education-item img:hover, .experience-item img:hover {
-            transform: scale(1.1);
-        }
-
-        .education-item h3, .experience-item h3 {
-            font-size: 1.5em;
-            color: var(--text-color);
-            margin-bottom: 5px;
-        }
-
-        .education-item p, .experience-item p {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .education-item ul, .experience-item ul {
-            list-style: disc inside;
-            color: var(--secondary-color);
-        }
-
-        /* Work Experience Section */
-        #experience {
-            margin-bottom: 60px;
-        }
-
-        .experience-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            justify-items: center; /* Center grid items */
-        }
-
-        .experience-card {
-            background-color: #f9f9f9;
-            border: 1px solid #eaeaea;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            align-items: flex-start;
-            padding: 20px;
-            gap: 15px;
-            max-width: 600px; /* Limit the width for better centering */
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .experience-card img {
-            width: 60px;
-            height: auto;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        .experience-content {
-            max-width: 80%;
-            text-align: left; /* Left-align text inside the card */
-        }
-
-        .experience-content h3 {
-            font-size: 1.5em;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
-
-        .experience-content p {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .experience-content ul {
-            list-style-type: disc;
-            margin-left: 20px;
-            color: var(--secondary-color);
-        }
-
-        /* Technical Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            animation: fadeIn 1s ease-in-out;
-            justify-items: center; /* Center grid items */
-        }
-
-        .skills-grid div {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 300px; /* Limit the width for better centering */
-        }
-
-        .skills-grid div:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .skills-grid div strong {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        /* Skills & Interests Section */
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            animation: fadeIn 1.2s ease-in-out;
-            justify-items: center; /* Center grid items */
-        }
-
-        .interests-grid div {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 300px; /* Limit the width for better centering */
-        }
-
-        .interests-grid div:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            justify-items: center; /* Center grid items */
-        }
-
-        .project-card {
-            background-color: var(--background-color);
-            border: 1px solid #eaeaea;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 400px; /* Limit the width for better centering */
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        }
-
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 20px;
-            text-align: left; /* Left-align text inside the card */
-        }
-
-        .project-content h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
-
-        .project-content p {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-        }
-
-        .project-content a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 700;
-            border-bottom: 2px solid transparent;
-            transition: border-bottom 0.3s ease;
-        }
-
-        .project-content a:hover {
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: var(--background-color);
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #eaeaea;
-            color: var(--secondary-color);
-            font-size: 0.9em;
-        }
-
-        footer .footer-links {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        footer .footer-links a {
-            text-decoration: none;
-            color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-
-        footer .footer-links a:hover {
-            color: var(--hover-color);
-        }
-
-        /* Mobile Optimization */
-        @media (max-width: 768px) {
-            /* Reduce Header Font Size and Padding */
-            header h1 {
-                font-size: 2em;
-            }
-
-            header p {
-                font-size: 1em;
-            }
-
-            header {
-                padding: 20px 10px;
-            }
-
-            /* Adjust Spacing in Contact Links */
-            .contact-links {
-                flex-direction: row; /* Inline buttons */
-                justify-content: center;
-                gap: 5px; /* Reduced gap between buttons */
-            }
-
-            .contact-links a {
-                font-size: 0.8em; /* Smaller font size */
-                padding: 5px 10px; /* Smaller padding */
-                border-radius: 15px; /* Smaller border-radius */
-            }
-
-            /* Reduce Padding in Sections */
-            section {
-                padding: 20px 10px;
-            }
-
-            /* Navigation Menu */
-            nav ul {
-                padding: 20px;
-            }
-
-            /* Stack Education and Experience Items Vertically */
-            .education-item, .experience-item {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .education-item img, .experience-item img {
-                margin-bottom: 15px;
-            }
-
-            .experience-content, .education-content {
-                text-align: center; /* Center text on mobile */
-            }
-
-            /* Full-width Images in Projects */
-            .project-card {
-                width: 100%;
-            }
-
-            .project-card img {
-                height: auto;
-            }
-
-            /* Single-column layout for grids */
-            .skills-grid, .interests-grid, .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* Footer adjustments */
-            footer {
-                padding: 15px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kannan Sekar Annu Radha</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Root Variables for a Minimalist Palette */
+    :root {
+      --primary-color: #000; /* Black text for a clean look */
+      --accent-color: #0071e3; /* Accent blue */
+      --background-color: #fff;
+      --text-color: #333;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Global Styles */
+    body {
+      font-family: var(--font-family);
+      color: var(--text-color);
+      background-color: var(--background-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Bar (Sticky & Minimal) */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #eaeaea;
+      z-index: 1000;
+    }
+    
+    nav .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    nav ul {
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: var(--text-color);
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: var(--background-color);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        border-top: 1px solid #eaeaea;
+      }
+      nav ul.active {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      .hamburger span {
+        height: 2px;
+        background: var(--text-color);
+        border-radius: 1px;
+      }
+    }
+
+    /* Header Section (Clean & Spacious) */
+    header {
+      padding: 100px 20px 60px;
+      text-align: center;
+      margin-top: 60px; /* Offset for the fixed nav bar */
+    }
+    
+    header h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    
+    header p {
+      font-size: 1.25rem;
+      margin-bottom: 40px;
+      color: var(--text-color);
+    }
+    
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .contact-links a {
+      text-decoration: none;
+      color: var(--background-color);
+      background-color: var(--primary-color);
+      padding: 10px 20px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    
+    .contact-links a:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+    
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+    
+    /* Container for Page Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Cards & Grid Layouts (Simplified) */
+    .experience-card,
+    .project-card,
+    .skills-grid div,
+    .interests-grid div,
+    .education-item {
+      background: #f9f9f9;
+      border: 1px solid #eaeaea;
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .experience-card:hover,
+    .project-card:hover,
+    .skills-grid div:hover,
+    .interests-grid div:hover,
+    .education-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Footer (Clean and Minimal) */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid #eaeaea;
+      font-size: 0.875rem;
+      color: var(--text-color);
+    }
+    
+    footer .footer-links {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    footer .footer-links a {
+      text-decoration: none;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+    
+    footer .footer-links a:hover {
+      color: var(--accent-color);
+    }
+    
+    /* Subtle Fade-In Animation */
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Canvas for Physics Simulation Background -->
-    <canvas id="physics-canvas"></canvas>
-
-    <!-- Header Section -->
-    <header>
-        <h1>Kannan Sekar Annu Radha</h1>
-        <p>Physics Student at King’s College London</p>
-        <div class="contact-links">
-            <a href="mailto:kannansekara@gmail.com">Email Me</a>
-            <a href="https://linkedin.com/in/kannan-sekar/" target="_blank">LinkedIn</a>
-            <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
-        </div>
-    </header>
-
-    <!-- Navigation Bar -->
-    <nav>
-        <div class="nav-container">
-            <ul id="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#experience">Work Experience</a></li>
-                <li><a href="#skills">Technical Skills</a></li>
-                <li><a href="#interests">Skills & Interests</a></li>
-                <li><a href="#projects">Projects</a></li>
-            </ul>
-            <!-- Hamburger Button -->
-            <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Main Content Container -->
-    <div class="container">
-
-        <!-- About Section -->
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Passionate Physics student with a strong background in Computer Science. Experienced in developing machine learning models, natural language processing, and building innovative software applications. Adept at problem-solving and eager to contribute to cutting-edge projects in artificial intelligence and beyond.</p>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education">
-            <h2>Education</h2>
-            <div class="education-item">
-                <img src="images/KCL.png" alt="King's College London Logo">
-                <div class="education-content">
-                    <h3>BSc Physics</h3>
-                    <p><strong>King’s College London</strong>, London, United Kingdom</p>
-                    <p><em>2024 – 2027</em> | 1st Class Predicted</p>
-                    <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
-                </div>
-            </div>
-            <div class="education-item">
-                <img src="images/UCL.png" alt="University College London Logo">
-                <div class="education-content">
-                    <h3>MEng Computer Science</h3>
-                    <p><strong>University College London</strong>, London, United Kingdom</p>
-                    <p><em>2021 – 2023</em></p>
-                    <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
-                </div>
-            </div>
-            <div class="education-item">
-                <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo">
-                <div class="education-content">
-                    <h3>A Levels</h3>
-                    <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
-                    <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
-                    <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Experience Section -->
-        <section id="experience">
-            <h2>Work Experience</h2>
-            <div class="experience-grid">
-                <div class="experience-card">
-                    <img src="images/NHS.png" alt="NHS Digital Logo">
-                    <div class="experience-content">
-                        <h3>Data Science Intern</h3>
-                        <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
-                        <p><em>November 2019</em></p>
-                        <ul>
-                            <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="experience-card">
-                    <img src="images/Kennedy.png" alt="Kennedy Institute Logo">
-                    <div class="experience-content">
-                        <h3>Intern</h3>
-                        <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
-                        <p><em>November 2019</em></p>
-                        <ul>
-                            <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
-                            <li>Worked on image classification and digit classification using MNIST datasets.</li>
-                            <li>Developed an LSTM-based cryptocurrency trading bot.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Skills Section -->
-        <section id="skills">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div>
-                    <strong>Programming Languages</strong>
-                    <p>Python, C, C++, Java, Haskell, Swift</p>
-                </div>
-                <div>
-                    <strong>Frameworks & Tools</strong>
-                    <p>TensorFlow, Flask, Matplotlib, Scikit-learn, Word2Vec, TSNE, LSTM, Arduino, ESP32</p>
-                </div>
-                <div>
-                    <strong>Operating Systems</strong>
-                    <p>Windows, macOS, Linux</p>
-                </div>
-                <div>
-                    <strong>Other</strong>
-                    <p>Microsoft Office, Photoshop, Final Cut Pro</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills & Interests Section -->
-        <section id="interests">
-            <h2>Skills & Interests</h2>
-            <div class="interests-grid">
-                <div>
-                    <strong>Languages</strong>
-                    <p>English (Native), Tamil (Native), Spanish (Full Professional Proficiency)</p>
-                </div>
-                <div>
-                    <strong>Achievements</strong>
-                    <ul>
-                        <li>CS50x Harvard University Certificate (ID: 6e593e86fca2494b8b1c9af455a8d29d)</li>
-                        <li>Machine Learning Stanford University Certificate (ID: WZPCZKU8PJA9)</li>
-                        <li>DeepLearning.AI Certificate (ID: BDYCCTSVUHD3)</li>
-                    </ul>
-                </div>
-                <div>
-                    <strong>Interests</strong>
-                    <p>Artificial Intelligence, Machine Learning, Cryptocurrency Trading, Augmented Reality, Game Development</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="images/NHS.png" alt="NLP Project at NHS Digital">
-                    <div class="project-content">
-                        <h3>NLP Project at NHS Digital</h3>
-                        <p>Developed a Natural Language Processing project using TensorFlow, Matplotlib, and Scikit-learn to predict patient diagnoses.</p>
-                        <a href="https://github.com/KannanSA/NLPK" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/TradingBotYote1.png" alt="Cryptocurrency Trading App">
-                    <div class="project-content">
-                        <h3>Cryptocurrency Trading App</h3>
-                        <p>Created an automated cryptocurrency trading web application in Python using Flask and TensorFlow.</p>
-                        <a href="https://github.com/KannanSA/TradingBotYote6M" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/Yotee.png" alt="YoteCoin">
-                    <div class="project-content">
-                        <h3>YoteCoin</h3>
-                        <p>Developed a cryptocurrency for the Ethereum smart chain.</p>
-                        <a href="https://github.com/KannanSA/YoteCoin" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/pong.png" alt="iPong Game">
-                    <div class="project-content">
-                        <h3>iPong Game</h3>
-                        <p>Designed an iPong game for Apple Watch using Swift and CoreML.</p>
-                        <a href="https://github.com/KannanSA/iPong" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/ddab.png" alt="DabCounter App">
-                    <div class="project-content">
-                        <h3>DabCounter App</h3>
-                        <p>Built a DabCounter app for Apple Watch with Swift and CoreMotion.</p>
-                        <a href="https://github.com/KannanSA/DabCounter" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/robot.png" alt="Robot Abstraction">
-                    <div class="project-content">
-                        <h3>Robot Abstraction</h3>
-                        <p>Implemented robot abstraction in C language.</p>
-                        <a href="https://github.com/KannanSA/C-Robot-Abstraction" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/tetrris.png" alt="TetrisAI">
-                    <div class="project-content">
-                        <h3>TetrisAI</h3>
-                        <p>Developed an AI to play Tetris using Python.</p>
-                        <a href="https://github.com/KannanSA/TetrisAI" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/knucklesyote.png" alt="AR Snapchat Lens">
-                    <div class="project-content">
-                        <h3>AR Snapchat Lens</h3>
-                        <p>Created an Augmented Reality Snapchat Lens with 2.52 million views and 100K downloads.</p>
-                        <a href="https://github.com/KannanSA/Argumented-Reality-SC" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="images/bioreactor.png" alt="Bioreactor">
-                    <div class="project-content">
-                        <h3>Bioreactor</h3>
-                        <p>Programmed an Arduino-based Bioreactor using C and ESP32 microcontroller.</p>
-                        <a href="https://github.com/KannanSA/Bioreactor-UI" target="_blank">View on GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+  <!-- Header Section -->
+  <header>
+    <h1>Kannan Sekar Annu Radha</h1>
+    <p>Physics Student at King’s College London</p>
+    <div class="contact-links">
+      <a href="mailto:kannansekara@gmail.com">Email Me</a>
+      <a href="https://linkedin.com/in/kannan-sekar/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
     </div>
+  </header>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Kannan Sekar Annu Radha. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="https://linkedin.com/in/kannan-sekar/" target="_blank">LinkedIn</a>
-            <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container">
+      <ul id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Work Experience</a></li>
+        <li><a href="#skills">Technical Skills</a></li>
+        <li><a href="#interests">Skills & Interests</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+      <!-- Hamburger Button -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <div class="container">
+    <!-- About Section -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Passionate Physics student with a strong background in Computer Science. Experienced in developing machine learning models, natural language processing, and building innovative software applications. Adept at problem-solving and eager to contribute to cutting-edge projects in artificial intelligence and beyond.</p>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="education-item">
+        <img src="images/KCL.png" alt="King's College London Logo" style="width:80px; height:auto; margin-bottom:10px;">
+        <div class="education-content">
+          <h3>BSc Physics</h3>
+          <p><strong>King’s College London</strong>, London, United Kingdom</p>
+          <p><em>2024 – 2027</em> | 1st Class Predicted</p>
+          <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
         </div>
-    </footer>
+      </div>
+      <div class="education-item">
+        <img src="images/UCL.png" alt="University College London Logo" style="width:80px; height:auto; margin-bottom:10px;">
+        <div class="education-content">
+          <h3>MEng Computer Science</h3>
+          <p><strong>University College London</strong>, London, United Kingdom</p>
+          <p><em>2021 – 2023</em></p>
+          <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+        </div>
+      </div>
+      <div class="education-item">
+        <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo" style="width:80px; height:auto; margin-bottom:10px;">
+        <div class="education-content">
+          <h3>A Levels</h3>
+          <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
+          <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
+          <p><strong>GCSE:</strong> 7 A*s and 4 As in subjects including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- JavaScript for Hamburger Menu -->
-    <script>
-        const hamburger = document.getElementById('hamburger-btn');
-        const navLinks = document.getElementById('nav-links');
+    <!-- Work Experience Section -->
+    <section id="experience">
+      <h2>Work Experience</h2>
+      <div class="experience-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <div class="experience-card">
+          <img src="images/NHS.png" alt="NHS Digital Logo" style="width:60px; height:auto; margin-bottom:10px;">
+          <div class="experience-content">
+            <h3>Data Science Intern</h3>
+            <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
+            <p><em>November 2019</em></p>
+            <ul style="text-align: left;">
+              <li>Developed a Natural Language Processing project in Python to predict ICD9 codes using Word2Vec, TSNE for dimensional reduction, and an LSTM recurrent neural network for prognostic predictions based on patient data.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="experience-card">
+          <img src="images/Kennedy.png" alt="Kennedy Institute Logo" style="width:60px; height:auto; margin-bottom:10px;">
+          <div class="experience-content">
+            <h3>Intern</h3>
+            <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
+            <p><em>November 2019</em></p>
+            <ul style="text-align: left;">
+              <li>Shadowed the Informatics Manager and gained experience in neural network fundamentals and TensorFlow implementation.</li>
+              <li>Worked on image classification and digit classification using MNIST datasets.</li>
+              <li>Developed an LSTM-based cryptocurrency trading bot.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('open');
-        });
+    <!-- Technical Skills Section -->
+    <section id="skills">
+      <h2>Technical Skills</h2>
+      <div class="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+          <strong>Programming Languages</strong>
+          <p>Python, C, C++, Java, Haskell, Swift</p>
+        </div>
+        <div>
+          <strong>Frameworks & Tools</strong>
+          <p>TensorFlow, Flask, Matplotlib, Scikit-learn, Word2Vec, TSNE, LSTM, Arduino, ESP32</p>
+        </div>
+        <div>
+          <strong>Operating Systems</strong>
+          <p>Windows, macOS, Linux</p>
+        </div>
+        <div>
+          <strong>Other</strong>
+          <p>Microsoft Office, Photoshop, Final Cut Pro</p>
+        </div>
+      </div>
+    </section>
 
-        // Optional: Close the menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('open');
-            }
-        });
+    <!-- Skills & Interests Section -->
+    <section id="interests">
+      <h2>Skills & Interests</h2>
+      <div class="interests-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        <div>
+          <strong>Languages</strong>
+          <p>English (Native), Tamil (Native), Spanish (Full Professional Proficiency)</p>
+        </div>
+        <div>
+          <strong>Achievements</strong>
+          <ul style="text-align: left;">
+            <li>CS50x Harvard University Certificate (ID: 6e593e86fca2494b8b1c9af455a8d29d)</li>
+            <li>Machine Learning Stanford University Certificate (ID: WZPCZKU8PJA9)</li>
+            <li>DeepLearning.AI Certificate (ID: BDYCCTSVUHD3)</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Interests</strong>
+          <p>Artificial Intelligence, Machine Learning, Cryptocurrency Trading, Augmented Reality, Game Development</p>
+        </div>
+      </div>
+    </section>
 
-        // Optional: Close the menu when a link is clicked
-        const navItems = document.querySelectorAll('nav ul li a');
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('open');
-            });
-        });
-    </script>
+    <!-- Projects Section -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+        <div class="project-card">
+          <img src="images/NHS.png" alt="NLP Project at NHS Digital" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>NLP Project at NHS Digital</h3>
+            <p>Developed a Natural Language Processing project using TensorFlow, Matplotlib, and Scikit-learn to predict patient diagnoses.</p>
+            <a href="https://github.com/KannanSA/NLPK" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/TradingBotYote1.png" alt="Cryptocurrency Trading App" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>Cryptocurrency Trading App</h3>
+            <p>Created an automated cryptocurrency trading web application in Python using Flask and TensorFlow.</p>
+            <a href="https://github.com/KannanSA/TradingBotYote6M" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/Yotee.png" alt="YoteCoin" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>YoteCoin</h3>
+            <p>Developed a cryptocurrency for the Ethereum smart chain.</p>
+            <a href="https://github.com/KannanSA/YoteCoin" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/pong.png" alt="iPong Game" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>iPong Game</h3>
+            <p>Designed an iPong game for Apple Watch using Swift and CoreML.</p>
+            <a href="https://github.com/KannanSA/iPong" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/ddab.png" alt="DabCounter App" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>DabCounter App</h3>
+            <p>Built a DabCounter app for Apple Watch with Swift and CoreMotion.</p>
+            <a href="https://github.com/KannanSA/DabCounter" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/robot.png" alt="Robot Abstraction" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>Robot Abstraction</h3>
+            <p>Implemented robot abstraction in C language.</p>
+            <a href="https://github.com/KannanSA/C-Robot-Abstraction" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/tetrris.png" alt="TetrisAI" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>TetrisAI</h3>
+            <p>Developed an AI to play Tetris using Python.</p>
+            <a href="https://github.com/KannanSA/TetrisAI" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/knucklesyote.png" alt="AR Snapchat Lens" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>AR Snapchat Lens</h3>
+            <p>Created an Augmented Reality Snapchat Lens with 2.52 million views and 100K downloads.</p>
+            <a href="https://github.com/KannanSA/Argumented-Reality-SC" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="images/bioreactor.png" alt="Bioreactor" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="project-content" style="text-align: left; padding: 20px;">
+            <h3>Bioreactor</h3>
+            <p>Programmed an Arduino-based Bioreactor using C and ESP32 microcontroller.</p>
+            <a href="https://github.com/KannanSA/Bioreactor-UI" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-    <!-- JavaScript for Quantum Simulation Background -->
-    <script>
-        const canvas = document.getElementById('physics-canvas');
-        const ctx = canvas.getContext('2d');
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Kannan Sekar Annu Radha. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/kannan-sekar/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/KannanSA" target="_blank">GitHub</a>
+    </div>
+  </footer>
 
-        // Resize canvas to fit the window
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+  <!-- JavaScript for Hamburger Menu -->
+  <script>
+    const hamburger = document.getElementById('hamburger-btn');
+    const navLinks = document.getElementById('nav-links');
 
-        // Quantum simulation parameters
-        const particles = [];
-        const numParticles = 100;
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.angle = Math.random() * 2 * Math.PI;
-                this.speed = Math.random() * 0.5 + 0.5;
-                this.size = Math.random() * 3 + 1;
-            }
+    // Optional: Close the menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+        navLinks.classList.remove('active');
+      }
+    });
 
-            update() {
-                // Simulate quantum randomness by changing angle slightly
-                this.angle += (Math.random() - 0.5) * 0.1;
-                this.x += Math.cos(this.angle) * this.speed;
-                this.y += Math.sin(this.angle) * this.speed;
-
-                // Wrap around edges
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-                ctx.fillStyle = `hsl(${(this.x + this.y) % 360}, 70%, 50%)`;
-                ctx.fill();
-            }
-        }
-
-        // Initialize particles
-        for (let i = 0; i < numParticles; i++) {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height;
-            particles.push(new Particle(x, y));
-        }
-
-        // Animation loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    </script>
+    // Optional: Close the menu when a link is clicked
+    const navItems = document.querySelectorAll('nav ul li a');
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
