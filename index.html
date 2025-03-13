@@ -541,13 +541,16 @@
             to { transform: rotate(0deg); opacity: 1; }
         }
         .animate-zoom {
-            animation: none;
+            animation: zoomIn 1s ease forwards;
         }
         .animate-fadeUp {
-            animation: none;
+            animation: fadeUp 1s ease forwards;
         }
         .animate-rotateIn {
-            animation: none;
+            animation: rotateIn 1s ease forwards;
+        }
+        .aero-animate {
+            animation: aeroPulse 2s ease-in-out infinite;
         }
 
         /* Additional Aero Animations */
@@ -655,6 +658,14 @@
             list-style: none;
             margin-left: 0;
             padding-left: 0;
+        }
+
+        /* New entrance animations for header and section elements */
+        header h1, header p {
+            animation: fadeUp 1.5s ease both;
+        }
+        section {
+            animation: fadeUp 1s ease both;
         }
 
     </style>
