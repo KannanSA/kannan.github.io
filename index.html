@@ -1,52 +1,55 @@
 <!DOCTYPE html>
-<html lang=\"en\">
+<html lang="en">
 <head>
-    <meta charset=\"UTF-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kannan Sekar Annu Radha</title>
-    <link href=\"https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap\" rel=\"stylesheet\">
-    <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #3F51B5;
+            --primary-color: #0071e3;
             --accent-color: #FF4081;
-            --background-color: #FAFAFA;
-            --text-color: #212121;
+            --background-color: #fff;
+            --text-color: #333;
             --card-bg-color: #FFFFFF;
             --shadow-color: rgba(0,0,0,0.2);
             --font-family: 'Roboto', sans-serif;
         }
         body {
             font-family: var(--font-family);
-            background-color: var(--background-color);
             color: var(--text-color);
+            background-color: var(--background-color);
             line-height: 1.6;
             margin: 0;
+            overflow-x: hidden;
         }
         header {
             background-color: var(--primary-color);
             color: #fff;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
+            animation: fadeInDown 1.5s ease;
         }
         nav {
-            background-color: var(--card-bg-color);
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
             box-shadow: 0 2px 4px var(--shadow-color);
-            z-index: 100;
+            z-index: 1000;
         }
         nav ul {
             display: flex;
             justify-content: center;
             padding: 15px;
-            list-style: none;
             margin: 0;
+            list-style: none;
         }
         nav ul li a {
             color: var(--text-color);
-            text-decoration: none;
             padding: 0 15px;
+            text-decoration: none;
             transition: color 0.3s;
         }
         nav ul li a:hover {
@@ -55,23 +58,24 @@
         .container {
             max-width: 1200px;
             margin: auto;
-            padding: 20px;
+            padding: 100px 20px 20px;
         }
         .card {
             background-color: var(--card-bg-color);
             box-shadow: 0 4px 8px var(--shadow-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
             transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.2s ease;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px var(--shadow-color);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px var(--shadow-color);
         }
         h2 {
             color: var(--primary-color);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .grid {
             display: grid;
@@ -81,21 +85,28 @@
         .button {
             background-color: var(--accent-color);
             color: #fff;
-            text-decoration: none;
             padding: 10px 20px;
             border-radius: 20px;
+            text-decoration: none;
             transition: background-color 0.3s;
-            display: inline-block;
-            margin-top: 10px;
         }
         .button:hover {
             background-color: #d81b60;
         }
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: var(--card-bg-color);
+            padding: 30px;
+            background-color: #f9f9f9;
             box-shadow: 0 -2px 4px var(--shadow-color);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -103,29 +114,34 @@
 <header>
     <h1>Kannan Sekar Annu Radha</h1>
     <p>Physics Student at King’s College London</p>
+    <div>
+        <a href="mailto:kannansekara@gmail.com" class="button">Email Me</a>
+        <a href="https://linkedin.com/in/kannan-sekar/" class="button">LinkedIn</a>
+        <a href="https://github.com/KannanSA" class="button">GitHub</a>
+    </div>
 </header>
 <nav>
     <ul>
-        <li><a href=\"#about\">About</a></li>
-        <li><a href=\"#education\">Education</a></li>
-        <li><a href=\"#experience\">Experience</a></li>
-        <li><a href=\"#skills\">Skills</a></li>
-        <li><a href=\"#projects\">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
     </ul>
 </nav>
-<div class=\"container\">
-    <section id=\"about\" class=\"card\">
+<div class="container">
+    <section id="about" class="card">
         <h2>About Me</h2>
-        <p>Passionate Physics student with a strong background in Computer Science. Experienced in machine learning, natural language processing, and software development. Adept at problem-solving and eager to contribute to innovative projects in AI.</p>
+        <p>Passionate Physics student with a strong background in Computer Science. Experienced in developing machine learning models, natural language processing, and building innovative software applications. Adept at problem-solving and eager to contribute to cutting-edge projects in artificial intelligence and beyond.</p>
     </section>
-    <section id=\"education\" class=\"card\">
+    <section id="education" class="card">
         <h2>Education</h2>
         <p><strong>BSc Physics:</strong> King’s College London (2024 – 2027), 1st Class Predicted. Relevant Coursework: Mathematics, Classical Physics, Astrophysics.</p>
         <p><strong>MEng Computer Science:</strong> UCL (2021 – 2023). Relevant Coursework: Programming, Algorithms, AI.</p>
     </section>
-    <section id=\"experience\" class=\"card\">
+    <section id="experience" class="card">
         <h2>Work Experience</h2>
-        <div class=\"grid\">
+        <div class="grid">
             <div>
                 <strong>Data Science Intern</strong><br>
                 NHS Digital, Leeds (Nov 2019)<br>
@@ -138,14 +154,14 @@
             </div>
         </div>
     </section>
-    <section id=\"skills\" class=\"card\">
+    <section id="skills" class="card">
         <h2>Technical Skills</h2>
         <p>Languages: Python, C++, Java, Swift. Frameworks: TensorFlow, Flask, Arduino.</p>
     </section>
-    <section id=\"projects\" class=\"card\">
+    <section id="projects" class="card">
         <h2>Projects</h2>
         <p>NLP diagnosis prediction, Crypto Trading App, YoteCoin cryptocurrency, iPong game, DabCounter app, TetrisAI.</p>
-        <a href=\"#\" class=\"button\">View Projects</a>
+        <a href="#" class="button">View Projects</a>
     </section>
 </div>
 <footer>
