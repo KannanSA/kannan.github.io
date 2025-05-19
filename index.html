@@ -1,324 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kannan Sekar Annu Radha - Dynamic Experience</title>
-  <!-- Google Fonts and Material Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <!-- Materialize CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kannan Sekar Annu Radha</title>
+  
+  <!-- Google Fonts - Roboto Condensed and Montserrat for bold -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Condensed&display=swap" rel="stylesheet" />
+  
   <style>
-    /* Root Variables */
-    :root {
-      --primary-color: #0071e3;
-      --accent-color: #FF4081;
-      --background-color: #000;
-      --text-color: #fff;
-      --font-family: 'Roboto', sans-serif;
-    }
-    /* Reset and Base Styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
+    /* Reset and base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
     }
     html, body {
-      margin: 0;
-      padding: 0;
       height: 100%;
-      font-family: var(--font-family);
-      background-color: var(--background-color);
-      color: var(--text-color);
+      font-family: 'Roboto Condensed', sans-serif;
+      background-color: #000;
+      color: #eee;
+      scroll-behavior: smooth;
       overflow-x: hidden;
+      scroll-snap-type: y mandatory;
     }
-    /* Navbar */
+    body {
+      /* Prevent scrollbar jump when overlay visible */
+      overflow-y: scroll;
+    }
+    
+    /* Scroll snap full sections */
+    section {
+      scroll-snap-align: start;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      text-align: center;
+    }
+
+    /* Navigation */
     nav {
-      background: rgba(0, 0, 0, 0.7);
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; width: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: saturate(180%) blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
       z-index: 1000;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.05em;
+      font-weight: 700;
     }
-    nav .nav-wrapper {
-      padding: 0 20px;
+    nav .logo {
+      font-size: 1.6rem;
+      color: #e00e52;
+      cursor: pointer;
+      user-select: none;
+      text-transform: uppercase;
     }
-    nav a.brand-logo {
-      font-size: 1.8rem;
-      color: var(--text-color) !important;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
     }
     nav ul li a {
-      color: var(--text-color) !important;
-      font-weight: 500;
-      padding: 0 15px;
-      transition: color 0.3s;
-    }
-    nav ul li a:hover {
-      color: var(--primary-color) !important;
-    }
-    /* Hero Section with Fullscreen Video Background */
-    .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .hero video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      z-index: -1;
-      transform: translate(-50%, -50%);
-      filter: brightness(0.7);
-    }
-    .hero .overlay {
-      position: absolute;
-      top: 0; 
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: 1;
-    }
-    .hero .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .hero h1 {
-      font-size: 3rem;
-      margin: 0;
-      animation-delay: 0.2s;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin: 20px 0 40px;
-    }
-    .button {
-      background-color: var(--accent-color);
-      border: none;
-      color: #fff;
-      padding: 10px 25px;
-      font-size: 1rem;
-      border-radius: 30px;
-      cursor: pointer;
+      color: #eee;
       text-decoration: none;
-      transition: background-color 0.3s, transform 0.3s;
-      margin: 0 5px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
     }
-    .button:hover {
-      background-color: #d81b60;
-      transform: scale(1.05);
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: #e00e52;
+      border-bottom-color: #e00e52;
     }
-    /* Section Styles */
-    .section {
-      padding: 100px 20px;
+
+    /* Hero Section */
+    #hero {
       position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(224,14,82,0.8) 0%, rgba(0,0,0,0.8) 100%);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
     }
-    .section:nth-of-type(even) {
-      background: #111;
+    #hero video {
+      position: absolute;
+      top: 50%; left: 50%;
+      min-width: 100%; min-height: 100%;
+      width: auto; height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.5);
+      z-index: 0;
     }
-    .section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      color: var(--primary-color);
+    #hero .content {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      padding: 0 2rem;
     }
-    .section p {
-      max-width: 800px;
-      margin: auto;
+    #hero h1 {
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ff2975;
+      text-shadow: 0 0 15px #ff2975cc;
+    }
+    #hero p {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      font-weight: 400;
+      color: #fff;
+      text-shadow: 0 0 10px #0008;
+    }
+    #hero .buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #hero .buttons a {
+      background-color: #ff2975;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 0 15px #ff2975aa;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    #hero .buttons a:hover,
+    #hero .buttons a:focus {
+      background-color: #e00e52;
+      box-shadow: 0 0 25px #e00e52cc;
+    }
+
+    /* Section Titles */
+    section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      color: #ff2975;
+      text-shadow: 0 0 10px #ff2975bb;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* Section content paragraphs */
+    section p {
+      max-width: 700px;
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: #ddd;
       line-height: 1.6;
+      margin: 0 auto;
     }
-    /* Card Component */
+
+    /* Cards for Experience */
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
     .card {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      margin: 20px;
-      transition: transform 0.3s;
+      background: #111;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(224,14,82,0.5);
+      padding: 2rem;
+      flex: 1 1 300px;
+      max-width: 350px;
+      color: #eee;
+      font-weight: 400;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
     }
     .card:hover {
       transform: translateY(-10px);
+      box-shadow: 0 8px 40px #ff2975cc;
     }
+    .card h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #ff2975;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      font-size: 1.4rem;
+    }
+    .card p {
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+      color: #ddd;
+    }
+    .card em {
+      color: #ff6380;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 0.95rem;
+    }
+
+    /* Buttons inside other sections */
+    .btn-center {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .btn-center a {
+      background: #ff2975;
+      color: white;
+      padding: 0.85rem 3rem;
+      border-radius: 40px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 0 15px #ff2975bb;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .btn-center a:hover,
+    .btn-center a:focus {
+      background: #e00e52;
+      box-shadow: 0 0 30px #e00e52cc;
+    }
+
     /* Footer */
     footer {
-      background: #000;
+      background: #111;
       text-align: center;
-      padding: 40px 20px;
-      color: #aaa;
+      padding: 2rem 1rem;
+      font-weight: 300;
+      color: #555;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
     }
-    /* Scroll Reveal Animation for Elements */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease;
-    }
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* Responsive Adjustments */
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.5rem;
+      #hero h1 {
+        font-size: 2.8rem;
       }
-      .hero p {
-        font-size: 1rem;
+      #hero p {
+        font-size: 1.2rem;
+      }
+      nav {
+        padding: 1rem 1.5rem;
+      }
+      nav ul {
+        gap: 1rem;
+      }
+      section h2 {
+        font-size: 2.2rem;
+      }
+      .card {
+        max-width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="animate__animated animate__fadeInDown">
-    <div class="nav-wrapper container">
-      <a href="#!" class="brand-logo">Kannan</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#about">About</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#certificates">Certificates</a></li>
-      </ul>
-    </div>
+
+  <nav>
+    <div class="logo">KANNAN</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+    </ul>
   </nav>
-  
-  <!-- Hero Section with Video Background -->
-  <div class="hero">
-    <video autoplay muted loop>
+
+  <section id="hero" aria-label="Introduction hero section">
+    <video autoplay muted loop playsinline aria-hidden="true" tabindex="-1">
       <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
+      <!-- fallback -->
     </video>
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1 class="animate__animated animate__fadeInDown">Kannan Sekar Annu Radha</h1>
-      <p class="animate__animated animate__fadeInUp">Physics Student at King’s College London</p>
-      <div>
-        <a href="mailto:kannansekara@gmail.com" class="button animate__animated animate__pulse animate__infinite">Email Me</a>
-        <a href="https://linkedin.com/in/kannan-sekar/" class="button" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/KannanSA" class="button" target="_blank" rel="noopener">GitHub</a>
+    <div class="content" role="main">
+      <h1>Kannan Sekar Annu Radha</h1>
+      <p>Physics Student at King’s College London</p>
+      <div class="buttons">
+        <a href="mailto:kannansekara@gmail.com" aria-label="Send Email to Kannan Sekar Annu Radha">Email Me</a>
+        <a href="https://linkedin.com/in/kannan-sekar/" target="_blank" rel="noopener" aria-label="LinkedIn Profile">LinkedIn</a>
+        <a href="https://github.com/KannanSA" target="_blank" rel="noopener" aria-label="GitHub Profile">GitHub</a>
       </div>
     </div>
-  </div>
-  
-  <!-- About Section -->
-  <div id="about" class="section">
-    <h2 class="animate-on-scroll">About Me</h2>
-    <p class="animate-on-scroll">
-      Dedicated researcher with a robust interdisciplinary background in physics and computer science. Passionate about leveraging machine learning and artificial intelligence to address real-world challenges, especially in healthcare and intelligent systems. Experienced in developing machine learning models, natural language processing, and building innovative software applications.
+  </section>
+
+  <section id="about" aria-labelledby="about-title">
+    <h2 id="about-title">About Me</h2>
+    <p>
+      Dedicated researcher with a robust interdisciplinary background in physics and computer science.
+      Passionate about leveraging machine learning and artificial intelligence to address real-world challenges,
+      especially in healthcare and intelligent systems. Experienced in developing machine learning models,
+      natural language processing, and building innovative software applications.
     </p>
-  </div>
-  
-  <!-- Education Section -->
-  <div id="education" class="section">
-    <h2 class="animate-on-scroll">Education</h2>
-    <p class="animate-on-scroll">
-      <strong>BSc Physics:</strong> King’s College London (2024 – 2027), 1st Class Predicted.<br />
+  </section>
+
+  <section id="education" aria-labelledby="education-title">
+    <h2 id="education-title">Education</h2>
+    <p><strong>BSc Physics:</strong> King’s College London (2024 – 2027), 1st Class Predicted.<br />
       Relevant Coursework: Mathematics & Computation for Physics, Classical Physics, Modern Physics, Astrophysics.
     </p>
-    <p class="animate-on-scroll">
-      <strong>MEng Computer Science:</strong> University College London (2021 – 2023).<br />
+    <p><strong>MEng Computer Science:</strong> University College London (2021 – 2023).<br />
       Relevant Coursework: Programming (C, Java, Haskell), Algorithms, AI, Discrete Mathematics, Engineering Challenges (Arduino, Python).
     </p>
-    <p class="animate-on-scroll">
-      <strong>A Levels:</strong> Royal Grammar School Newcastle (2019) — A* in Mathematics, Further Mathematics, and Physics.
-    </p>
-  </div>
-  
-  <!-- Experience Section -->
-  <div id="experience" class="section">
-    <h2 class="animate-on-scroll">Experience</h2>
-    <div class="row container">
-      <div class="col s12 m6 animate-on-scroll">
-        <div class="card">
-          <h5>Computational Physics Researcher</h5>
-          <p><em>King’s College London (June 2025 - Present)</em></p>
-          <p>Conducting computational physics research under Professor Samjid Mannan, focusing on advanced simulations and machine learning applications.</p>
-        </div>
-      </div>
-      <div class="col s12 m6 animate-on-scroll">
-        <div class="card">
-          <h5>Data Science Intern</h5>
-          <p><em>NHS Digital, Leeds (Nov 2019)</em></p>
-          <p>Designed and implemented an NLP model to predict ICD9 codes using Python, Word2Vec embeddings, t-SNE, and LSTM neural networks, advancing clinical informatics.</p>
-        </div>
-      </div>
-      <div class="col s12 m6 animate-on-scroll">
-        <div class="card">
-          <h5>Research Intern</h5>
-          <p><em>Kennedy Institute of Rheumatology, Oxford (Nov 2019)</em></p>
-          <p>Worked on neural network architectures and TensorFlow projects, including image classification and developing an LSTM-based cryptocurrency trading bot.</p>
-        </div>
-      </div>
+    <p><strong>A Levels:</strong> Royal Grammar School Newcastle (2019) — A* in Mathematics, Further Mathematics, and Physics.</p>
+  </section>
+
+  <section id="experience" aria-labelledby="experience-title">
+    <h2 id="experience-title">Experience</h2>
+    <div class="cards-container">
+      <article class="card" tabindex="0">
+        <h5>Computational Physics Researcher</h5>
+        <p><em>King’s College London (June 2025 - Present)</em></p>
+        <p>Conducting computational physics research under Professor Samjid Mannan, focusing on advanced simulations and machine learning applications.</p>
+      </article>
+      <article class="card" tabindex="0">
+        <h5>Data Science Intern</h5>
+        <p><em>NHS Digital, Leeds (Nov 2019)</em></p>
+        <p>Designed and implemented an NLP model to predict ICD9 codes using Python, Word2Vec embeddings, t-SNE, and LSTM neural networks, advancing clinical informatics.</p>
+      </article>
+      <article class="card" tabindex="0">
+        <h5>Research Intern</h5>
+        <p><em>Kennedy Institute of Rheumatology, Oxford (Nov 2019)</em></p>
+        <p>Worked on neural network architectures and TensorFlow projects, including image classification and developing an LSTM-based cryptocurrency trading bot.</p>
+      </article>
     </div>
-  </div>
-  
-  <!-- Skills Section -->
-  <div id="skills" class="section">
-    <h2 class="animate-on-scroll">Skills</h2>
-    <p class="animate-on-scroll">
+  </section>
+
+  <section id="skills" aria-labelledby="skills-title">
+    <h2 id="skills-title">Skills</h2>
+    <p>
       <strong>Programming Languages:</strong> Python, C, C++, Java, Haskell, Swift.<br />
       <strong>Frameworks & Tools:</strong> TensorFlow, Flask, Matplotlib, Scikit-learn, Word2Vec, t-SNE, LSTM, Arduino, ESP32.<br />
       <strong>Operating Systems:</strong> Windows, macOS, Linux.<br />
       <strong>Other Tools:</strong> Microsoft Office, Photoshop, Final Cut Pro.
     </p>
-  </div>
-  
-  <!-- Projects Section -->
-  <div id="projects" class="section">
-    <h2 class="animate-on-scroll">Projects</h2>
-    <p class="animate-on-scroll">
-      Developed an end-to-end NLP pipeline for healthcare diagnosis prediction, a cryptocurrency trading app using Flask and deep learning, and engineered a blockchain-based cryptocurrency (YoteCoin). Created interactive applications such as iPong and DabCounter for Apple Watch using Swift and CoreML. Implemented AI agents like TetrisAI using reinforcement learning, developed an Arduino-based bioreactor, and designed an AR Snapchat Lens with over 2.5 million views.
+  </section>
+
+  <section id="projects" aria-labelledby="projects-title">
+    <h2 id="projects-title">Projects</h2>
+    <p>
+      Developed an end-to-end NLP pipeline for healthcare diagnosis prediction, a cryptocurrency trading app using Flask and deep learning,
+      and engineered a blockchain-based cryptocurrency (YoteCoin). Created interactive applications such as iPong and DabCounter for Apple Watch
+      using Swift and CoreML. Implemented AI agents like TetrisAI using reinforcement learning, developed an Arduino-based bioreactor, and
+      designed an AR Snapchat Lens with over 2.5 million views.
     </p>
-    <div style="text-align: center;" class="animate-on-scroll">
-      <a href="#" class="button">View Projects</a>
+    <div class="btn-center">
+      <a href="#" aria-label="View detailed projects">View Projects</a>
     </div>
-  </div>
-  
-  <!-- Certificates & Awards Section -->
-  <div id="certificates" class="section">
-    <h2 class="animate-on-scroll">Certificates & Awards</h2>
-    <p class="animate-on-scroll">
+  </section>
+
+  <section id="certificates" aria-labelledby="certificates-title">
+    <h2 id="certificates-title">Certificates & Awards</h2>
+    <p>
       NMES King’s College London - Alessandro de Vita Computational Physics Prize (2024/25)<br />
       CS50x Harvard University Certificate<br />
       Machine Learning Certificate - Stanford University<br />
       Deep Learning Certificate - DeepLearning.AI
     </p>
-  </div>
-  
-  <!-- Footer -->
-  <footer class="animate-on-scroll">
-    &copy; 2025 Kannan Sekar Annu Radha
+  </section>
+
+  <footer>
+    &copy; 2024 Kannan Sekar Annu Radha
   </footer>
-  
-  <!-- jQuery and Materialize JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script>
-    // Initialize Materialize components, if any
-    document.addEventListener("DOMContentLoaded", function() {
-      var elems = document.querySelectorAll('.sidenav');
-      M.Sidenav.init(elems);
-  
-      // Intersection Observer for scroll reveal animations
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            entry.target.classList.add("visible");
-          }
-        });
-      }, { threshold: 0.4 });
-      
-      document.querySelectorAll(".animate-on-scroll").forEach(el => observer.observe(el));
-    });
-  </script>
+
 </body>
 </html>
