@@ -4,254 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kannan Sekar Annu Radha</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #3F51B5;  /* Material Indigo 500 */
-            --secondary-color: #FF4081;  /* Material Pink A200 */
+            --primary-color: #3F51B5;
+            --accent-color: #FF4081;
             --background-color: #FAFAFA;
-            --surface-color: #FFFFFF;
-            --on-primary: #FFFFFF;
-            --on-secondary: #000000;
-            --on-surface: #212121;
-            --divider-color: #BDBDBD;
+            --text-color: #212121;
+            --card-bg-color: #FFFFFF;
+            --shadow-color: rgba(0,0,0,0.2);
             --font-family: 'Roboto', sans-serif;
         }
-
         body {
             font-family: var(--font-family);
             background-color: var(--background-color);
-            color: var(--on-surface);
+            color: var(--text-color);
             line-height: 1.6;
             margin: 0;
         }
-
-        /* Material Design Typography */
-        h1 { font-size: 3.5rem; font-weight: 400; }
-        h2 { font-size: 2.5rem; font-weight: 500; }
-        h3 { font-size: 1.5rem; font-weight: 500; }
-        .body-1 { font-size: 1rem; font-weight: 400; }
-        .body-2 { font-size: 0.875rem; font-weight: 400; }
-
-        /* Header Section */
         header {
             background-color: var(--primary-color);
-            color: var(--on-primary);
-            padding: 80px 24px;
+            color: #fff;
+            padding: 60px 20px;
             text-align: center;
         }
-
-        /* Material Card */
-        .mdc-card {
-            background-color: var(--surface-color);
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin: 16px;
-            padding: 24px;
-            transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .mdc-card:hover {
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        /* Navigation */
-        .mdc-top-app-bar {
-            background-color: var(--primary-color);
-            color: var(--on-primary);
+        nav {
+            background-color: var(--card-bg-color);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            z-index: 100;
         }
-
-        .mdc-tab-bar {
+        nav ul {
             display: flex;
             justify-content: center;
-            padding: 0 16px;
+            padding: 15px;
+            list-style: none;
+            margin: 0;
         }
-
-        .mdc-tab {
-            padding: 20px 24px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s;
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0 15px;
+            transition: color 0.3s;
         }
-
-        .mdc-tab:hover {
-            opacity: 1;
+        nav ul li a:hover {
+            color: var(--primary-color);
         }
-
-        /* Material Buttons */
-        .mdc-button {
-            padding: 8px 16px;
-            border-radius: 24px;
-            font-weight: 500;
-            text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
         }
-
-        .mdc-button--raised {
-            background-color: var(--primary-color);
-            color: var(--on-primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        .card {
+            background-color: var(--card-bg-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-
-        .mdc-button--raised:hover {
-            background-color: #303F9F;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-color);
         }
-
-        /* Grid System */
-        .mdc-layout-grid {
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .grid {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
-            padding: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
-
-        .mdc-layout-grid__cell {
-            grid-column-end: span 12;
+        .button {
+            background-color: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 10px;
         }
-
-        @media (min-width: 600px) {
-            .mdc-layout-grid__cell--span-6 {
-                grid-column-end: span 6;
-            }
+        .button:hover {
+            background-color: #d81b60;
         }
-
-        /* Experience Cards */
-        .experience-card {
-            display: flex;
-            align-items: flex-start;
-            padding: 16px;
-            margin: 16px 0;
-        }
-
-        .experience-card__icon {
-            color: var(--secondary-color);
-            margin-right: 24px;
-        }
-
-        /* Projects Grid */
-        .mdc-image-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            padding: 24px;
-        }
-
-        .mdc-image-list__item {
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .mdc-image-list__image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        /* Material Icons */
-        .material-icons {
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        /* Responsive Navigation */
-        @media (max-width: 600px) {
-            .mdc-tab-bar {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .mdc-tab {
-                width: 100%;
-                text-align: center;
-            }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--card-bg-color);
+            box-shadow: 0 -2px 4px var(--shadow-color);
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>Kannan Sekar Annu Radha</h1>
-        <p class="body-1">Physics Student at King’s College London</p>
-        <div class="mdc-layout-grid">
-            <div class="mdc-layout-grid__cell">
-                <button class="mdc-button mdc-button--raised">
-                    <i class="material-icons">email</i>
-                    Email Me
-                </button>
-                <button class="mdc-button mdc-button--raised">
-                    <i class="material-icons">people</i>
-                    LinkedIn
-                </button>
-                <button class="mdc-button mdc-button--raised">
-                    <i class="material-icons">code</i>
-                    GitHub
-                </button>
+<header>
+    <h1>Kannan Sekar Annu Radha</h1>
+    <p>Physics Student at King’s College London</p>
+</header>
+<nav>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <section id="about" class="card">
+        <h2>About Me</h2>
+        <p>Passionate Physics student with strong expertise in Computer Science and AI...</p>
+    </section>
+    <section id="education" class="card">
+        <h2>Education</h2>
+        <div>BSc Physics, King's College London (2024 – 2027)</div>
+        <div>MEng Computer Science, UCL (2021 – 2023)</div>
+    </section>
+    <section id="experience" class="card">
+        <h2>Work Experience</h2>
+        <div class="grid">
+            <div>Data Science Intern, NHS Digital</div>
+            <div>Intern, Kennedy Institute of Rheumatology</div>
+        </div>
+    </section>
+    <section id="skills" class="card">
+        <h2>Technical Skills</h2>
+        <div class="grid">
+            <div>Programming: Python, Java, C++</div>
+            <div>Frameworks: TensorFlow, Flask, React</div>
+        </div>
+    </section>
+    <section id="projects" class="card">
+        <h2>Projects</h2>
+        <div class="grid">
+            <div>
+                <strong>NLP Project</strong>
+                <p>TensorFlow-based patient diagnosis prediction.</p>
+                <a href="#" class="button">View Project</a>
+            </div>
+            <div>
+                <strong>Cryptocurrency App</strong>
+                <p>Automated crypto trading with Flask & TensorFlow.</p>
+                <a href="#" class="button">View Project</a>
             </div>
         </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="mdc-top-app-bar">
-        <div class="mdc-tab-bar">
-            <div class="mdc-tab"><i class="material-icons">person</i>About</div>
-            <div class="mdc-tab"><i class="material-icons">school</i>Education</div>
-            <div class="mdc-tab"><i class="material-icons">work</i>Experience</div>
-            <div class="mdc-tab"><i class="material-icons">build</i>Skills</div>
-            <div class="mdc-tab"><i class="material-icons">code</i>Projects</div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="mdc-layout-grid">
-        <!-- About Section -->
-        <section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <div class="mdc-card">
-                <h2><i class="material-icons">info</i>About Me</h2>
-                <p class="body-1">Passionate Physics student with strong Computer Science background...</p>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <div class="mdc-card">
-                <h2><i class="material-icons">school</i>Education</h2>
-                <div class="experience-card">
-                    <i class="material-icons experience-card__icon">book</i>
-                    <div>
-                        <h3>BSc Physics</h3>
-                        <p class="body-1">King’s College London</p>
-                        <p class="body-2">2024 – 2027 | 1st Class Predicted</p>
-                    </div>
-                </div>
-                <!-- Add more education items -->
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-            <div class="mdc-card">
-                <h2><i class="material-icons">code</i>Projects</h2>
-                <div class="mdc-image-list">
-                    <div class="mdc-image-list__item">
-                        <img class="mdc-image-list__image" src="images/NHS.png" alt="NLP Project">
-                        <div class="mdc-card">
-                            <h3>NLP Project</h3>
-                            <p class="body-1">Natural Language Processing project using TensorFlow...</p>
-                        </div>
-                    </div>
-                    <!-- Add more project items -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="mdc-card">
-        <p class="body-2" style="text-align: center;">&copy; 2024 Kannan Sekar Annu Radha</p>
-    </footer>
+    </section>
+</div>
+<footer>
+    &copy; 2024 Kannan Sekar Annu Radha
+</footer>
 </body>
 </html>
