@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kannan Sekar Annu Radha</title>
   
-  <!-- Google Fonts - Roboto Condensed and Montserrat for bold -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Condensed&display=swap" rel="stylesheet" />
   
   <style>
@@ -23,7 +23,6 @@
       scroll-snap-type: y mandatory;
     }
     body {
-      /* Prevent scrollbar jump when overlay visible */
       overflow-y: scroll;
     }
     
@@ -36,7 +35,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      padding: 2rem 3rem;
       position: relative;
       text-align: center;
     }
@@ -45,7 +44,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; width: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       backdrop-filter: saturate(180%) blur(10px);
       display: flex;
       justify-content: space-between;
@@ -58,7 +57,7 @@
     }
     nav .logo {
       font-size: 1.6rem;
-      color: #e00e52;
+      color: #ff2975;
       cursor: pointer;
       user-select: none;
       text-transform: uppercase;
@@ -82,8 +81,8 @@
     }
     nav ul li a:hover,
     nav ul li a:focus {
-      color: #e00e52;
-      border-bottom-color: #e00e52;
+      color: #ff2975;
+      border-bottom-color: #ff2975;
     }
 
     /* Hero Section */
@@ -91,7 +90,7 @@
       position: relative;
       overflow: hidden;
       color: #fff;
-      background: linear-gradient(180deg, rgba(224,14,82,0.8) 0%, rgba(0,0,0,0.8) 100%);
+      background: linear-gradient(180deg, rgba(255, 41, 117, 0.85) 0%, rgba(0,0,0,0.85) 100%);
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
     }
@@ -102,7 +101,7 @@
       width: auto; height: auto;
       transform: translate(-50%, -50%);
       object-fit: cover;
-      filter: brightness(0.5);
+      filter: brightness(0.4);
       z-index: 0;
     }
     #hero .content {
@@ -115,17 +114,17 @@
       font-size: 4rem;
       line-height: 1.1;
       margin-bottom: 1rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: #ff2975;
-      text-shadow: 0 0 15px #ff2975cc;
+      text-shadow: 0 0 20px #ff2975cc;
     }
     #hero p {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-bottom: 3rem;
       font-weight: 400;
       color: #fff;
-      text-shadow: 0 0 10px #0008;
+      text-shadow: 0 0 15px #0008;
     }
     #hero .buttons {
       display: flex;
@@ -136,19 +135,19 @@
     #hero .buttons a {
       background-color: #ff2975;
       color: #fff;
-      padding: 0.75rem 2rem;
+      padding: 0.85rem 2.5rem;
       border-radius: 40px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 0 15px #ff2975aa;
+      font-size: 1.1rem;
+      box-shadow: 0 0 20px #ff2975aa;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       user-select: none;
     }
     #hero .buttons a:hover,
     #hero .buttons a:focus {
       background-color: #e00e52;
-      box-shadow: 0 0 25px #e00e52cc;
+      box-shadow: 0 0 30px #e00e52cc;
     }
 
     /* Section Titles */
@@ -158,45 +157,46 @@
       font-size: 3rem;
       margin-bottom: 2rem;
       color: #ff2975;
-      text-shadow: 0 0 10px #ff2975bb;
+      text-shadow: 0 0 12px #ff2975bb;
       text-transform: uppercase;
       letter-spacing: 0.15em;
     }
 
     /* Section content paragraphs */
     section p {
-      max-width: 700px;
-      font-size: 1.15rem;
+      max-width: 750px;
+      font-size: 1.2rem;
       font-weight: 300;
       color: #ddd;
-      line-height: 1.6;
+      line-height: 1.7;
       margin: 0 auto;
     }
 
-    /* Cards for Experience */
+    /* Cards container */
     .cards-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 2rem;
-      max-width: 960px;
+      max-width: 980px;
       margin: 0 auto;
     }
     .card {
       background: #111;
-      border-radius: 12px;
-      box-shadow: 0 4px 25px rgba(224,14,82,0.5);
+      border-radius: 14px;
+      box-shadow: 0 6px 30px rgba(255, 41, 117, 0.6);
       padding: 2rem;
-      flex: 1 1 300px;
-      max-width: 350px;
+      flex: 1 1 320px;
+      max-width: 380px;
       color: #eee;
       font-weight: 400;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: default;
+      text-align: left;
     }
     .card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 8px 40px #ff2975cc;
+      box-shadow: 0 10px 50px #ff2975cc;
     }
     .card h5 {
       font-family: 'Montserrat', sans-serif;
@@ -204,40 +204,88 @@
       color: #ff2975;
       margin-bottom: 0.5rem;
       text-transform: uppercase;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
     .card p {
       font-weight: 300;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: #ddd;
     }
     .card em {
       color: #ff6380;
       font-weight: 600;
       font-style: normal;
-      font-size: 0.95rem;
+      font-size: 1rem;
+    }
+
+    /* Education & Experience Items with images */
+    .education-item, .experience-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 900px;
+      background: #111;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(255, 41, 117, 0.5);
+      transition: box-shadow 0.3s ease;
+    }
+    .education-item:hover, .experience-card:hover {
+      box-shadow: 0 8px 30px #ff2975cc;
+    }
+    .education-item img, .experience-card img {
+      width: 100px;
+      height: auto;
+      border-radius: 8px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .education-item div, .experience-content {
+      text-align: left;
+    }
+    .education-item h3, .experience-content h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #ff2975;
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+    }
+    .education-item p, .experience-content p {
+      font-weight: 300;
+      color: #ddd;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+    .experience-content ul {
+      list-style: disc inside;
+      margin-top: 0.3rem;
+      color: #ccc;
+      font-size: 1rem;
     }
 
     /* Buttons inside other sections */
     .btn-center {
-      margin-top: 2rem;
+      margin-top: 3rem;
       text-align: center;
     }
     .btn-center a {
       background: #ff2975;
       color: white;
-      padding: 0.85rem 3rem;
-      border-radius: 40px;
+      padding: 1rem 3.5rem;
+      border-radius: 50px;
       font-weight: 700;
+      font-size: 1.1rem;
       text-decoration: none;
-      box-shadow: 0 0 15px #ff2975bb;
+      box-shadow: 0 0 20px #ff2975bb;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       user-select: none;
     }
     .btn-center a:hover,
     .btn-center a:focus {
       background: #e00e52;
-      box-shadow: 0 0 30px #e00e52cc;
+      box-shadow: 0 0 35px #e00e52cc;
     }
 
     /* Footer */
@@ -247,29 +295,56 @@
       padding: 2rem 1rem;
       font-weight: 300;
       color: #555;
-      font-size: 0.9rem;
+      font-size: 1rem;
       letter-spacing: 0.05em;
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+      section {
+        padding: 2rem 1.5rem;
+      }
       #hero h1 {
-        font-size: 2.8rem;
+        font-size: 3rem;
       }
       #hero p {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
       nav {
-        padding: 1rem 1.5rem;
+        padding: 1rem 2rem;
       }
       nav ul {
-        gap: 1rem;
+        gap: 1.2rem;
       }
       section h2 {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
+      }
+      .card, .education-item, .experience-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .education-item img, .experience-card img {
+        width: 70px;
+        margin-bottom: 1rem;
+      }
+      .education-item div, .experience-content {
+        text-align: center;
       }
       .card {
         max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #hero h1 {
+        font-size: 2.2rem;
+      }
+      #hero p {
+        font-size: 1.1rem;
+      }
+      nav ul {
+        display: none; /* For very small screens */
       }
     }
   </style>
@@ -316,33 +391,78 @@
 
   <section id="education" aria-labelledby="education-title">
     <h2 id="education-title">Education</h2>
-    <p><strong>BSc Physics:</strong> King’s College London (2024 – 2027), 1st Class Predicted.<br />
-      Relevant Coursework: Mathematics & Computation for Physics, Classical Physics, Modern Physics, Astrophysics.
-    </p>
-    <p><strong>MEng Computer Science:</strong> University College London (2021 – 2023).<br />
-      Relevant Coursework: Programming (C, Java, Haskell), Algorithms, AI, Discrete Mathematics, Engineering Challenges (Arduino, Python).
-    </p>
-    <p><strong>A Levels:</strong> Royal Grammar School Newcastle (2019) — A* in Mathematics, Further Mathematics, and Physics.</p>
+
+    <div class="education-item">
+      <img src="images/KCL.png" alt="King's College London Logo" />
+      <div>
+        <h3>BSc Physics</h3>
+        <p><strong>King’s College London</strong>, London, United Kingdom</p>
+        <p><em>2024 – 2027</em> | 1st Class Predicted</p>
+        <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
+      </div>
+    </div>
+
+    <div class="education-item">
+      <img src="images/UCL.png" alt="University College London Logo" />
+      <div>
+        <h3>MEng Computer Science</h3>
+        <p><strong>University College London</strong>, London, United Kingdom</p>
+        <p><em>2021 – 2023</em></p>
+        <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
+      </div>
+    </div>
+
+    <div class="education-item">
+      <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo" />
+      <div>
+        <h3>A Levels</h3>
+        <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
+        <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
+        <p><strong>GCSE:</strong> 7 A*s and 4 As including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
+      </div>
+    </div>
   </section>
 
   <section id="experience" aria-labelledby="experience-title">
     <h2 id="experience-title">Experience</h2>
+
     <div class="cards-container">
-      <article class="card" tabindex="0">
-        <h5>Computational Physics Researcher</h5>
-        <p><em>King’s College London (June 2025 - Present)</em></p>
-        <p>Conducting computational physics research under Professor Samjid Mannan, focusing on advanced simulations and machine learning applications.</p>
-      </article>
-      <article class="card" tabindex="0">
-        <h5>Data Science Intern</h5>
-        <p><em>NHS Digital, Leeds (Nov 2019)</em></p>
-        <p>Designed and implemented an NLP model to predict ICD9 codes using Python, Word2Vec embeddings, t-SNE, and LSTM neural networks, advancing clinical informatics.</p>
-      </article>
-      <article class="card" tabindex="0">
-        <h5>Research Intern</h5>
-        <p><em>Kennedy Institute of Rheumatology, Oxford (Nov 2019)</em></p>
-        <p>Worked on neural network architectures and TensorFlow projects, including image classification and developing an LSTM-based cryptocurrency trading bot.</p>
-      </article>
+      <div class="experience-card">
+        <img src="images/KCLResearch.png" alt="King's College London Research" />
+        <div class="experience-content">
+          <h3>Computational Physics Researcher</h3>
+          <p><em>King’s College London (June 2025 - Present)</em></p>
+          <p>Working on a computational physics project with Professor Samjid Mannan, focusing on advanced simulations and machine learning applications.</p>
+        </div>
+      </div>
+
+      <div class="experience-card">
+        <img src="images/NHS.png" alt="NHS Digital Logo" />
+        <div class="experience-content">
+          <h3>Data Science Intern</h3>
+          <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
+          <p><em>November 2019</em></p>
+          <ul>
+            <li>Designed and implemented a Natural Language Processing model to predict ICD9 codes using Python.</li>
+            <li>Employed Word2Vec for embedding generation, t-SNE for dimensionality reduction, and an LSTM neural network for prognostic predictions based on patient data.</li>
+            <li>Contributed to advancing clinical informatics by exploring deep learning applications in healthcare.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="experience-card">
+        <img src="images/Kennedy.png" alt="Kennedy Institute Logo" />
+        <div class="experience-content">
+          <h3>Research Intern</h3>
+          <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
+          <p><em>November 2019</em></p>
+          <ul>
+            <li>Assisted in projects focusing on neural network architectures and TensorFlow implementations.</li>
+            <li>Conducted experiments in image classification and digit recognition using standard datasets (e.g., MNIST).</li>
+            <li>Developed an LSTM-based trading bot to explore algorithmic decision-making, demonstrating proficiency in time-series analysis.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -358,14 +478,63 @@
 
   <section id="projects" aria-labelledby="projects-title">
     <h2 id="projects-title">Projects</h2>
-    <p>
-      Developed an end-to-end NLP pipeline for healthcare diagnosis prediction, a cryptocurrency trading app using Flask and deep learning,
-      and engineered a blockchain-based cryptocurrency (YoteCoin). Created interactive applications such as iPong and DabCounter for Apple Watch
-      using Swift and CoreML. Implemented AI agents like TetrisAI using reinforcement learning, developed an Arduino-based bioreactor, and
-      designed an AR Snapchat Lens with over 2.5 million views.
-    </p>
-    <div class="btn-center">
-      <a href="#" aria-label="View detailed projects">View Projects</a>
+    <div class="cards-container">
+
+      <article class="card" tabindex="0">
+        <h5>NLP in Healthcare</h5>
+        <p>Developed an end-to-end Natural Language Processing pipeline using TensorFlow, Matplotlib, and Scikit-learn for predicting patient diagnoses from clinical data. This project utilized word embeddings and deep learning techniques to improve healthcare informatics.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>Cryptocurrency Trading App</h5>
+        <p>Created an automated cryptocurrency trading web application in Python using Flask, integrating deep learning models to predict market trends and execute trades automatically. The app emphasizes real-time data processing and algorithmic decision-making.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>YoteCoin</h5>
+        <p>Engineered a cryptocurrency on the Ethereum smart chain, demonstrating strong skills in blockchain technology, smart contracts, and decentralized finance concepts.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>iPong Game</h5>
+        <p>Designed and developed an iPong game for Apple Watch using Swift and CoreML, integrating real-time machine learning models to adapt gameplay dynamically and enhance user experience.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>DabCounter App</h5>
+        <p>Built an innovative DabCounter app for Apple Watch using Swift and CoreMotion, focusing on precise sensor data processing and interactive user feedback through motion detection.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>Robot Abstraction</h5>
+        <p>Implemented modular robot control techniques in C, focusing on scalable and maintainable robotics programming suitable for complex robotic systems.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>TetrisAI</h5>
+        <p>Developed an AI agent in Python to play Tetris, utilizing algorithmic problem-solving and reinforcement learning strategies to optimize game play.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>AR Snapchat Lens</h5>
+        <p>Created an Augmented Reality Snapchat Lens that achieved over 2.5 million views and 100,000 downloads, combining creative design with technical innovation to deliver engaging user experiences.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>Arduino Bioreactor</h5>
+        <p>Programmed an Arduino-based Bioreactor using C and an ESP32 microcontroller to automate biological experiments, emphasizing precision control and data acquisition in experimental setups.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>GPComm</h5>
+        <p>Developed a web application enabling patients to consult with General Practitioners online, improving healthcare accessibility and communication.</p>
+      </article>
+
+      <article class="card" tabindex="0">
+        <h5>Java CRUD Application</h5>
+        <p>Created a servlet-based CRUD (Create, Read, Update, Delete) system using a model factory design pattern, showcasing proficiency in Java web development and software design principles.</p>
+      </article>
+
     </div>
   </section>
 
@@ -380,7 +549,7 @@
   </section>
 
   <footer>
-    &copy; 2024 Kannan Sekar Annu Radha
+    &copy; 2025 Kannan Sekar Annu Radha
   </footer>
 
 </body>
