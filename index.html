@@ -1,214 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kannan Sekar Annu Radha</title>
-    <!-- Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <!-- Material Components Web CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
-    />
-    <!-- Roboto font -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-      body {
-        font-family: 'Roboto', sans-serif;
-        margin: 0;
-      }
-      /* Layout styles */
-      .mdc-top-app-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-      }
-      .main-content {
-        padding-top: 64px;
-        padding: 20px;
-      }
-      /* Card customization */
-      .mdc-card {
-        margin: 20px auto;
-        max-width: 800px;
-      }
-      .section-title {
-        margin: 0;
-        padding: 16px;
-        background: #3f51b5;
-        color: white;
-      }
-      .section-content {
-        padding: 16px;
-      }
-      /* Floating Action Button */
-      .mdc-fab {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-      }
+        :root {
+            --primary-color: #3F51B5;  /* Material Indigo 500 */
+            --secondary-color: #FF4081;  /* Material Pink A200 */
+            --background-color: #FAFAFA;
+            --surface-color: #FFFFFF;
+            --on-primary: #FFFFFF;
+            --on-secondary: #000000;
+            --on-surface: #212121;
+            --divider-color: #BDBDBD;
+            --font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--on-surface);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Material Design Typography */
+        h1 { font-size: 3.5rem; font-weight: 400; }
+        h2 { font-size: 2.5rem; font-weight: 500; }
+        h3 { font-size: 1.5rem; font-weight: 500; }
+        .body-1 { font-size: 1rem; font-weight: 400; }
+        .body-2 { font-size: 0.875rem; font-weight: 400; }
+
+        /* Header Section */
+        header {
+            background-color: var(--primary-color);
+            color: var(--on-primary);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        /* Material Card */
+        .mdc-card {
+            background-color: var(--surface-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 16px;
+            padding: 24px;
+            transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mdc-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        /* Navigation */
+        .mdc-top-app-bar {
+            background-color: var(--primary-color);
+            color: var(--on-primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .mdc-tab-bar {
+            display: flex;
+            justify-content: center;
+            padding: 0 16px;
+        }
+
+        .mdc-tab {
+            padding: 20px 24px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .mdc-tab:hover {
+            opacity: 1;
+        }
+
+        /* Material Buttons */
+        .mdc-button {
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mdc-button--raised {
+            background-color: var(--primary-color);
+            color: var(--on-primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .mdc-button--raised:hover {
+            background-color: #303F9F;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Grid System */
+        .mdc-layout-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .mdc-layout-grid__cell {
+            grid-column-end: span 12;
+        }
+
+        @media (min-width: 600px) {
+            .mdc-layout-grid__cell--span-6 {
+                grid-column-end: span 6;
+            }
+        }
+
+        /* Experience Cards */
+        .experience-card {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .experience-card__icon {
+            color: var(--secondary-color);
+            margin-right: 24px;
+        }
+
+        /* Projects Grid */
+        .mdc-image-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .mdc-image-list__item {
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .mdc-image-list__image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Material Icons */
+        .material-icons {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 600px) {
+            .mdc-tab-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .mdc-tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
-  </head>
-  <body class="mdc-typography">
-    <!-- Top App Bar -->
-    <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
-      <div class="mdc-top-app-bar__row">
-        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-          <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-          <span class="mdc-top-app-bar__title">Kannan Sekar Annu Radha</span>
-        </section>
-        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-          <nav class="mdc-tab-bar" role="navigation">
-            <a href="#about" class="mdc-tab mdc-tab--active">
-              <span class="mdc-tab__content">
-                <span class="mdc-tab__text-label">About</span>
-              </span>
-              <span class="mdc-tab-indicator mdc-tab-indicator--active">
-                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-              </span>
-            </a>
-            <a href="#education" class="mdc-tab">
-              <span class="mdc-tab__content">
-                <span class="mdc-tab__text-label">Education</span>
-              </span>
-              <span class="mdc-tab-indicator">
-                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-              </span>
-            </a>
-            <a href="#experience" class="mdc-tab">
-              <span class="mdc-tab__content">
-                <span class="mdc-tab__text-label">Experience</span>
-              </span>
-              <span class="mdc-tab-indicator">
-                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-              </span>
-            </a>
-          </nav>
-        </section>
-      </div>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Kannan Sekar Annu Radha</h1>
+        <p class="body-1">Physics Student at King’s College London</p>
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__cell">
+                <button class="mdc-button mdc-button--raised">
+                    <i class="material-icons">email</i>
+                    Email Me
+                </button>
+                <button class="mdc-button mdc-button--raised">
+                    <i class="material-icons">people</i>
+                    LinkedIn
+                </button>
+                <button class="mdc-button mdc-button--raised">
+                    <i class="material-icons">code</i>
+                    GitHub
+                </button>
+            </div>
+        </div>
     </header>
 
+    <!-- Navigation -->
+    <nav class="mdc-top-app-bar">
+        <div class="mdc-tab-bar">
+            <div class="mdc-tab"><i class="material-icons">person</i>About</div>
+            <div class="mdc-tab"><i class="material-icons">school</i>Education</div>
+            <div class="mdc-tab"><i class="material-icons">work</i>Experience</div>
+            <div class="mdc-tab"><i class="material-icons">build</i>Skills</div>
+            <div class="mdc-tab"><i class="material-icons">code</i>Projects</div>
+        </div>
+    </nav>
+
     <!-- Main Content -->
-    <main class="main-content">
-      <!-- About Section -->
-      <section id="about">
-        <div class="mdc-card">
-          <h2 class="section-title">About Me</h2>
-          <div class="section-content">
-            <p>
-              Passionate Physics student with a strong background in Computer Science.
-              Experienced in developing machine learning models and building innovative
-              software solutions.
-            </p>
-            <!-- Interactive Buttons with MDC Ripple -->
-            <div class="mdc-layout-grid">
-              <div class="mdc-layout-grid__inner">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
-                  <button class="mdc-button mdc-button--raised mdc-ripple-upgraded" onclick="window.location.href='mailto:kannansekara@gmail.com'">
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">email</i>
-                    <span class="mdc-button__label">Email</span>
-                  </button>
-                </div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
-                  <button class="mdc-button mdc-button--raised mdc-ripple-upgraded" onclick="window.open('https://linkedin.com/in/kannan-sekar/', '_blank')">
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">person</i>
-                    <span class="mdc-button__label">LinkedIn</span>
-                  </button>
-                </div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
-                  <button class="mdc-button mdc-button--raised mdc-ripple-upgraded" onclick="window.open('https://github.com/KannanSA', '_blank')">
-                    <i class="material-icons mdc-button__icon" aria-hidden="true">code</i>
-                    <span class="mdc-button__label">GitHub</span>
-                  </button>
-                </div>
-              </div>
+    <main class="mdc-layout-grid">
+        <!-- About Section -->
+        <section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+            <div class="mdc-card">
+                <h2><i class="material-icons">info</i>About Me</h2>
+                <p class="body-1">Passionate Physics student with strong Computer Science background...</p>
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Education Section -->
-      <section id="education">
-        <div class="mdc-card">
-          <h2 class="section-title">Education</h2>
-          <div class="section-content">
-            <h3>King’s College London</h3>
-            <p>BSc Physics (2024 – 2027) – 1st Class Predicted</p>
-            <p>Relevant Coursework: Mathematics &amp; Computation for Physics, Classical Physics, Modern Physics, and Astrophysics.</p>
-            <hr />
-            <h3>University College London</h3>
-            <p>MEng Computer Science (2021 – 2023)</p>
-            <p>Relevant Coursework: Object-Oriented Programming, Algorithms, Data Structures, etc.</p>
-            <hr />
-            <h3>Royal Grammar School Newcastle</h3>
-            <p>A Levels: A* Mathematics, A* Further Mathematics, A* Physics</p>
-          </div>
-        </div>
-      </section>
+        <!-- Education Section -->
+        <section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+            <div class="mdc-card">
+                <h2><i class="material-icons">school</i>Education</h2>
+                <div class="experience-card">
+                    <i class="material-icons experience-card__icon">book</i>
+                    <div>
+                        <h3>BSc Physics</h3>
+                        <p class="body-1">King’s College London</p>
+                        <p class="body-2">2024 – 2027 | 1st Class Predicted</p>
+                    </div>
+                </div>
+                <!-- Add more education items -->
+            </div>
+        </section>
 
-      <!-- Experience Section -->
-      <section id="experience">
-        <div class="mdc-card">
-          <h2 class="section-title">Work Experience</h2>
-          <div class="section-content">
-            <h3>NHS Digital</h3>
-            <p>Data Science Intern (November 2019)</p>
-            <ul>
-              <li>
-                Developed an NLP project in Python leveraging Word2Vec, TSNE, and LSTM.
-              </li>
-            </ul>
-            <hr />
-            <h3>Kennedy Institute of Rheumatology</h3>
-            <p>Intern (November 2019)</p>
-            <ul>
-              <li>Assisted with neural network experiments using TensorFlow.</li>
-              <li>Contributed to image and digit classification projects.</li>
-              <li>Developed an LSTM-based cryptocurrency trading bot.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        <!-- Projects Section -->
+        <section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+            <div class="mdc-card">
+                <h2><i class="material-icons">code</i>Projects</h2>
+                <div class="mdc-image-list">
+                    <div class="mdc-image-list__item">
+                        <img class="mdc-image-list__image" src="images/NHS.png" alt="NLP Project">
+                        <div class="mdc-card">
+                            <h3>NLP Project</h3>
+                            <p class="body-1">Natural Language Processing project using TensorFlow...</p>
+                        </div>
+                    </div>
+                    <!-- Add more project items -->
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Floating Action Button for Snackbar demo -->
-    <button class="mdc-fab mdc-fab--extended" id="show-snackbar-button">
-      <span class="mdc-fab__icon material-icons">info</span>
-      <span class="mdc-fab__label">Show Message</span>
-    </button>
-
-    <!-- Snackbar Component -->
-    <div class="mdc-snackbar"
-         id="mdc-snackbar">
-      <div class="mdc-snackbar__surface">
-        <div class="mdc-snackbar__label" role="status" aria-live="polite">
-          This is an interactive snackbar message!
-        </div>
-        <div class="mdc-snackbar__actions">
-          <button type="button" class="mdc-button mdc-snackbar__action">
-            <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__label">Dismiss</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Material Components Web JavaScript -->
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <script>
-      // Initialize all MDC components
-      mdc.autoInit();
-
-      // Snackbar functionality
-      const snackbar = new mdc.snackbar.MDCSnackbar(document.getElementById('mdc-snackbar'));
-      document.getElementById('show-snackbar-button').addEventListener('click', function() {
-        snackbar.open();
-      });
-    </script>
-  </body>
+    <footer class="mdc-card">
+        <p class="body-2" style="text-align: center;">&copy; 2024 Kannan Sekar Annu Radha</p>
+    </footer>
+</body>
 </html>
