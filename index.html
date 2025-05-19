@@ -1,177 +1,214 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kannan Sekar Annu Radha</title>
-
-  <!-- Roboto font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- Material Web core CSS -->
-  <link href="https://unpkg.com/@material/web@latest/dist/mdc.bundle.css" rel="stylesheet">
-  <!-- Your custom theme & layout -->
-  <link href="styles.css" rel="stylesheet">
-</head>
-
-<body class="md3-theme-light">
-  <!-- Modal drawer -->
-  <aside class="md3-drawer md3-drawer--modal md3-elevation-3">
-    <div class="md3-drawer__header">
-      <h3 class="md3-typescale-headline-medium">Menu</h3>
-    </div>
-    <nav class="md3-drawer__content">
-      <ul class="md3-list">
-        <li class="md3-list-item"><a href="#about">About</a></li>
-        <li class="md3-list-item"><a href="#education">Education</a></li>
-        <li class="md3-list-item"><a href="#experience">Experience</a></li>
-        <li class="md3-list-item"><a href="#skills">Skills</a></li>
-        <li class="md3-list-item"><a href="#projects">Projects</a></li>
-        <li class="md3-list-item"><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </aside>
-
-  <!-- App content wrapper (so drawer pushes it) -->
-  <div class="md3-drawer-app-content">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kannan Sekar Annu Radha</title>
+    <!-- Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <!-- Material Components Web CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
+    />
+    <!-- Roboto font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+      }
+      /* Layout styles */
+      .mdc-top-app-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+      .main-content {
+        padding-top: 64px;
+        padding: 20px;
+      }
+      /* Card customization */
+      .mdc-card {
+        margin: 20px auto;
+        max-width: 800px;
+      }
+      .section-title {
+        margin: 0;
+        padding: 16px;
+        background: #3f51b5;
+        color: white;
+      }
+      .section-content {
+        padding: 16px;
+      }
+      /* Floating Action Button */
+      .mdc-fab {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+      }
+    </style>
+  </head>
+  <body class="mdc-typography">
     <!-- Top App Bar -->
-    <header class="md3-top-app-bar md3-top-app-bar--center-aligned md3-elevation-3">
-      <div class="md3-top-app-bar__row">
-        <section class="md3-top-app-bar__section md3-top-app-bar__section--align-start">
-          <button id="menu-btn" class="md3-icon-button material-icons">menu</button>
+    <header class="mdc-top-app-bar mdc-top-app-bar--fixed">
+      <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+          <span class="mdc-top-app-bar__title">Kannan Sekar Annu Radha</span>
         </section>
-        <section class="md3-top-app-bar__section md3-top-app-bar__section--align-center">
-          <span class="md3-top-app-bar__title">Kannan Sekar Annu Radha</span>
-        </section>
-        <section class="md3-top-app-bar__section md3-top-app-bar__section--align-end">
-          <button class="md3-icon-button material-icons">account_circle</button>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+          <nav class="mdc-tab-bar" role="navigation">
+            <a href="#about" class="mdc-tab mdc-tab--active">
+              <span class="mdc-tab__content">
+                <span class="mdc-tab__text-label">About</span>
+              </span>
+              <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              </span>
+            </a>
+            <a href="#education" class="mdc-tab">
+              <span class="mdc-tab__content">
+                <span class="mdc-tab__text-label">Education</span>
+              </span>
+              <span class="mdc-tab-indicator">
+                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              </span>
+            </a>
+            <a href="#experience" class="mdc-tab">
+              <span class="mdc-tab__content">
+                <span class="mdc-tab__text-label">Experience</span>
+              </span>
+              <span class="mdc-tab-indicator">
+                <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              </span>
+            </a>
+          </nav>
         </section>
       </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-      <!-- About -->
-      <section id="about" class="section">
-        <h2 class="md3-typescale-headline-medium">About Me</h2>
-        <p class="md3-typescale-body-medium">
-          Passionate Physics student with a background in Computer Science, experienced in ML, NLP, and software development.
-        </p>
-      </section>
-
-      <!-- Education -->
-      <section id="education" class="section">
-        <h2 class="md3-typescale-headline-medium">Education</h2>
-        <div class="grid">
-          <md3-card class="card md3-elevation-1">
-            <md3-card-primary-action>
-              <div class="md3-card__content">
-                <h3 class="md3-typescale-title-large">BSc Physics</h3>
-                <p class="md3-typescale-body-medium"><strong>King’s College London</strong>, London, UK</p>
-                <p class="md3-typescale-body-small"><em>2024 – 2027 (1st Class Predicted)</em></p>
+      <!-- About Section -->
+      <section id="about">
+        <div class="mdc-card">
+          <h2 class="section-title">About Me</h2>
+          <div class="section-content">
+            <p>
+              Passionate Physics student with a strong background in Computer Science.
+              Experienced in developing machine learning models and building innovative
+              software solutions.
+            </p>
+            <!-- Interactive Buttons with MDC Ripple -->
+            <div class="mdc-layout-grid">
+              <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+                  <button class="mdc-button mdc-button--raised mdc-ripple-upgraded" onclick="window.location.href='mailto:kannansekara@gmail.com'">
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">email</i>
+                    <span class="mdc-button__label">Email</span>
+                  </button>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+                  <button class="mdc-button mdc-button--raised mdc-ripple-upgraded" onclick="window.open('https://linkedin.com/in/kannan-sekar/', '_blank')">
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">person</i>
+                    <span class="mdc-button__label">LinkedIn</span>
+                  </button>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4">
+                  <button class="mdc-button mdc-button--raised mdc-ripple-upgraded" onclick="window.open('https://github.com/KannanSA', '_blank')">
+                    <i class="material-icons mdc-button__icon" aria-hidden="true">code</i>
+                    <span class="mdc-button__label">GitHub</span>
+                  </button>
+                </div>
               </div>
-            </md3-card-primary-action>
-          </md3-card>
-          <md3-card class="card md3-elevation-1">
-            <md3-card-primary-action>
-              <div class="md3-card__content">
-                <h3 class="md3-typescale-title-large">MEng Computer Science</h3>
-                <p class="md3-typescale-body-medium"><strong>UCL</strong>, London, UK</p>
-                <p class="md3-typescale-body-small"><em>2022 – 2026</em></p>
-              </div>
-            </md3-card-primary-action>
-          </md3-card>
-          <md3-card class="card md3-elevation-1">
-            <md3-card-primary-action>
-              <div class="md3-card__content">
-                <h3 class="md3-typescale-title-large">A-Levels</h3>
-                <p class="md3-typescale-body-medium"><strong>RGS</strong>, UK</p>
-                <p class="md3-typescale-body-small"><em>2019 – 2021 (A*, A*, A)</em></p>
-              </div>
-            </md3-card-primary-action>
-          </md3-card>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Work Experience -->
-      <section id="experience" class="section">
-        <h2 class="md3-typescale-headline-medium">Work Experience</h2>
-        <div class="grid">
-          <md3-card class="card md3-elevation-1">
-            <md3-card-primary-action>
-              <div class="md3-card__content">
-                <h3 class="md3-typescale-title-large">Data Science Intern</h3>
-                <p class="md3-typescale-body-medium"><strong>NHS Digital</strong>, Leeds, UK</p>
-                <p class="md3-typescale-body-small">Nov 2019</p>
-              </div>
-            </md3-card-primary-action>
-          </md3-card>
-          <md3-card class="card md3-elevation-1">
-            <md3-card-primary-action>
-              <div class="md3-card__content">
-                <h3 class="md3-typescale-title-large">Intern</h3>
-                <p class="md3-typescale-body-medium"><strong>Kennedy Institute of Rheumatology</strong>, Oxford, UK</p>
-                <p class="md3-typescale-body-small">Nov 2019</p>
-              </div>
-            </md3-card-primary-action>
-          </md3-card>
+      <!-- Education Section -->
+      <section id="education">
+        <div class="mdc-card">
+          <h2 class="section-title">Education</h2>
+          <div class="section-content">
+            <h3>King’s College London</h3>
+            <p>BSc Physics (2024 – 2027) – 1st Class Predicted</p>
+            <p>Relevant Coursework: Mathematics &amp; Computation for Physics, Classical Physics, Modern Physics, and Astrophysics.</p>
+            <hr />
+            <h3>University College London</h3>
+            <p>MEng Computer Science (2021 – 2023)</p>
+            <p>Relevant Coursework: Object-Oriented Programming, Algorithms, Data Structures, etc.</p>
+            <hr />
+            <h3>Royal Grammar School Newcastle</h3>
+            <p>A Levels: A* Mathematics, A* Further Mathematics, A* Physics</p>
+          </div>
         </div>
       </section>
 
-      <!-- Skills & Interests -->
-      <section id="skills" class="section">
-        <h2 class="md3-typescale-headline-medium">Skills & Interests</h2>
-        <div class="grid">
-          <div class="chip md3-elevation-1">Python</div>
-          <div class="chip md3-elevation-1">C / C++</div>
-          <div class="chip md3-elevation-1">Java</div>
-          <div class="chip md3-elevation-1">Haskell</div>
-          <div class="chip md3-elevation-1">Swift</div>
-          <div class="chip md3-elevation-1">TensorFlow</div>
-          <div class="chip md3-elevation-1">Flask</div>
-          <div class="chip md3-elevation-1">ML & NLP</div>
+      <!-- Experience Section -->
+      <section id="experience">
+        <div class="mdc-card">
+          <h2 class="section-title">Work Experience</h2>
+          <div class="section-content">
+            <h3>NHS Digital</h3>
+            <p>Data Science Intern (November 2019)</p>
+            <ul>
+              <li>
+                Developed an NLP project in Python leveraging Word2Vec, TSNE, and LSTM.
+              </li>
+            </ul>
+            <hr />
+            <h3>Kennedy Institute of Rheumatology</h3>
+            <p>Intern (November 2019)</p>
+            <ul>
+              <li>Assisted with neural network experiments using TensorFlow.</li>
+              <li>Contributed to image and digit classification projects.</li>
+              <li>Developed an LSTM-based cryptocurrency trading bot.</li>
+            </ul>
+          </div>
         </div>
-      </section>
-
-      <!-- Projects -->
-      <section id="projects" class="section">
-        <h2 class="md3-typescale-headline-medium">Projects</h2>
-        <div class="grid">
-          <md3-card class="card project-card md3-elevation-2">
-            <md3-card-primary-action>
-              <img slot="media" src="images/NHS.png" alt="NLP Project" class="project-img"/>
-              <div class="md3-card__content">
-                <h3 class="md3-typescale-title-large">NLP Project at NHS</h3>
-                <p class="md3-typescale-body-medium">Predict ICD-9 codes using LSTM networks.</p>
-                <md-filled-button href="https://github.com/KannanSA/NLPK">View on GitHub</md-filled-button>
-              </div>
-            </md3-card-primary-action>
-          </md3-card>
-          <!-- add more project cards here -->
-        </div>
-      </section>
-
-      <!-- Contact -->
-      <section id="contact" class="section contact-buttons">
-        <md-filled-button>✉️ Email</md-filled-button>
-        <md-outlined-button>🔗 LinkedIn</md-outlined-button>
-        <md-outlined-button>🐙 GitHub</md-outlined-button>
-        <md-filled-button>📄 Resume</md-filled-button>
       </section>
     </main>
-  </div>
 
-  <!-- Material Web JS bundle -->
-  <script type="module" src="https://unpkg.com/@material/web@latest/dist/mdc.bundle.js"></script>
-  <script>
-    // Initialize App Bar & Drawer
-    import {MDCTopAppBar} from 'https://unpkg.com/@material/web@latest/top-app-bar/top-app-bar.js';
-    import {MDCModalDrawer} from 'https://unpkg.com/@material/web@latest/drawer/modal-drawer.js';
-    const topAppBar = new MDCTopAppBar(document.querySelector('.md3-top-app-bar'));
-    const drawer   = new MDCModalDrawer(document.querySelector('.md3-drawer'));
-    document.getElementById('menu-btn').addEventListener('click', () => {
-      drawer.open = true;
-    });
-  </script>
-</body>
+    <!-- Floating Action Button for Snackbar demo -->
+    <button class="mdc-fab mdc-fab--extended" id="show-snackbar-button">
+      <span class="mdc-fab__icon material-icons">info</span>
+      <span class="mdc-fab__label">Show Message</span>
+    </button>
+
+    <!-- Snackbar Component -->
+    <div class="mdc-snackbar"
+         id="mdc-snackbar">
+      <div class="mdc-snackbar__surface">
+        <div class="mdc-snackbar__label" role="status" aria-live="polite">
+          This is an interactive snackbar message!
+        </div>
+        <div class="mdc-snackbar__actions">
+          <button type="button" class="mdc-button mdc-snackbar__action">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">Dismiss</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Material Components Web JavaScript -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script>
+      // Initialize all MDC components
+      mdc.autoInit();
+
+      // Snackbar functionality
+      const snackbar = new mdc.snackbar.MDCSnackbar(document.getElementById('mdc-snackbar'));
+      document.getElementById('show-snackbar-button').addEventListener('click', function() {
+        snackbar.open();
+      });
+    </script>
+  </body>
 </html>
