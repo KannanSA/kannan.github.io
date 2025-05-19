@@ -2,169 +2,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Kannan Sekar Annu Radha</title>
 
-  <!-- Material Web core CSS -->
-  <link href="https://unpkg.com/@material/web@latest/dist/mdc.bundle.css" rel="stylesheet">
-  <!-- Your custom theme & layout -->
-  <link href="styles.css" rel="stylesheet">
+  <!-- Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
 
-  <!-- Dynamic Material You theming -->
+  <!-- Material Web core CSS -->
+  <link href="https://unpkg.com/@material/web@latest/dist/mdc.bundle.css" rel="stylesheet"/>
+
+  <!-- Your expressive theme & layout -->
+  <link href="styles.css" rel="stylesheet"/>
+
+  <!-- Dynamic M3 Expressive theming -->
   <script type="module">
     import {applyTheme} from 'https://unpkg.com/@material/web@latest/dynamic-color/index.js';
-    applyTheme();
+    // pass expressive flag to get richer tonal palettes
+    applyTheme({expressive: true});
   </script>
 </head>
 <body>
-  <!-- Modal drawer for navigation -->
-  <aside class="md3-drawer md3-drawer--modal">
-    <div class="md3-drawer__header p-3">
-      <h3 class="md3-typescale-headline-medium">Menu</h3>
+  <!-- Modal drawer -->
+  <aside class="md3-drawer md3-drawer--modal drawer-elev">
+    <div class="md3-drawer__header header-container">
+      <h3 class="md3-typescale-title-large">Menu</h3>
     </div>
-    <nav class="md3-drawer__content">
-      <ul class="md3-list p-2">
+    <nav class="md3-drawer__content nav-container">
+      <ul class="md3-list">
         <li class="md3-list-item"><a href="#about">About</a></li>
         <li class="md3-list-item"><a href="#education">Education</a></li>
-        <li class="md3-list-item"><a href="#experience">Work Experience</a></li>
-        <li class="md3-list-item"><a href="#skills">Technical Skills</a></li>
-        <li class="md3-list-item"><a href="#interests">Skills & Interests</a></li>
+        <li class="md3-list-item"><a href="#experience">Experience</a></li>
+        <li class="md3-list-item"><a href="#skills">Skills</a></li>
         <li class="md3-list-item"><a href="#projects">Projects</a></li>
+        <li class="md3-list-item"><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </aside>
 
-  <!-- Top App Bar -->
-  <header class="md3-top-app-bar md3-top-app-bar--center-aligned md-elevation-2">
-    <div class="md3-top-app-bar__row p-2">
-      <section class="md3-top-app-bar__section md3-top-app-bar__section--align-start">
-        <button id="menu-btn" class="md3-icon-button material-icons">menu</button>
+  <div class="md3-drawer-app-content">
+    <!-- Top App Bar -->
+    <header class="md3-top-app-bar topbar-elev">
+      <div class="md3-top-app-bar__row bar-container">
+        <section class="md3-top-app-bar__section md3-top-app-bar__section--align-start">
+          <button id="menu-btn" class="md3-icon-button material-icons">menu</button>
+        </section>
+        <section class="md3-top-app-bar__section md3-top-app-bar__section--align-center">
+          <span class="md3-top-app-bar__title">Kannan Sekar Annu Radha</span>
+        </section>
+        <section class="md3-top-app-bar__section md3-top-app-bar__section--align-end">
+          <button class="md3-icon-button material-icons">account_circle</button>
+        </section>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="app-content">
+      <!-- About / Hero -->
+      <section id="about" class="section hero">
+        <h1 class="hero-title">Kannan Sekar<br/>Annu Radha</h1>
+        <p class="hero-sub">Physics & CS student obsessed with ML, NLP, and elegant code.</p>
       </section>
-      <section class="md3-top-app-bar__section md3-top-app-bar__section--align-center">
-        <span class="md3-top-app-bar__title">Kannan Sekar Annu Radha</span>
+
+      <!-- Education -->
+      <section id="education" class="section">
+        <h2 class="section-title">Education</h2>
+        <div class="card-grid">
+          <md3-card class="card card-elev">
+            <md3-card-primary-action>
+              <div class="card-content">
+                <h3>BSc Physics</h3>
+                <p><strong>King’s College London</strong>, UK</p>
+                <p><em>2024–2027 (1st Class Predicted)</em></p>
+              </div>
+            </md3-card-primary-action>
+          </md3-card>
+
+          <md3-card class="card card-elev">
+            <md3-card-primary-action>
+              <div class="card-content">
+                <h3>MEng Computer Science</h3>
+                <p><strong>UCL</strong>, UK</p>
+                <p><em>2022–2026</em></p>
+              </div>
+            </md3-card-primary-action>
+          </md3-card>
+
+          <md3-card class="card card-elev">
+            <md3-card-primary-action>
+              <div class="card-content">
+                <h3>A-Levels</h3>
+                <p><strong>RGS</strong>, UK</p>
+                <p><em>2019–2021 (A*, A*, A)</em></p>
+              </div>
+            </md3-card-primary-action>
+          </md3-card>
+        </div>
       </section>
-      <section class="md3-top-app-bar__section md3-top-app-bar__section--align-end">
-        <button class="md3-icon-button material-icons">account_circle</button>
+
+      <!-- Work Experience -->
+      <section id="experience" class="section">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="card-grid">
+          <md3-card class="card card-elev">
+            <md3-card-primary-action>
+              <div class="card-content">
+                <h3>Data Science Intern</h3>
+                <p><strong>NHS Digital</strong>, Leeds</p>
+                <p>Nov 2019</p>
+              </div>
+            </md3-card-primary-action>
+          </md3-card>
+
+          <md3-card class="card card-elev">
+            <md3-card-primary-action>
+              <div class="card-content">
+                <h3>Intern</h3>
+                <p><strong>Kennedy Inst. of Rheumatology</strong>, Oxford</p>
+                <p>Nov 2019</p>
+              </div>
+            </md3-card-primary-action>
+          </md3-card>
+        </div>
       </section>
-    </div>
-  </header>
 
-  <!-- Main content -->
-  <main class="md3-surface app-container md-elevation-1">
-    <!-- About -->
-    <section id="about" class="p-3">
-      <h2 class="md3-typescale-headline-medium">About Me</h2>
-      <p class="md3-typescale-body-medium">
-        Passionate Physics student with a background in Computer Science, experienced in ML, NLP, and software development.
-      </p>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="mt-3">
-      <h2 class="md3-typescale-headline-medium">Education</h2>
-      <md3-card class="md-elevation-2 p-3 mt-2">
-        <md3-card-primary-action>
-          <div class="md3-card__content">
-            <h3 class="md3-typescale-title-large">BSc Physics</h3>
-            <p class="md3-typescale-body-medium"><strong>King’s College London</strong>, London, UK</p>
-            <p class="md3-typescale-body-small"><em>2024 – 2027 (1st Class Predicted)</em></p>
-          </div>
-        </md3-card-primary-action>
-      </md3-card>
-      <!-- add more <md3-card> for UCL, A-levels, etc. -->
-    </section>
-
-    <!-- Work Experience -->
-    <section id="experience" class="mt-3">
-      <h2 class="md3-typescale-headline-medium">Work Experience</h2>
-      <div class="card-container mt-2">
-        <md3-card class="md-elevation-2 p-3">
-          <md3-card-primary-action>
-            <div class="md3-card__content">
-              <h3 class="md3-typescale-title-large">Data Science Intern</h3>
-              <p class="md3-typescale-body-medium"><strong>NHS Digital</strong>, Leeds, UK</p>
-              <p class="md3-typescale-body-small">Nov 2019</p>
-            </div>
-          </md3-card-primary-action>
-        </md3-card>
-        <md3-card class="md-elevation-2 p-3">
-          <md3-card-primary-action>
-            <div class="md3-card__content">
-              <h3 class="md3-typescale-title-large">Intern</h3>
-              <p class="md3-typescale-body-medium"><strong>Kennedy Institute of Rheumatology</strong>, Oxford, UK</p>
-              <p class="md3-typescale-body-small">Nov 2019</p>
-            </div>
-          </md3-card-primary-action>
-        </md3-card>
-      </div>
-    </section>
-
-    <!-- Technical Skills -->
-    <section id="skills" class="mt-3">
-      <h2 class="md3-typescale-headline-medium">Technical Skills</h2>
-      <div class="flex-container mt-2">
-        <div class="skill-block p-2 md-elevation-1">
-          <strong>Languages</strong>
-          <p>Python, C, C++, Java, Haskell, Swift</p>
+      <!-- Skills & Interests -->
+      <section id="skills" class="section">
+        <h2 class="section-title">Skills & Interests</h2>
+        <div class="flex-grid">
+          <div class="pill pill-elev">Python</div>
+          <div class="pill pill-elev">C / C++</div>
+          <div class="pill pill-elev">Java</div>
+          <div class="pill pill-elev">Haskell</div>
+          <div class="pill pill-elev">Swift</div>
+          <div class="pill pill-elev">TensorFlow</div>
+          <div class="pill pill-elev">Flask</div>
+          <div class="pill pill-elev">ML & NLP</div>
         </div>
-        <div class="skill-block p-2 md-elevation-1">
-          <strong>Frameworks & Tools</strong>
-          <p>TensorFlow, Flask, Matplotlib, Scikit-learn</p>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="section">
+        <h2 class="section-title">Projects</h2>
+        <div class="card-grid">
+          <md3-card class="card project-elev">
+            <md3-card-primary-action>
+              <img slot="media" src="images/NHS.png" alt="NLP Project" class="proj-img"/>
+              <div class="card-content">
+                <h3>NLP @ NHS</h3>
+                <p>ICD-9 prediction with LSTMs.</p>
+                <md-filled-button href="https://github.com/KannanSA/NLPK" class="action-btn">
+                  View on GitHub
+                </md-filled-button>
+              </div>
+            </md3-card-primary-action>
+          </md3-card>
+          <!-- more project cards -->
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Skills & Interests -->
-    <section id="interests" class="mt-3">
-      <h2 class="md3-typescale-headline-medium">Skills & Interests</h2>
-      <div class="grid-container mt-2">
-        <div class="p-2 md-elevation-1">
-          <strong>Languages</strong>
-          <p>English, Tamil, Spanish</p>
-        </div>
-        <div class="p-2 md-elevation-1">
-          <strong>Interests</strong>
-          <p>AI, ML, Crypto Trading, AR, Game Dev</p>
-        </div>
-      </div>
-    </section>
+      <!-- Contact -->
+      <section id="contact" class="section contact-grid">
+        <md-filled-button class="action-btn">Email Me</md-filled-button>
+        <md-outlined-button class="action-btn">LinkedIn</md-outlined-button>
+        <md-outlined-button class="action-btn">GitHub</md-outlined-button>
+        <md-filled-button class="action-btn">Resume</md-filled-button>
+      </section>
+    </main>
+  </div>
 
-    <!-- Projects -->
-    <section id="projects" class="mt-3">
-      <h2 class="md3-typescale-headline-medium">Projects</h2>
-      <div class="card-container mt-2">
-        <md3-card class="md-elevation-2 p-3">
-          <md3-card-primary-action>
-            <img slot="media" src="images/NHS.png" alt="NLP Project" class="project-media">
-            <div class="md3-card__content">
-              <h3 class="md3-typescale-title-large">NLP Project at NHS</h3>
-              <p class="md3-typescale-body-medium">Predict ICD9 codes using LSTM networks.</p>
-              <md-filled-button href="https://github.com/KannanSA/NLPK">View on GitHub</md-filled-button>
-            </div>
-          </md3-card-primary-action>
-        </md3-card>
-        <!-- more project cards… -->
-      </div>
-    </section>
-
-    <!-- Contact Buttons -->
-    <section class="contact-buttons mt-4 p-2">
-      <md-filled-button class="md-elevation-2" href="mailto:kannansekara@gmail.com">Email</md-filled-button>
-      <md-outlined-button class="md-elevation-2" href="https://linkedin.com/in/kannan-sekar/">LinkedIn</md-outlined-button>
-      <md-outlined-button class="md-elevation-2" href="https://github.com/KannanSA">GitHub</md-outlined-button>
-      <md-filled-button class="md-elevation-2" href="/Resume-Kannan-Sekar.pdf" download>Resume</md-filled-button>
-    </section>
-  </main>
-
-  <!-- Material Web JS bundle -->
+  <!-- Material Web JS -->
   <script type="module" src="https://unpkg.com/@material/web@latest/dist/mdc.bundle.js"></script>
-  <!-- Drawer toggle script -->
   <script>
+    // drawer toggle
     const drawer = document.querySelector('.md3-drawer');
-    document.getElementById('menu-btn').addEventListener('click', () => {
-      drawer.open = true;
-    });
+    document.getElementById('menu-btn')
+      .addEventListener('click', () => drawer.open = true);
   </script>
 </body>
 </html>
