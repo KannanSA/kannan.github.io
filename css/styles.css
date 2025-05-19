@@ -1,51 +1,32 @@
 /* styles.css */
 
-/* ===========
-   Design Tokens
-   =========== */
+/* ============  
+   Design Tokens  
+   ============ */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 :root {
-  /* Dynamic palette placeholders (overridden by applyTheme()) */
-  --dynamic-primary: #6750A4;
-  --dynamic-on-primary: #FFFFFF;
-  --dynamic-secondary: #625B71;
-  --dynamic-on-secondary: #FFFFFF;
-  --dynamic-surface: #FFFBFE;
-  --dynamic-on-surface: #1C1B1F;
-
-  /* Material You roles */
-  --md-sys-color-primary: var(--dynamic-primary);
-  --md-sys-color-on-primary: var(--dynamic-on-primary);
-  --md-sys-color-secondary: var(--dynamic-secondary);
-  --md-sys-color-on-secondary: var(--dynamic-on-secondary);
-  --md-sys-color-surface: var(--dynamic-surface);
-  --md-sys-color-on-surface: var(--dynamic-on-surface);
-
-  /* Shape tokens */
-  --md-sys-shape-corner-extra-small: 4px;
-  --md-sys-shape-corner-small: 8px;
-  --md-sys-shape-corner-medium: 12px;
-  --md-sys-shape-corner-large: 16px;
-
-  /* Spacing (4 dp increments) */
+  /* Font & spacing */
+  --font-body: 'Roboto', sans-serif;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 16px;
   --space-4: 24px;
-  --space-5: 32px;
+  --shape-radius: 12px;
 
-  /* Typography scales */
-  --md-sys-typescale-body-medium-font-size: 1rem;     /*16px*/
-  --md-sys-typescale-body-small-font-size: 0.875rem;  /*14px*/
-  --md-sys-typescale-headline-medium-font-size: 1.75rem; /*28px*/
-  --md-sys-typescale-title-large-font-size: 1.375rem; /*22px*/
+  /* Typography scales (inherited from M3) */
+  --md-sys-typescale-body-medium-font-size: 1rem;
+  --md-sys-typescale-body-small-font-size: 0.875rem;
+  --md-sys-typescale-headline-medium-font-size: 1.75rem;
+  --md-sys-typescale-title-large-font-size: 1.375rem;
 }
 
-/* ===========
-   Base Styles
-   =========== */
+/* =====  
+   Base  
+   ===== */
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
 }
@@ -54,9 +35,23 @@ body {
   padding: var(--space-3);
 }
 
-/* ===========
-   Utilities
-   =========== */
+section {
+  margin-top: var(--space-4);
+}
+
+h2 {
+  margin-bottom: var(--space-2);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+}
+
+p {
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  line-height: 1.5;
+}
+
+/* ========  
+   Utilities  
+   ======== */
 /* Margin Top */
 .mt-1 { margin-top: var(--space-1); }
 .mt-2 { margin-top: var(--space-2); }
@@ -68,7 +63,7 @@ body {
 .p-2 { padding: var(--space-2); }
 .p-3 { padding: var(--space-3); }
 
-/* Layout Containers */
+/* Layout containers */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -89,16 +84,17 @@ body {
   min-width: 200px;
 }
 
-/* ===========
-   Elevation
-   =========== */
+/* =========  
+   Elevation  
+   ========= */
+/* Real dp-based shadows for M3 depth */
 .md-elevation-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 .md-elevation-2 { box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
 .md-elevation-3 { box-shadow: 0 4px 8px rgba(0,0,0,0.12); }
 
-/* ===========
-   Components
-   =========== */
+/* ========  
+   Components  
+   ======== */
 .drawer-list a {
   color: var(--md-sys-color-on-surface);
   text-decoration: none;
@@ -109,7 +105,7 @@ body {
 
 .project-media {
   width: 100%;
-  border-radius: var(--md-sys-shape-corner-medium);
+  border-radius: var(--shape-radius);
 }
 
 .contact-buttons > * {
