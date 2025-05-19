@@ -29,13 +29,13 @@
     /* Scroll snap full sections */
     section {
       scroll-snap-align: start;
-      height: 100vh;
+      min-height: 100vh;
       width: 100vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem 3rem;
+      padding: 4rem 3rem; /* increased vertical padding */
       position: relative;
       text-align: center;
     }
@@ -93,6 +93,8 @@
       background: linear-gradient(180deg, rgba(255, 41, 117, 0.85) 0%, rgba(0,0,0,0.85) 100%);
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
+      min-height: 100vh;
+      padding: 6rem 3rem; /* a bit more top padding to avoid nav overlap */
     }
     #hero video {
       position: absolute;
@@ -302,7 +304,7 @@
     /* Responsive */
     @media (max-width: 900px) {
       section {
-        padding: 2rem 1.5rem;
+        padding: 3rem 1.5rem;
       }
       #hero h1 {
         font-size: 3rem;
@@ -365,7 +367,7 @@
 
   <section id="hero" aria-label="Introduction hero section">
     <video autoplay muted loop playsinline aria-hidden="true" tabindex="-1">
-      <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4" />
+      <source src="https://cdn.jsdelivr.net/gh/marcorichetta/blackhole-animation@latest/blackhole-accretion-disk.mp4" type="video/mp4" />
       <!-- fallback -->
     </video>
     <div class="content" role="main">
