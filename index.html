@@ -6,25 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kannan Sekar Annu Radha</title>
 
-  <!-- Material Web core styles -->
+  <!-- Material Web core CSS -->
   <link href="https://unpkg.com/@material/web@latest/dist/mdc.bundle.css" rel="stylesheet">
-  <!-- Your custom theme and utilities -->
+  <!-- Your custom theme & layout -->
   <link href="styles.css" rel="stylesheet">
 
-  <!-- Material You dynamic theming (labs) -->
+  <!-- Dynamic Material You theming -->
   <script type="module">
-    import { applyTheme } from 'https://unpkg.com/@material/web@latest/dynamic-color/index.js';
+    import {applyTheme} from 'https://unpkg.com/@material/web@latest/dynamic-color/index.js';
     applyTheme();
   </script>
 </head>
 <body>
-  <!-- Modal Drawer -->
+  <!-- Modal drawer for navigation -->
   <aside class="md3-drawer md3-drawer--modal">
     <div class="md3-drawer__header p-3">
       <h3 class="md3-typescale-headline-medium">Menu</h3>
     </div>
     <nav class="md3-drawer__content">
-      <ul class="md3-list drawer-list p-2">
+      <ul class="md3-list p-2">
         <li class="md3-list-item"><a href="#about">About</a></li>
         <li class="md3-list-item"><a href="#education">Education</a></li>
         <li class="md3-list-item"><a href="#experience">Work Experience</a></li>
@@ -50,7 +50,7 @@
     </div>
   </header>
 
-  <!-- Main Content -->
+  <!-- Main content -->
   <main class="md3-surface app-container md-elevation-1">
     <!-- About -->
     <section id="about" class="p-3">
@@ -72,7 +72,7 @@
           </div>
         </md3-card-primary-action>
       </md3-card>
-      <!-- Repeat additional cards here -->
+      <!-- add more <md3-card> for UCL, A-levels, etc. -->
     </section>
 
     <!-- Work Experience -->
@@ -144,7 +144,7 @@
             </div>
           </md3-card-primary-action>
         </md3-card>
-        <!-- More project cards as needed -->
+        <!-- more project cards… -->
       </div>
     </section>
 
@@ -157,12 +157,11 @@
     </section>
   </main>
 
-  <!-- Material Web scripts -->
-  <script type="module">
-    import { MDCTopAppBar } from 'https://unpkg.com/@material/web@latest/top-app-bar/top-app-bar.js';
-    import { MDCModalDrawer } from 'https://unpkg.com/@material/web@latest/drawer/modal-drawer.js';
-    const topAppBar = new MDCTopAppBar(document.querySelector('.md3-top-app-bar'));
-    const drawer = new MDCModalDrawer(document.querySelector('.md3-drawer'));
+  <!-- Material Web JS bundle -->
+  <script type="module" src="https://unpkg.com/@material/web@latest/dist/mdc.bundle.js"></script>
+  <!-- Drawer toggle script -->
+  <script>
+    const drawer = document.querySelector('.md3-drawer');
     document.getElementById('menu-btn').addEventListener('click', () => {
       drawer.open = true;
     });
