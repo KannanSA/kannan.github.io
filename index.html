@@ -84,14 +84,14 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 500px;
+            width: calc(100% - 40px); /* This makes it take 100% width minus 20px on each side */
+            max-width: 500px; /* Keep a max-width for larger screens */
             background: var(--card-bg);
             backdrop-filter: blur(var(--blur));
             -webkit-backdrop-filter: blur(var(--blur));
             border: 1px solid var(--card-border);
             border-radius: 999px;
-            padding: 0.5rem;
+            padding: 0.5rem; /* Adjust padding if needed */
             z-index: 1000;
             display: flex;
             justify-content: space-around;
@@ -103,9 +103,9 @@
         nav a {
             color: var(--secondary-text);
             text-decoration: none;
-            font-size: 0.875rem;
+            font-size: 0.8rem; /* Slightly reduced font size for better fit on various screens */
             font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem; /* Adjusted padding for links */
             border-radius: 999px;
             transition: color 0.3s ease, background-color 0.3s ease;
         }
@@ -113,6 +113,27 @@
         nav a:hover, nav a.active {
             color: var(--primary-text);
             background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 600px) { /* Styles for screens smaller than 600px, typical for phones */
+            nav {
+                width: calc(100% - 20px); /* Slightly more padding on very small screens */
+                top: 10px; /* Bring it a bit closer to the top */
+                padding: 0.3rem; /* Reduce overall nav padding */
+            }
+
+            nav a {
+                font-size: 0.75rem; /* Further reduce font size on smaller phones */
+                padding: 0.3rem 0.6rem; /* Further reduce link padding */
+            }
+        }
+
+        @media (max-width: 400px) { /* Styles for even smaller screens */
+            nav a {
+                font-size: 0.7rem; /* Even smaller font size */
+                padding: 0.25rem 0.5rem; /* Even less padding */
+            }
         }
         
         /* Hero Section */
