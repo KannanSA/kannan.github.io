@@ -1,558 +1,643 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kannan Sekar Annu Radha</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto+Condensed&display=swap" rel="stylesheet" />
-  
-  <style>
-    /* Reset and base */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      font-family: 'Roboto Condensed', sans-serif;
-      background-color: #000;
-      color: #eee;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-      scroll-snap-type: y mandatory;
-    }
-    body {
-      overflow-y: scroll;
-    }
-    
-    /* Scroll snap full sections */
-    section {
-      scroll-snap-align: start;
-      min-height: 100vh;
-      width: 100vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 4rem 3rem; /* increased vertical padding */
-      position: relative;
-      text-align: center;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kannan Sekar Annu Radha</title>
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0; left: 0; width: 100%;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: saturate(180%) blur(10px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 3rem;
-      z-index: 1000;
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 0.05em;
-      font-weight: 700;
-    }
-    nav .logo {
-      font-size: 1.6rem;
-      color: #0071e3;
-      cursor: pointer;
-      user-select: none;
-      text-transform: uppercase;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-    nav ul li a {
-      color: #eee;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: color 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      padding: 0.25rem 0;
-      border-bottom: 2px solid transparent;
-    }
-    nav ul li a:hover,
-    nav ul li a:focus {
-      color: #0071e3;
-      border-bottom-color: #0071e3;
-    }
+    <!-- Google Fonts - Inter for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    /* Hero Section */
-    #hero {
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-      background: linear-gradient(180deg, rgba(0, 113, 227, 0.85) 0%, rgba(0,0,0,0.85) 100%);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      min-height: 100vh;
-      padding: 6rem 3rem; /* a bit more top padding to avoid nav overlap */
-    }
-    #hero video {
-      position: absolute;
-      top: 50%; left: 50%;
-      min-width: 100%; min-height: 100%;
-      width: auto; height: auto;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-      filter: brightness(0.4);
-      z-index: 0;
-    }
-    #hero .content {
-      position: relative;
-      z-index: 10;
-      max-width: 900px;
-      padding: 0 2rem;
-    }
-    #hero h1 {
-      font-size: 4rem;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #0071e3;
-      text-shadow: 0 0 20px #0071e3cc;
-    }
-    #hero p {
-      font-size: 1.6rem;
-      margin-bottom: 3rem;
-      font-weight: 400;
-      color: #fff;
-      text-shadow: 0 0 15px #0008;
-    }
-    #hero .buttons {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    #hero .buttons a {
-      background-color: #0071e3;
-      color: #fff;
-      padding: 0.85rem 2.5rem;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 0 0 20px #0071e3aa;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    #hero .buttons a:hover,
-    #hero .buttons a:focus {
-      background-color: #005bb5;
-      box-shadow: 0 0 30px #005bb5cc;
-    }
+    <style>
+        /* Base Styles & Dark Theme */
+        :root {
+            --bg-color: #0a0a0a;
+            --primary-text: #e5e5e5;
+            --secondary-text: #a3a3a3;
+            --card-bg: rgba(23, 23, 23, 0.5);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --blur: 16px;
+            --highlight-blue: #38bdf8;
+            --highlight-blue-glow: rgba(56, 189, 248, 0.3);
+        }
 
-    /* Section Titles */
-    section h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      color: #0071e3;
-      text-shadow: 0 0 12px #0071ebb;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* Section content paragraphs */
-    section p {
-      max-width: 750px;
-      font-size: 1.2rem;
-      font-weight: 300;
-      color: #ddd;
-      line-height: 1.7;
-      margin: 0 auto;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* Cards container */
-    .cards-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      max-width: 980px;
-      margin: 0 auto;
-    }
-    .card {
-      background: #111;
-      border-radius: 14px;
-      box-shadow: 0 6px 30px rgba(0, 113, 227, 0.6);
-      padding: 2rem;
-      flex: 1 1 320px;
-      max-width: 380px;
-      color: #eee;
-      font-weight: 400;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-      text-align: left;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 50px #0071e3cc;
-    }
-    .card h5 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      color: #0071e3;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      font-size: 1.5rem;
-    }
-    .card p {
-      font-weight: 300;
-      margin-bottom: 0.75rem;
-      color: #ddd;
-    }
-    .card em {
-      color: #66a3ff;
-      font-weight: 600;
-      font-style: normal;
-      font-size: 1rem;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    /* Education & Experience Items with images */
-    .education-item, .experience-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      max-width: 900px;
-      background: #111;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0, 113, 227, 0.5);
-      transition: box-shadow 0.3s ease;
-    }
-    .education-item:hover, .experience-card:hover {
-      box-shadow: 0 8px 30px #0071e3cc;
-    }
-    .education-item img, .experience-card img {
-      width: 100px;
-      height: auto;
-      border-radius: 8px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-    .education-item div, .experience-content {
-      text-align: left;
-    }
-    .education-item h3, .experience-content h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      color: #0071e3;
-      font-size: 1.5rem;
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
-    }
-    .education-item p, .experience-content p {
-      font-weight: 300;
-      color: #ddd;
-      margin-bottom: 0.3rem;
-      font-size: 1.1rem;
-    }
-    .experience-content ul {
-      list-style: disc inside;
-      margin-top: 0.3rem;
-      color: #aaccee;
-      font-size: 1rem;
-    }
+        /* Canvas for the dynamic background */
+        #backgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: -2; /* Ensure it's behind everything */
+            background-color: var(--bg-color); /* Fallback/base color */
+        }
 
-    /* Buttons inside other sections */
-    .btn-center {
-      margin-top: 3rem;
-      text-align: center;
-    }
-    .btn-center a {
-      background: #0071e3;
-      color: white;
-      padding: 1rem 3.5rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-decoration: none;
-      box-shadow: 0 0 20px #0071e3bb;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    .btn-center a:hover,
-    .btn-center a:focus {
-      background: #005bb5;
-      box-shadow: 0 0 35px #005bb5cc;
-    }
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative; /* Ensure content is above canvas */
+            z-index: 1;
+        }
 
-    /* Footer */
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 2rem 1rem;
-      font-weight: 300;
-      color: #555;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-    }
+        /* Section Styling */
+        section {
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      section {
-        padding: 3rem 1.5rem;
-      }
-      #hero h1 {
-        font-size: 3rem;
-      }
-      #hero p {
-        font-size: 1.3rem;
-      }
-      nav {
-        padding: 1rem 2rem;
-      }
-      nav ul {
-        gap: 1.2rem;
-      }
-      section h2 {
-        font-size: 2.4rem;
-      }
-      .card, .education-item, .experience-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .education-item img, .experience-card img {
-        width: 70px;
-        margin-bottom: 1rem;
-      }
-      .education-item div, .experience-content {
-        text-align: center;
-      }
-      .card {
-        max-width: 100%;
-      }
-    }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    @media (max-width: 480px) {
-      #hero h1 {
-        font-size: 2.2rem;
-      }
-      #hero p {
-        font-size: 1.1rem;
-      }
-      nav ul {
-        display: none; /* For very small screens */
-      }
-    }
-  </style>
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 500px;
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            padding: 0.5rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: top 0.3s ease;
+        }
+        
+        nav a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-text);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            text-align: center;
+        }
+        
+        #hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            background: linear-gradient(90deg, #fafafa, #d4d4d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #hero h2 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 500;
+            color: var(--highlight-blue);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px var(--highlight-blue-glow);
+        }
+
+        #hero p.profile-summary {
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: var(--secondary-text);
+            font-size: 1.1rem;
+        }
+        
+        .contact-links a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            color: var(--primary-text);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+
+        /* Card Styles */
+        .card-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .card h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--highlight-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .card p, .card ul {
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            line-height: 1.7;
+        }
+        
+        .card ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+        }
+        
+        .card .date {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Styles for images within cards */
+        .education-image, .experience-image {
+            width: 50px; /* Adjust size as needed */
+            height: 50px; /* Adjust size as needed */
+            border-radius: 50%; /* Makes the image round */
+            margin-bottom: 1rem;
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            border: 2px solid var(--highlight-blue); /* Small border for emphasis */
+        }
+
+        /* Experience & Education Specifics */
+        .item-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .item-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .experience-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Skills Section */
+        #skills .card-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        #skills .card h3 {
+             color: var(--highlight-blue);
+             margin-bottom: 1rem;
+        }
+
+        /* Projects Section */
+         #projects .card-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* Certificates Section */
+        #certificates .card-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--secondary-text);
+            font-size: 0.875rem;
+            position: relative; /* Ensure footer content is above canvas */
+            z-index: 1;
+        }
+
+    </style>
 </head>
 <body>
+    <!-- Canvas for dynamic background -->
+    <canvas id="backgroundCanvas"></canvas>
 
-  <nav>
-    <div class="logo">KANNAN</div>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#certificates">Certificates</a></li>
-    </ul>
-  </nav>
+    <nav id="navbar">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+    </nav>
 
-  <section id="hero" aria-label="Introduction hero section">
-    <video autoplay muted loop playsinline aria-hidden="true" tabindex="-1">
-      <source src="https://cdn.jsdelivr.net/gh/marcorichetta/blackhole-animation@latest/blackhole-accretion-disk.mp4" type="video/mp4" />
-      <!-- fallback -->
-    </video>
-    <div class="content" role="main">
-      <h1>Kannan Sekar Annu Radha</h1>
-      <p>Physics Student at King’s College London</p>
-      <div class="buttons">
-        <a href="mailto:kannansekara@gmail.com" aria-label="Send Email to Kannan Sekar Annu Radha">Email Me</a>
-        <a href="https://linkedin.com/in/kannan-sekar/" target="_blank" rel="noopener" aria-label="LinkedIn Profile">LinkedIn</a>
-        <a href="https://github.com/KannanSA" target="_blank" rel="noopener" aria-label="GitHub Profile">GitHub</a>
-      </div>
+    <div class="container">
+        <section id="hero">
+            <h1>Kannan Sekar Annu Radha</h1>
+            <h2>Physics & Computer Science Student at King's College London & ex UCL</h2>
+            <p class="profile-summary">
+                Motivated interdisciplinary researcher with a strong foundation in physics and computer science. My academic and professional focus lies in developing intelligent systems using machine learning, probabilistic reasoning, and computational logic. I aim to contribute to impactful, explainable AI applications—especially in healthcare and edge computing.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:kannansekara@gmail.com">kannansekara@gmail.com</a>
+                <a href="https://linkedin.com/in/kannansekara" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/kannansekara" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </section>
+
+        <!-- The "About" section is integrated into the Hero section for compactness -->
+        <span id="about" class="anchor"></span>
+
+        <section id="education">
+            <h2 class="section-header">Education</h2>
+            <div class="item-grid">
+                <div class="card">
+                    <!-- Image for King's College London -->
+                    <img src="images\KCL.png" alt="King's College London Logo" class="education-image">
+                    <h3>BSc Physics</h3>
+                    <h4>King's College London (QS World Rank: =40th)</h4>
+                    <p class="date">2024 – 2027 (Predicted First-Class Honours)</p>
+                    <p>Recipient of the Alessandro de Vita Computational Physics Prize 2024-25. Relevant Modules: Mathematics & Computation, Classical Physics, Astrophysics, Modern Physics.</p>
+                </div>
+                <div class="card">
+                    <!-- Image for University College London -->
+                    <img src="images\UCL.png" alt="University College London Logo" class="education-image">
+                    <h3>MEng Computer Science</h3>
+                    <h4>University College London (QS World Rank: 9th)</h4>
+                    <p class="date">2021 – 2023</p>
+                    <p>Gained robust training in theoretical computer science and software engineering. Key Modules: Theory of Computation, Algorithms, OOP, Discrete Maths.</p>
+                </div>
+                 <div class="card">
+                    <!-- Image for Royal Grammar School, Newcastle -->
+                    <img src="images\RGS.png" alt="Royal Grammar School Newcastle Logo" class="education-image">
+                    <h3>A Levels & GCSEs</h3>
+                    <h4>Royal Grammar School, Newcastle (Ranked 56th UK Independent School by A-Levels)</h4>
+                    <p class="date">2012 – 2019</p>
+                    <p>A* in Maths, Further Maths, & Physics. 7 A*s & 4 As at GCSE.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-header">Experience</h2>
+            <div class="item-grid">
+                <div class="card experience-item">
+                    <!-- Image for Dept. of Physics, King's College London -->
+                    <img src="images\KCL.png" alt="King's College London Physics Department Logo" class="experience-image">
+                    <h3>Summer Researcher</h3>
+                    <h4>Dept. of Physics, King's College London</h4>
+                    <p class="date">Starting Jun 2025</p>
+                    <ul>
+                        <li>Working on machine-learning-driven analysis of carbon nanoclusters.</li>
+                        <li>Applying physics-informed neural networks and dimensionality reduction.</li>
+                    </ul>
+                </div>
+                <div class="card experience-item">
+                    <!-- Image for Kannan Industrials -->
+                    <img src="images\fish.JPG" alt="Kannan Industrials Logo" class="experience-image">
+                    <h3>iOS Developer (Freelance)</h3>
+                    <h4>Kannan Industrials</h4>
+                    <p class="date">Feb 2021 – Present</p>
+                    <ul>
+                        <li>Designed and deployed several iOS apps (iMinuteDOEShelp, iPong, DabCounter).</li>
+                        <li>Implemented real-time sensor data processing and CoreML integration.</li>
+                    </ul>
+                </div>
+                <div class="card experience-item">
+                    <!-- Image for NHS Digital -->
+                    <img src="images\NHS.PNG" alt="NHS Digital Logo" class="experience-image">
+                    <h3>Data Science Intern</h3>
+                    <h4>NHS Digital, Leeds</h4>
+                    <p class="date">Nov 2019</p>
+                    <ul>
+                        <li>Built an NLP pipeline (LSTM, Word2Vec) to predict ICD-9 codes.</li>
+                        <li>Used t-SNE for model visualization and clinical informatics exploration.</li>
+                    </ul>
+                </div>
+                <div class="card experience-item">
+                    <!-- Image for Kennedy Institute of Rheumatology, Oxford -->
+                    <img src="images\kennedy.png" alt="Kennedy Institute of Rheumatology Logo" class="experience-image">
+                    <h3>Research Intern</h3>
+                    <h4>Kennedy Institute of Rheumatology, Oxford</h4>
+                    <p class="date">Nov 2019</p>
+                    <ul>
+                        <li>Trained CNNs for image classification (MNIST, CIFAR) with TensorFlow.</li>
+                        <li>Developed an LSTM trading bot for time-series prediction.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-header">Skills</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Languages</h3>
+                    <p>Python, C, C++, Java, Swift, Objective-C, Haskell</p>
+                </div>
+                <div class="card">
+                    <h3>Frameworks & ML</h3>
+                    <p>TensorFlow, Scikit-learn, Flask, Word2Vec, LSTM, CoreML</p>
+                </div>
+                <div class="card">
+                    <h3>Platforms</h3>
+                    <p>iOS, Arduino, macOS, Linux, Windows</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-header">Select Projects</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>AR Lens</h3>
+                    <p>Snapchat AR Lens with 2.5M+ views and 100K+ downloads.</p>
+                </div>
+                <div class="card">
+                    <h3>iCrypto</h3>
+                    <p>Market forecasting app using Bayesian deep learning.</p>
+                </div>
+                 <div class="card">
+                    <h3>TetrisAI</h3>
+                    <p>Reinforcement learning agent to master Tetris gameplay.</p>
+                </div>
+                <div class="card">
+                    <h3>iPong</h3>
+                    <p>ML-powered pong game for Apple Watch using CoreML & Swift.</p>
+                </div>
+                 <div class="card">
+                    <h3>GPComm</h3>
+                    <p>Full-stack patient-doctor communication application.</p>
+                </div>
+                <div class="card">
+                    <h3>YoteCoin</h3>
+                    <p>Smart contract token built on the Ethereum blockchain.</p>
+                </div>
+            </div>
+        </section>
+        
+         <section id="certificates">
+            <h2 class="section-header">Certificates</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Machine Learning</h3>
+                    <h4>Stanford / Coursera</h4>
+                     <p>Credential ID: WZPCZKU8PJA9</p>
+                </div>
+                <div class="card">
+                    <h3>Deep Learning Specialization</h3>
+                    <h4>DeepLearning.AI</h4>
+                    <p>Credential ID: BDYCCTSVUHD3</p>
+                </div>
+                <div class="card">
+                    <h3>CS50x</h3>
+                    <h4>Harvard University</h4>
+                    <p>Credential ID: 6e593e86fca2494b8b1c9af455a8d29d</p>
+                </div>
+            </div>
+        </section>
     </div>
-  </section>
 
-  <section id="about" aria-labelledby="about-title">
-    <h2 id="about-title">About Me</h2>
-    <p>
-      Dedicated researcher with a robust interdisciplinary background in physics and computer science.
-      Passionate about leveraging machine learning and artificial intelligence to address real-world challenges,
-      especially in healthcare and intelligent systems. Experienced in developing machine learning models,
-      natural language processing, and building innovative software applications.
-    </p>
-  </section>
+    <footer>
+        <p>&copy; 2025 Kannan Sekar Annu Radha. All rights reserved.</p>
+    </footer>
 
-  <section id="education" aria-labelledby="education-title">
-    <h2 id="education-title">Education</h2>
+    <script>
+        // Intersection Observer for scroll-in animations
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
 
-    <div class="education-item">
-      <img src="images/KCL.png" alt="King's College London Logo" />
-      <div>
-        <h3>BSc Physics</h3>
-        <p><strong>King’s College London</strong>, London, United Kingdom</p>
-        <p><em>2024 – 2027</em></p>
-        <p><strong>Relevant Coursework:</strong> Mathematics & Computation for Physics, Classical Physics, Modern Physics, Physics Skills & Techniques, Astrophysics</p>
-      </div>
-    </div>
+        sections.forEach(section => {
+            observer.observe(section);
+        });
 
-    <div class="education-item">
-      <img src="images/UCL.png" alt="University College London Logo" />
-      <div>
-        <h3>MEng Computer Science</h3>
-        <p><strong>University College London</strong>, London, United Kingdom</p>
-        <p><em>2021 – 2023</em></p>
-        <p><strong>Relevant Coursework:</strong> Principles of Programming (C and Haskell), Theory of Computation, Object-Oriented Programming (Java), Algorithms, Mathematics for Computer Science, Discrete Mathematics, Engineering Challenges (Arduino and Python)</p>
-      </div>
-    </div>
+        // Active navigation link highlighting
+        const navLinks = document.querySelectorAll('nav a');
+        const navObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-50% 0px -50% 0px' });
 
-    <div class="education-item">
-      <img src="images/RGS.png" alt="Royal Grammar School Newcastle Logo" />
-      <div>
-        <h3>A Levels</h3>
-        <p><strong>Royal Grammar School Newcastle</strong>, Newcastle, United Kingdom</p>
-        <p><strong>A Levels:</strong> A* Mathematics, A* Further Mathematics, A* Physics</p>
-        <p><strong>GCSE:</strong> 7 A*s and 4 As including Mathematics, Physics, Chemistry, Biology, Economics, English Literature, Spanish, Further Mathematics, English Language, History, Geography</p>
-      </div>
-    </div>
-  </section>
+        sections.forEach(section => {
+            navObserver.observe(section);
+        });
 
-  <section id="experience" aria-labelledby="experience-title">
-    <h2 id="experience-title">Experience</h2>
+        // Dynamic background canvas script
+        const canvas = document.getElementById('backgroundCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = {
+            x: undefined,
+            y: undefined,
+            radius: 100 // Radius around mouse for particle interaction
+        };
 
-    <div class="cards-container">
-      <div class="experience-card">
-        <img src="images/KCL.png" alt="King's College London Research" />
-        <div class="experience-content">
-          <h3>Computational Physics Researcher</h3>
-          <p><em>King’s College London (June 2025 - Present)</em></p>
-          <p>Working on a computational physics project with Professor Samjid Mannan, focusing on advanced simulations and machine learning applications.</p>
-        </div>
-      </div>
+        // Resize canvas to fill window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles(); // Re-initialize particles on resize
+        }
 
-      <div class="experience-card">
-        <img src="images/NHS.png" alt="NHS Digital Logo" />
-        <div class="experience-content">
-          <h3>Data Science Intern</h3>
-          <p><strong>NHS Digital</strong>, Leeds, United Kingdom</p>
-          <p><em>November 2019</em></p>
-          <ul>
-            <li>Designed and implemented a Natural Language Processing model to predict ICD9 codes using Python.</li>
-            <li>Employed Word2Vec for embedding generation, t-SNE for dimensionality reduction, and an LSTM neural network for prognostic predictions based on patient data.</li>
-            <li>Contributed to advancing clinical informatics by exploring deep learning applications in healthcare.</li>
-          </ul>
-        </div>
-      </div>
+        // Particle class definition
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
 
-      <div class="experience-card">
-        <img src="images/Kennedy.png" alt="Kennedy Institute Logo" />
-        <div class="experience-content">
-          <h3>Research Intern</h3>
-          <p><strong>Kennedy Institute of Rheumatology</strong>, Oxford, United Kingdom</p>
-          <p><em>November 2019</em></p>
-          <ul>
-            <li>Assisted in projects focusing on neural network architectures and TensorFlow implementations.</li>
-            <li>Conducted experiments in image classification and digit recognition using standard datasets (e.g., MNIST).</li>
-            <li>Developed an LSTM-based trading bot to explore algorithmic decision-making, demonstrating proficiency in time-series analysis.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+            // Draw particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
 
-  <section id="skills" aria-labelledby="skills-title">
-    <h2 id="skills-title">Skills</h2>
-    <p>
-      <strong>Programming Languages:</strong> Python, C, C++, Java, Haskell, Swift.<br />
-      <strong>Frameworks & Tools:</strong> TensorFlow, Flask, Matplotlib, Scikit-learn, Word2Vec, t-SNE, LSTM, Arduino, ESP32.<br />
-      <strong>Operating Systems:</strong> Windows, macOS, Linux.<br />
-      <strong>Other Tools:</strong> Microsoft Office, Photoshop, Final Cut Pro.
-    </p>
-  </section>
+            // Update particle position and interaction
+            update() {
+                // Check if particle is still within canvas
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.directionY = -this.directionY;
+                }
 
-  <section id="projects" aria-labelledby="projects-title">
-    <h2 id="projects-title">Projects</h2>
-    <div class="cards-container">
+                this.x += this.directionX;
+                this.y += this.directionY;
 
-      <article class="card" tabindex="0">
-        <h5>NLP in Healthcare</h5>
-        <p>Developed an end-to-end Natural Language Processing pipeline using TensorFlow, Matplotlib, and Scikit-learn for predicting patient diagnoses from clinical data. This project utilized word embeddings and deep learning techniques to improve healthcare informatics.</p>
-      </article>
+                // Mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
 
-      <article class="card" tabindex="0">
-        <h5>Cryptocurrency Trading App</h5>
-        <p>Created an automated cryptocurrency trading web application in Python using Flask, integrating deep learning models to predict market trends and execute trades automatically. The app emphasizes real-time data processing and algorithmic decision-making.</p>
-      </article>
+                if (distance < mouse.radius + this.size) {
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                        this.x += 10;
+                    }
+                    if (mouse.x > this.x && this.x > this.size * 10) {
+                        this.x -= 10;
+                    }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                        this.y += 10;
+                    }
+                    if (mouse.y > this.y && this.y > this.size * 10) {
+                        this.y -= 10;
+                    }
+                }
+                this.draw();
+            }
+        }
 
-      <article class="card" tabindex="0">
-        <h5>YoteCoin</h5>
-        <p>Engineered a cryptocurrency on the Ethereum smart chain, demonstrating strong skills in blockchain technology, smart contracts, and decentralized finance concepts.</p>
-      </article>
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 9000; // Adjust density based on screen size
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1; // Particle size between 1 and 3
+                let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = 'rgba(56, 189, 248, 0.4)'; // Blueish, semi-transparent
 
-      <article class="card" tabindex="0">
-        <h5>iPong Game</h5>
-        <p>Designed and developed an iPong game for Apple Watch using Swift and CoreML, integrating real-time machine learning models to adapt gameplay dynamically and enhance user experience.</p>
-      </article>
+                particles.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
 
-      <article class="card" tabindex="0">
-        <h5>DabCounter App</h5>
-        <p>Built an innovative DabCounter app for Apple Watch using Swift and CoreMotion, focusing on precise sensor data processing and interactive user feedback through motion detection.</p>
-      </article>
+        // Animation loop
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
 
-      <article class="card" tabindex="0">
-        <h5>Robot Abstraction</h5>
-        <p>Implemented modular robot control techniques in C, focusing on scalable and maintainable robotics programming suitable for complex robotic systems.</p>
-      </article>
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+            connectParticles();
+        }
 
-      <article class="card" tabindex="0">
-        <h5>TetrisAI</h5>
-        <p>Developed an AI agent in Python to play Tetris, utilizing algorithmic problem-solving and reinforcement learning strategies to optimize game play.</p>
-      </article>
+        // Connect particles with lines
+        function connectParticles() {
+            let opacityValue = 1;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) 
+                                 + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                    
+                    // Connect particles within a certain distance
+                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                        opacityValue = 1 - (distance / 20000); // Adjust connection opacity based on distance
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${opacityValue})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
 
-      <article class="card" tabindex="0">
-        <h5>AR Snapchat Lens</h5>
-        <p>Created an Augmented Reality Snapchat Lens that achieved over 2.5 million views and 100,000 downloads, combining creative design with technical innovation to deliver engaging user experiences.</p>
-      </article>
+        // Event listeners
+        window.addEventListener('resize', resizeCanvas);
 
-      <article class="card" tabindex="0">
-        <h5>Arduino Bioreactor</h5>
-        <p>Programmed an Arduino-based Bioreactor using C and an ESP32 microcontroller to automate biological experiments, emphasizing precision control and data acquisition in experimental setups.</p>
-      </article>
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
 
-      <article class="card" tabindex="0">
-        <h5>GPComm</h5>
-        <p>Developed a web application enabling patients to consult with General Practitioners online, improving healthcare accessibility and communication.</p>
-      </article>
+        window.addEventListener('mouseout', () => {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
 
-      <article class="card" tabindex="0">
-        <h5>Java CRUD Application</h5>
-        <p>Created a servlet-based CRUD (Create, Read, Update, Delete) system using a model factory design pattern, showcasing proficiency in Java web development and software design principles.</p>
-      </article>
+        // Initialize and start animation when window loads
+        window.onload = function() {
+            resizeCanvas(); // Set initial canvas size
+            animateParticles(); // Start the animation loop
+        };
 
-    </div>
-  </section>
-
-  <section id="certificates" aria-labelledby="certificates-title">
-    <h2 id="certificates-title">Certificates & Awards</h2>
-    <p>
-      NMES King’s College London - Alessandro de Vita Computational Physics Prize (2024/25)<br />
-      CS50x Harvard University Certificate<br />
-      Machine Learning Certificate - Stanford University<br />
-      Deep Learning Certificate - DeepLearning.AI
-    </p>
-  </section>
-
-  <footer>
-    &copy; 2025 Kannan Sekar Annu Radha
-  </footer>
+    </script>
 
 </body>
 </html>
