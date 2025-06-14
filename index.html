@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kannan Sekar Annu Radha</title>
+    <title>Kannan Sekar Annu Radha | Portfolio</title>
 
     <!-- Tailwind CSS for utility-first styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -114,12 +114,12 @@
     
     <canvas id="liquid-canvas"></canvas>
 
-    <nav id="navbar" class="glass-card fixed top-4 left-1/2 -translate-x-1/2 max-w-lg w-full sm:w-auto p-2 rounded-full z-50 flex items-center justify-center space-x-1">
-        <a href="#hero" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium active">About</a>
-        <a href="#education" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Education</a>
-        <a href="#experience" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Experience</a>
-        <a href="#skills" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Skills</a>
-        <a href="#projects" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Projects</a>
+    <nav id="navbar" class="glass-card fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto p-1 sm:p-2 rounded-full z-50 flex items-center justify-around sm:justify-center">
+        <a href="#hero" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium active">About</a>
+        <a href="#education" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Education</a>
+        <a href="#experience" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Experience</a>
+        <a href="#skills" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Skills</a>
+        <a href="#projects" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Projects</a>
     </nav>
     
     <main class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -158,11 +158,11 @@
                     <h3 class="text-xl font-bold text-slate-100">BSc Physics</h3>
                     <h4 class="text-sky-400">King's College London</h4>
                     <p class="text-xs text-slate-500 mb-2">QS World University Ranking: #40</p>
-                    <p class="text-sm text-slate-400 mb-4">2024 – 2027</p>
+                    <p class="text-sm text-slate-400 mb-4">2024 – 2027 (Predicted First-Class Honours)</p>
                     <p class="text-slate-400 text-sm flex-grow">Recipient of the Alessandro de Vita Computational Physics Prize 2024-25. Relevant Modules: Mathematics & Computation, Classical Physics, Astrophysics, Modern Physics.</p>
                 </div>
                 <div class="glass-card rounded-2xl p-6 flex flex-col">
-                    <img src="images\UCL.png" alt="University College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <img src="images\UCL.pngL" alt="University College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
                     <h3 class="text-xl font-bold text-slate-100">MEng Computer Science</h3>
                     <h4 class="text-sky-400">University College London</h4>
                     <p class="text-xs text-slate-500 mb-2">QS World University Ranking: #9</p>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="glass-card rounded-2xl p-6 flex flex-col">
                     <img src="images\fish.JPG" alt="Kannan Industrials" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
-                    <h3 class="text-xl font-bold text-slate-100">iOS Developer</h3>
+                    <h3 class="text-xl font-bold text-slate-100">iOS Developer (Freelance)</h3>
                     <h4 class="text-sky-400">Kannan Industrials</h4>
                     <p class="text-sm text-slate-500 mb-4">Feb 2021 – Present</p>
                     <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
@@ -322,15 +322,10 @@
 
             const navObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
-                    // Check if the section is intersecting (i.e., in the viewport based on rootMargin)
                     if (entry.isIntersecting) {
-                        // Get the id of the intersecting section
                         const id = entry.target.getAttribute('id');
-                        // Loop through all nav links
                         navLinks.forEach(link => {
-                            // Remove active class from all links first
                             link.classList.remove('active');
-                            // Add active class to the link that corresponds to the intersecting section
                             if (link.getAttribute('href') === `#${id}`) {
                                 link.classList.add('active');
                             }
@@ -338,10 +333,6 @@
                     }
                 });
             }, { 
-                // This rootMargin defines the "trigger zone" for the active link.
-                // '0px' at the top means the zone starts at the very top of the viewport.
-                // '-50%' at the bottom means the zone ends at the vertical center of the viewport.
-                // Effectively, a section is "active" if it's in the top half of the screen.
                 rootMargin: '0px 0px -50% 0px' 
             });
 
