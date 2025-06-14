@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kannan Sekar Annu Radha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kannan Sekar Annu Radha | Portfolio</title>
 
-    <!-- Google Fonts - Inter for a clean, modern look -->
+    <!-- Tailwind CSS for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Three.js for the WebGL background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
-        /* Base Styles & Dark Theme */
+        /* Custom styles to complement Tailwind and achieve the desired aesthetic */
         :root {
-            --bg-color: #0a0a0a;
-            --primary-text: #e5e5e5;
-            --secondary-text: #a3a3a3;
-            --card-bg: rgba(23, 23, 23, 0.5);
+            --background-start-rgb: 15, 23, 42; /* slate-900 */
+            --background-end-rgb: 0, 0, 0;
+            --glow-rgb: 56, 189, 248; /* sky-400 */
+            --card-background: rgba(22, 30, 51, 0.6); /* Darker, less saturated blue */
             --card-border: rgba(255, 255, 255, 0.1);
-            --blur: 16px;
-            --highlight-blue: #38bdf8;
-            --highlight-blue-glow: rgba(56, 189, 248, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         html {
@@ -37,379 +31,194 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--primary-text);
             font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--background-start-rgb));
             overflow-x: hidden;
-            line-height: 1.6;
         }
-
-        /* Canvas for the dynamic background */
-        #backgroundCanvas {
+        
+        #liquid-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: block;
-            z-index: -2; /* Ensure it's behind everything */
-            background-color: var(--bg-color); /* Fallback/base color */
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            position: relative; /* Ensure content is above canvas */
-            z-index: 1;
-        }
-
-        /* Section Styling */
-        section {
-            padding: 4rem 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px); /* This makes it take 100% width minus 20px on each side */
-            max-width: 500px; /* Keep a max-width for larger screens */
-            background: var(--card-bg);
-            backdrop-filter: blur(var(--blur));
-            -webkit-backdrop-filter: blur(var(--blur));
+        /* --- Glassmorphism Styles --- */
+        .glass-card {
+            background: var(--card-background);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--card-border);
-            border-radius: 999px;
-            padding: 0.5rem; /* Adjust padding if needed */
-            z-index: 1000;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: top 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        nav a {
-            color: var(--secondary-text);
-            text-decoration: none;
-            font-size: 0.8rem; /* Slightly reduced font size for better fit on various screens */
-            font-weight: 500;
-            padding: 0.4rem 0.8rem; /* Adjusted padding for links */
-            border-radius: 999px;
-            transition: color 0.3s ease, background-color 0.3s ease;
+        /* Specific style for the navigation bar for a nicer look */
+        #navbar.glass-card {
+             box-shadow: 
+                inset 0 2px 2px 0px rgba(255, 255, 255, 0.1),
+                0 10px 30px rgba(0,0,0,0.3);
         }
 
-        nav a:hover, nav a.active {
-            color: var(--primary-text);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Media queries for responsiveness */
-        @media (max-width: 600px) { /* Styles for screens smaller than 600px, typical for phones */
-            nav {
-                width: calc(100% - 20px); /* Slightly more padding on very small screens */
-                top: 10px; /* Bring it a bit closer to the top */
-                padding: 0.3rem; /* Reduce overall nav padding */
-            }
-
-            nav a {
-                font-size: 0.75rem; /* Further reduce font size on smaller phones */
-                padding: 0.3rem 0.6rem; /* Further reduce link padding */
-            }
-        }
-
-        @media (max-width: 400px) { /* Styles for even smaller screens */
-            nav a {
-                font-size: 0.7rem; /* Even smaller font size */
-                padding: 0.25rem 0.5rem; /* Even less padding */
-            }
+        main .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
         
-        /* Hero Section */
-        #hero {
-            min-height: 100vh;
-            text-align: center;
+        #navbar.glass-card:hover {
+            transform: translateX(-50%) scale(1.03);
+            box-shadow: 
+                inset 0 2px 2px 0px rgba(255, 255, 255, 0.1),
+                0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        /* --- Text Gradients & Effects --- */
+        .hero-title {
+            background: linear-gradient(120deg, #e2e8f0 20%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        #hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-            background: linear-gradient(90deg, #fafafa, #d4d4d4);
+        .section-header {
+             background: linear-gradient(120deg, #cbd5e1, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        #hero h2 {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            font-weight: 500;
-            color: var(--highlight-blue);
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 15px var(--highlight-blue-glow);
+        /* --- Scroll-in Animation --- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        #hero p.profile-summary {
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: var(--secondary-text);
-            font-size: 1.1rem;
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem; /* Space between icons */
+        /* --- Navigation active/hover state --- */
+        nav a:hover {
+            color: #f8fafc;
         }
-
-        .contact-links a {
-            color: var(--secondary-text);
-            font-size: 2rem; /* Size of the icons */
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-links a:hover {
-            color: var(--primary-text);
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-text);
-        }
-
-        /* Card Styles */
-        .card-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-        
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            backdrop-filter: blur(var(--blur));
-            -webkit-backdrop-filter: blur(var(--blur));
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-text);
-            margin-bottom: 0.25rem;
-        }
-
-        .card h4 {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--highlight-blue);
-            margin-bottom: 0.75rem;
-        }
-
-        .card p, .card ul {
-            font-size: 0.95rem;
-            color: var(--secondary-text);
-            line-height: 1.7;
-        }
-        
-        .card ul {
-            list-style-position: inside;
-            padding-left: 0.5rem;
-        }
-        
-        .card .date {
-            font-size: 0.8rem;
-            color: var(--secondary-text);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Styles for images within cards */
-        .education-image, .experience-image {
-            width: 50px; /* Adjust size as needed */
-            height: 50px; /* Adjust size as needed */
-            border-radius: 50%; /* Makes the image round */
-            margin-bottom: 1rem;
-            object-fit: cover; /* Ensures the image covers the area without distortion */
-            border: 2px solid var(--highlight-blue); /* Small border for emphasis */
-        }
-
-        /* Experience & Education Specifics */
-        .item-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        
-        @media (min-width: 768px) {
-            .item-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .experience-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Skills Section */
-        #skills .card-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-        #skills .card h3 {
-             color: var(--highlight-blue);
-             margin-bottom: 1rem;
-        }
-
-        /* Projects Section */
-         #projects .card-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
-
-        /* Certificates Section */
-        #certificates .card-grid {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--secondary-text);
-            font-size: 0.875rem;
-            position: relative; /* Ensure footer content is above canvas */
-            z-index: 1;
+        nav a.active {
+            color: #f8fafc;
+            background-color: rgba(56, 189, 248, 0.15);
+            box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
     </style>
 </head>
-<body>
-    <!-- Canvas for dynamic background -->
-    <canvas id="backgroundCanvas"></canvas>
+<body class="bg-slate-900 text-slate-300">
+    
+    <canvas id="liquid-canvas"></canvas>
 
-    <nav id="navbar">
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
+    <nav id="navbar" class="glass-card fixed top-4 left-1/2 -translate-x-1/2 max-w-lg w-full sm:w-auto p-2 rounded-full z-50 flex items-center justify-center space-x-1">
+        <a href="#hero" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium active">About</a>
+        <a href="#education" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Education</a>
+        <a href="#experience" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Experience</a>
+        <a href="#skills" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Skills</a>
+        <a href="#projects" class="px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-sm font-medium">Projects</a>
     </nav>
-
-    <div class="container">
-        <section id="hero">
-            <h1>Kannan Sekar Annu Radha</h1>
-            <h2>Physics & Computer Science Student at King's College London & ex UCL</h2>
-            <p class="profile-summary">
+    
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center scroll-reveal">
+            <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4">
+                Kannan Sekar Annu Radha
+            </h1>
+            <h2 class="text-sky-400 text-lg md:text-xl lg:text-2xl font-medium mb-8" style="text-shadow: 0 0 15px rgba(var(--glow-rgb), 0.5);">
+                Physics & Computer Science Student at King's College London
+            </h2>
+            <p id="about" class="max-w-3xl text-slate-400 text-base md:text-lg leading-relaxed mb-10">
                 Motivated interdisciplinary researcher with a strong foundation in physics and computer science. My academic and professional focus lies in developing intelligent systems using machine learning, probabilistic reasoning, and computational logic. I aim to contribute to impactful, explainable AI applications—especially in healthcare and edge computing.
             </p>
-            <div class="contact-links">
-                <a href="mailto:kannansekara@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://linkedin.com/in/kannan-sekar/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/kannansa" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <div class="flex items-center space-x-6 text-slate-400">
+                <a href="mailto:kannansekara@gmail.com" class="hover:text-sky-400 transition-colors duration-300 flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>Email</span>
+                </a>
+                <a href="https://linkedin.com/in/kannansekara" target="_blank" rel="noopener" class="hover:text-sky-400 transition-colors duration-300 flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/kannansekara" target="_blank" rel="noopener" class="hover:text-sky-400 transition-colors duration-300 flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <span>GitHub</span>
+                </a>
             </div>
         </section>
 
-        <!-- The "About" section is integrated into the Hero section for compactness -->
-        <span id="about" class="anchor"></span>
-
-        <section id="education">
-            <h2 class="section-header">Education</h2>
-            <div class="item-grid">
-                <div class="card">
-                    <!-- Image for King's College London -->
-                    <img src="images\KCL.png" alt="King's College London Logo" class="education-image">
-                    <h3>BSc Physics</h3>
-                    <h4>King's College London (QS World Rank: =40th)</h4>
-                    <p class="date">2024 – 2027</p>
-                    <p>Recipient of the Alessandro de Vita Computational Physics Prize 2024-25. Relevant Modules: Mathematics & Computation, Classical Physics, Astrophysics, Modern Physics.</p>
+        <section id="education" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Education</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=KCL" alt="King's College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">BSc Physics</h3>
+                    <h4 class="text-sky-400">King's College London</h4>
+                    <p class="text-xs text-slate-500 mb-2">QS World University Ranking: #40</p>
+                    <p class="text-sm text-slate-400 mb-4">2024 – 2027 (Predicted First-Class Honours)</p>
+                    <p class="text-slate-400 text-sm flex-grow">Recipient of the Alessandro de Vita Computational Physics Prize 2024-25. Relevant Modules: Mathematics & Computation, Classical Physics, Astrophysics, Modern Physics.</p>
                 </div>
-                <div class="card">
-                    <!-- Image for University College London -->
-                    <img src="images\UCL.png" alt="University College London Logo" class="education-image">
-                    <h3>MEng Computer Science</h3>
-                    <h4>University College London (QS World Rank: 9th)</h4>
-                    <p class="date">2021 – 2023</p>
-                    <p>Gained robust training in theoretical computer science and software engineering. Key Modules: Theory of Computation, Algorithms, OOP, Discrete Maths.</p>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=UCL" alt="University College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">MEng Computer Science</h3>
+                    <h4 class="text-sky-400">University College London</h4>
+                    <p class="text-xs text-slate-500 mb-2">QS World University Ranking: #9</p>
+                    <p class="text-sm text-slate-400 mb-4">2021 – 2023</p>
+                    <p class="text-slate-400 text-sm flex-grow">Gained robust training in theoretical computer science and software engineering. Key Modules: Theory of Computation, Algorithms, OOP, Discrete Maths.</p>
                 </div>
-                 <div class="card">
-                    <!-- Image for Royal Grammar School, Newcastle -->
-                    <img src="images\RGS.png" alt="Royal Grammar School Newcastle Logo" class="education-image">
-                    <h3>A Levels & GCSEs</h3>
-                    <h4>Royal Grammar School, Newcastle (Ranked 56th UK Independent School by A-Levels)</h4>
-                    <p class="date">2012 – 2019</p>
-                    <p>A* in Maths, Further Maths, & Physics. 7 A*s & 4 As at GCSE.</p>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=RGS" alt="Royal Grammar School" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">A Levels & GCSEs</h3>
+                    <h4 class="text-sky-400">Royal Grammar School, Newcastle</h4>
+                    <p class="text-xs text-slate-500 mb-2">UK Independent School Ranking: #56</p>
+                    <p class="text-sm text-slate-400 mb-4">2012 – 2019</p>
+                    <p class="text-slate-400 text-sm flex-grow">A* in Maths, Further Maths, & Physics. 7 A*s & 4 As at GCSE.</p>
                 </div>
             </div>
         </section>
 
-        <section id="experience">
-            <h2 class="section-header">Experience</h2>
-            <div class="item-grid">
-                <div class="card experience-item">
-                    <!-- Image for Dept. of Physics, King's College London -->
-                    <img src="images\KCL.png" alt="King's College London Physics Department Logo" class="experience-image">
-                    <h3>Summer Researcher</h3>
-                    <h4>Dept. of Physics, King's College London</h4>
-                    <p class="date">Starting Jun 2025</p>
-                    <ul>
+        <section id="experience" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Experience</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=KCL" alt="King's College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">Summer Researcher</h3>
+                    <h4 class="text-sky-400">Dept. of Physics, King's College London</h4>
+                    <p class="text-sm text-slate-500 mb-4">Starting Jun 2025</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
                         <li>Working on machine-learning-driven analysis of carbon nanoclusters.</li>
                         <li>Applying physics-informed neural networks and dimensionality reduction.</li>
                     </ul>
                 </div>
-                <div class="card experience-item">
-                    <!-- Image for Kannan Industrials -->
-                    <img src="images\fish.JPG" alt="Kannan Industrials Logo" class="experience-image">
-                    <h3>iOS Developer (Freelance)</h3>
-                    <h4>Kannan Industrials</h4>
-                    <p class="date">Feb 2021 – Present</p>
-                    <ul>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=KI" alt="Kannan Industrials" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">iOS Developer (Freelance)</h3>
+                    <h4 class="text-sky-400">Kannan Industrials</h4>
+                    <p class="text-sm text-slate-500 mb-4">Feb 2021 – Present</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
                         <li>Designed and deployed several iOS apps (iMinuteDOEShelp, iPong, DabCounter).</li>
                         <li>Implemented real-time sensor data processing and CoreML integration.</li>
                     </ul>
                 </div>
-                <div class="card experience-item">
-                    <!-- Image for NHS Digital -->
-                    <img src="images\NHS.PNG" alt="NHS Digital Logo" class="experience-image">
-                    <h3>Data Science Intern</h3>
-                    <h4>NHS Digital, Leeds</h4>
-                    <p class="date">Nov 2019</p>
-                    <ul>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=NHS" alt="NHS Digital" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">Data Science Intern</h3>
+                    <h4 class="text-sky-400">NHS Digital, Leeds</h4>
+                    <p class="text-sm text-slate-500 mb-4">Nov 2019</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
                         <li>Built an NLP pipeline (LSTM, Word2Vec) to predict ICD-9 codes.</li>
                         <li>Used t-SNE for model visualization and clinical informatics exploration.</li>
                     </ul>
                 </div>
-                <div class="card experience-item">
-                    <!-- Image for Kennedy Institute of Rheumatology, Oxford -->
-                    <img src="images\kennedy.png" alt="Kennedy Institute of Rheumatology Logo" class="experience-image">
-                    <h3>Research Intern</h3>
-                    <h4>Kennedy Institute of Rheumatology, Oxford</h4>
-                    <p class="date">Nov 2019</p>
-                    <ul>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="https://placehold.co/80x80/0f172a/94a3b8?text=KIR" alt="Kennedy Institute of Rheumatology" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">Research Intern</h3>
+                    <h4 class="text-sky-400">Kennedy Institute of Rheumatology, Oxford</h4>
+                    <p class="text-sm text-slate-500 mb-4">Nov 2019</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
                         <li>Trained CNNs for image classification (MNIST, CIFAR) with TensorFlow.</li>
                         <li>Developed an LSTM trading bot for time-series prediction.</li>
                     </ul>
@@ -417,256 +226,236 @@
             </div>
         </section>
 
-        <section id="skills">
-            <h2 class="section-header">Skills</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Languages</h3>
-                    <p>Python, C, C++, Java, Swift, Objective-C, Haskell</p>
+        <section id="skills" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Skills</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-sky-400 text-lg font-bold mb-3">Languages</h3>
+                    <p class="text-slate-300">Python, C, C++, Java, Swift, Objective-C, Haskell</p>
                 </div>
-                <div class="card">
-                    <h3>Frameworks & ML</h3>
-                    <p>TensorFlow, Scikit-learn, Flask, Word2Vec, LSTM, CoreML</p>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-sky-400 text-lg font-bold mb-3">Frameworks & ML</h3>
+                    <p class="text-slate-300">TensorFlow, Scikit-learn, Flask, Word2Vec, LSTM, CoreML</p>
                 </div>
-                <div class="card">
-                    <h3>Platforms</h3>
-                    <p>iOS, Arduino, macOS, Linux, Windows</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h2 class="section-header">Select Projects</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>AR Lens</h3>
-                    <p>Snapchat AR Lens with 2.5M+ views and 100K+ downloads.</p>
-                </div>
-                <div class="card">
-                    <h3>iCrypto</h3>
-                    <p>Market forecasting app using Bayesian deep learning.</p>
-                </div>
-                 <div class="card">
-                    <h3>TetrisAI</h3>
-                    <p>Reinforcement learning agent to master Tetris gameplay.</p>
-                </div>
-                <div class="card">
-                    <h3>iPong</h3>
-                    <p>ML-powered pong game for Apple Watch using CoreML & Swift.</p>
-                </div>
-                 <div class="card">
-                    <h3>GPComm</h3>
-                    <p>Full-stack patient-doctor communication application.</p>
-                </div>
-                <div class="card">
-                    <h3>YoteCoin</h3>
-                    <p>Smart contract token built on the Ethereum blockchain.</p>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-sky-400 text-lg font-bold mb-3">Platforms</h3>
+                    <p class="text-slate-300">iOS, Arduino, macOS, Linux, Windows</p>
                 </div>
             </div>
         </section>
         
-         <section id="certificates">
-            <h2 class="section-header">Certificates</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Machine Learning</h3>
-                    <h4>Stanford / Coursera</h4>
-                     <p>Credential ID: WZPCZKU8PJA9</p>
+        <section id="projects" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Select Projects</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">AR Lens</h3>
+                    <p class="text-slate-400 text-sm">Snapchat AR Lens with 2.5M+ views and 100K+ downloads.</p>
                 </div>
-                <div class="card">
-                    <h3>Deep Learning Specialization</h3>
-                    <h4>DeepLearning.AI</h4>
-                    <p>Credential ID: BDYCCTSVUHD3</p>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">iCrypto</h3>
+                    <p class="text-slate-400 text-sm">Market forecasting app using Bayesian deep learning.</p>
                 </div>
-                <div class="card">
-                    <h3>CS50x</h3>
-                    <h4>Harvard University</h4>
-                    <p>Credential ID: 6e593e86fca2494b8b1c9af455a8d29d</p>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">TetrisAI</h3>
+                    <p class="text-slate-400 text-sm">Reinforcement learning agent to master Tetris gameplay.</p>
+                </div>
+                 <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">iPong</h3>
+                    <p class="text-slate-400 text-sm">ML-powered pong game for Apple Watch using CoreML & Swift.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">GPComm</h3>
+                    <p class="text-slate-400 text-sm">Full-stack patient-doctor communication application.</p>
+                </div>
+                 <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">YoteCoin</h3>
+                    <p class="text-slate-400 text-sm">Smart contract token built on the Ethereum blockchain.</p>
                 </div>
             </div>
         </section>
-    </div>
 
-    <footer>
-        <p>&copy; 2025 Kannan Sekar Annu Radha. All rights reserved.</p>
+        <section id="certificates" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Certificates</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">Machine Learning</h3>
+                    <h4 class="text-sky-400 mb-2">Stanford / Coursera</h4>
+                    <p class="text-xs text-slate-500">ID: WZPCZKU8PJA9</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">Deep Learning</h3>
+                    <h4 class="text-sky-400 mb-2">DeepLearning.AI</h4>
+                    <p class="text-xs text-slate-500">ID: BDYCCTSVUHD3</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">CS50x</h3>
+                    <h4 class="text-sky-400 mb-2">Harvard University</h4>
+                    <p class="text-xs text-slate-500">ID: 6e593e86fca2494b8b1c9af455a8d29d</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-10">
+        <p class="text-slate-500 text-sm">&copy; 2025 Kannan Sekar Annu Radha. All rights reserved.</p>
     </footer>
 
     <script>
-        // Intersection Observer for scroll-in animations
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            const contentSections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            const navObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    // Check if the section is intersecting (i.e., in the viewport based on rootMargin)
+                    if (entry.isIntersecting) {
+                        // Get the id of the intersecting section
+                        const id = entry.target.getAttribute('id');
+                        // Loop through all nav links
+                        navLinks.forEach(link => {
+                            // Remove active class from all links first
+                            link.classList.remove('active');
+                            // Add active class to the link that corresponds to the intersecting section
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { 
+                // This rootMargin defines the "trigger zone" for the active link.
+                // '0px' at the top means the zone starts at the very top of the viewport.
+                // '-50%' at the bottom means the zone ends at the vertical center of the viewport.
+                // Effectively, a section is "active" if it's in the top half of the screen.
+                rootMargin: '0px 0px -50% 0px' 
+            });
+
+            contentSections.forEach(section => {
+                navObserver.observe(section);
+            });
+        });
+
+        // --- Three.js Liquid Glass Background ---
+        let scene, camera, renderer, material;
+        let mouse = new THREE.Vector2();
+
+        function initLiquidBackground() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 1;
+
+            const canvas = document.getElementById('liquid-canvas');
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const vertexShader = `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = vec4(position, 1.0);
+                }
+            `;
+            const fragmentShader = `
+                uniform vec2 u_resolution;
+                uniform float u_time;
+                uniform vec2 u_mouse;
+                varying vec2 vUv;
+                vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+                float snoise(vec2 v) {
+                    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+                    vec2 i  = floor(v + dot(v, C.yy) );
+                    vec2 x0 = v -   i + dot(i, C.xx);
+                    vec2 i1;
+                    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+                    vec4 x12 = x0.xyxy + C.xxzz;
+                    x12.xy -= i1;
+                    i = mod289(i);
+                    vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
+                    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+                    m = m*m;
+                    m = m*m;
+                    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+                    vec3 h = abs(x) - 0.5;
+                    vec3 ox = floor(x + 0.5);
+                    vec3 a0 = x - ox;
+                    m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+                    vec3 g;
+                    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+                    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+                    return 130.0 * dot(m, g);
+                }
+                void main() {
+                    vec2 st = gl_FragCoord.xy / u_resolution.xy;
+                    st.x *= u_resolution.x / u_resolution.y;
+                    vec3 color = vec3(0.0);
+                    float n = snoise(st * 2.0 - u_time * 0.1);
+                    float mouseDist = distance(st, u_mouse);
+                    float warp = smoothstep(0.2, 0.0, mouseDist);
+                    vec2 p = st * 3.0 + (n * 0.5) + (warp * 0.2);
+                    float f = snoise(p + u_time * 0.2);
+                    f = mix(f, snoise(p + f), 0.5);
+                    color = mix(vec3(0.05, 0.05, 0.15), vec3(0.1, 0.2, 0.45), smoothstep(-0.2, 1.0, f));
+                    color += pow(max(0.0, f), 2.0) * 0.3;
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `;
+            
+            material = new THREE.ShaderMaterial({
+                vertexShader,
+                fragmentShader,
+                uniforms: {
+                    u_time: { value: 0 },
+                    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+                    u_mouse: { value: new THREE.Vector2(0.5, 0.5) }
                 }
             });
-        }, { threshold: 0.1 });
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
 
-        // Active navigation link highlighting
-        const navLinks = document.querySelectorAll('nav a');
-        const navObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, { rootMargin: '-50% 0px -50% 0px' });
-
-        sections.forEach(section => {
-            navObserver.observe(section);
-        });
-
-        // Dynamic background canvas script
-        const canvas = document.getElementById('backgroundCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = {
-            x: undefined,
-            y: undefined,
-            radius: 100 // Radius around mouse for particle interaction
-        };
-
-        // Resize canvas to fill window
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles(); // Re-initialize particles on resize
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('mousemove', onMouseMove, false);
+            animate();
         }
 
-        // Particle class definition
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-
-            // Draw particle
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-
-            // Update particle position and interaction
-            update() {
-                // Check if particle is still within canvas
-                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
-                    this.directionX = -this.directionX;
-                }
-                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
-                    this.directionY = -this.directionY;
-                }
-
-                this.x += this.directionX;
-                this.y += this.directionY;
-
-                // Mouse interaction
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-
-                if (distance < mouse.radius + this.size) {
-                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-                        this.x += 10;
-                    }
-                    if (mouse.x > this.x && this.x > this.size * 10) {
-                        this.x -= 10;
-                    }
-                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-                        this.y += 10;
-                    }
-                    if (mouse.y > this.y && this.y > this.size * 10) {
-                        this.y -= 10;
-                    }
-                }
-                this.draw();
-            }
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
         }
 
-        // Initialize particles
-        function initParticles() {
-            particles = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 9000; // Adjust density based on screen size
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1; // Particle size between 1 and 3
-                let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.5) - 0.25; // Speed between -0.25 and 0.25
-                let directionY = (Math.random() * 0.5) - 0.25;
-                let color = 'rgba(56, 189, 248, 0.4)'; // Blueish, semi-transparent
-
-                particles.push(new Particle(x, y, directionX, directionY, size, color));
-            }
+        function onMouseMove(event) {
+            mouse.x = event.clientX / window.innerWidth;
+            mouse.y = 1.0 - (event.clientY / window.innerHeight); // Invert Y
+            material.uniforms.u_mouse.value.copy(mouse);
         }
 
-        // Animation loop
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-            }
-            connectParticles();
+        function animate() {
+            requestAnimationFrame(animate);
+            material.uniforms.u_time.value += 0.005;
+            renderer.render(scene, camera);
         }
-
-        // Connect particles with lines
-        function connectParticles() {
-            let opacityValue = 1;
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x)) 
-                                 + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
-                    
-                    // Connect particles within a certain distance
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000); // Adjust connection opacity based on distance
-                        ctx.strokeStyle = `rgba(56, 189, 248, ${opacityValue})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        // Event listeners
-        window.addEventListener('resize', resizeCanvas);
-
-        window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-
-        window.addEventListener('mouseout', () => {
-            mouse.x = undefined;
-            mouse.y = undefined;
-        });
-
-        // Initialize and start animation when window loads
-        window.onload = function() {
-            resizeCanvas(); // Set initial canvas size
-            animateParticles(); // Start the animation loop
-        };
-
+        
+        initLiquidBackground();
     </script>
-
 </body>
 </html>
