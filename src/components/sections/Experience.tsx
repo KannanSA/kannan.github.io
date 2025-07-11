@@ -12,7 +12,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/KCL.png"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/KCL.png"
                 alt="King's College London"
                 width={32}
                 height={32}
@@ -59,7 +59,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/fish.JPG"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/fish.JPG"
                 alt="Kannan Industrials"
                 width={32}
                 height={32}
@@ -103,7 +103,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/NHS.PNG"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/NHS.PNG"
                 alt="NHS Digital"
                 width={32}
                 height={32}
@@ -148,7 +148,7 @@ export const Experience = () => {
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center text-white text-xs font-bold">
               <Image
-                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/kennedy.png"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/kennedy.png"
                 alt="Kennedy Institute of Rheumatology"
                 width={32}
                 height={32}
