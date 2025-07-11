@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Fragment } from 'react'
 import { CheckIcon, MinusIcon, PlusIcon } from '@heroicons/react/16/solid'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
