@@ -1,8 +1,5 @@
  [build]
-   command   = "npm ci --legacy-peer-deps && npm run build"
-   publish   = ".netlify/output/public"
-   functions = ".netlify/output/functions"
+  command = "npm ci --legacy-peer-deps && npm run build"
+  publish = "out"
 
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
