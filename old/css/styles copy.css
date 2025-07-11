@@ -1,3 +1,4 @@
+<<<<<<< HEAD:css/styles copy.css
 
 /* ===================================================================
  * # settings and variables
@@ -4649,3 +4650,118 @@ input[type="button"].btn--primary:focus {
         margin-right: 1.4rem;
     }
 }
+=======
+/* styles.css */
+
+/* ============  
+   Design Tokens  
+   ============ */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+:root {
+  /* Font & spacing */
+  --font-body: 'Roboto', sans-serif;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --shape-radius: 12px;
+
+  /* Typography scales (inherited from M3) */
+  --md-sys-typescale-body-medium-font-size: 1rem;
+  --md-sys-typescale-body-small-font-size: 0.875rem;
+  --md-sys-typescale-headline-medium-font-size: 1.75rem;
+  --md-sys-typescale-title-large-font-size: 1.375rem;
+}
+
+/* =====  
+   Base  
+   ===== */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.app-container {
+  padding: var(--space-3);
+}
+
+section {
+  margin-top: var(--space-4);
+}
+
+h2 {
+  margin-bottom: var(--space-2);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+}
+
+p {
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  line-height: 1.5;
+}
+
+/* ========  
+   Utilities  
+   ======== */
+/* Margin Top */
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+
+/* Padding */
+.p-1 { padding: var(--space-1); }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+
+/* Layout containers */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-3);
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-3);
+}
+.skill-block {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* =========  
+   Elevation  
+   ========= */
+/* Real dp-based shadows for M3 depth */
+.md-elevation-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.md-elevation-2 { box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+.md-elevation-3 { box-shadow: 0 4px 8px rgba(0,0,0,0.12); }
+
+/* ========  
+   Components  
+   ======== */
+.drawer-list a {
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+}
+.drawer-list a:hover {
+  text-decoration: underline;
+}
+
+.project-media {
+  width: 100%;
+  border-radius: var(--shape-radius);
+}
+
+.contact-buttons > * {
+  min-width: 120px;
+}
+>>>>>>> 0b6c297 (new world):old/css/styles copy.css

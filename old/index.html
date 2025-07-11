@@ -1,0 +1,453 @@
+</html>
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kannan Sekar Annu Radha | Portfolio</title>
+
+    <!-- Tailwind CSS for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Three.js for the WebGL background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* Custom styles to complement Tailwind and achieve the desired aesthetic */
+        :root {
+            --background-start-rgb: 15, 23, 42; /* slate-900 */
+            --background-end-rgb: 0, 0, 0;
+            --glow-rgb: 56, 189, 248; /* sky-400 */
+            --card-background: rgba(22, 30, 51, 0.6); /* Darker, less saturated blue */
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--background-start-rgb));
+            overflow-x: hidden;
+        }
+        
+        #liquid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* --- Glassmorphism Styles --- */
+        .glass-card {
+            background: var(--card-background);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Specific style for the navigation bar for a nicer look */
+        #navbar.glass-card {
+             box-shadow: 
+                inset 0 2px 2px 0px rgba(255, 255, 255, 0.1),
+                0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        main .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        #navbar.glass-card:hover {
+            transform: translateX(-50%) scale(1.03);
+            box-shadow: 
+                inset 0 2px 2px 0px rgba(255, 255, 255, 0.1),
+                0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        /* --- Text Gradients & Effects --- */
+        .hero-title {
+            background: linear-gradient(120deg, #e2e8f0 20%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header {
+             background: linear-gradient(120deg, #cbd5e1, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Scroll-in Animation --- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* --- Navigation active/hover state --- */
+        nav a:hover {
+            color: #f8fafc;
+        }
+        nav a.active {
+            color: #f8fafc;
+            background-color: rgba(56, 189, 248, 0.15);
+            box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300">
+    
+    <canvas id="liquid-canvas"></canvas>
+
+    <nav id="navbar" class="glass-card fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-auto p-1 sm:p-2 rounded-full z-50 flex items-center justify-around sm:justify-center">
+        <a href="#hero" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium active">About</a>
+        <a href="#education" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Education</a>
+        <a href="#experience" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Experience</a>
+        <a href="#skills" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Skills</a>
+        <a href="#projects" class="px-3 sm:px-4 py-2 rounded-full text-slate-400 transition-all duration-300 text-xs sm:text-sm font-medium">Projects</a>
+    </nav>
+    
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center scroll-reveal">
+            <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4">
+                Kannan Sekar Annu Radha
+            </h1>
+            <h2 class="text-sky-400 text-lg md:text-xl lg:text-2xl font-medium mb-8" style="text-shadow: 0 0 15px rgba(var(--glow-rgb), 0.5);">
+                Physics Student at King's College London
+            </h2>
+            <p id="about" class="max-w-3xl text-slate-400 text-base md:text-lg leading-relaxed mb-10">
+                Motivated interdisciplinary researcher with a strong foundation in physics and computer science. My academic and professional focus lies in developing intelligent systems using machine learning, probabilistic reasoning, and computational logic. I aim to contribute to impactful, explainable AI applications—especially in healthcare and edge computing.
+            </p>
+            <div class="flex items-center space-x-6 text-slate-400">
+                <a href="mailto:kannansekara@gmail.com" class="hover:text-sky-400 transition-colors duration-300 flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>Email</span>
+                </a>
+                <a href="https://linkedin.com/in/kannan-sekar/" target="_blank" rel="noopener" class="hover:text-sky-400 transition-colors duration-300 flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/kannansa" target="_blank" rel="noopener" class="hover:text-sky-400 transition-colors duration-300 flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="education" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Education</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\KCL.png" alt="King's College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">BSc Physics</h3>
+                    <h4 class="text-sky-400">King's College London</h4>
+                    <p class="text-xs text-slate-500 mb-2">QS World University Ranking: #31</p>
+                    <p class="text-sm text-slate-400 mb-4">2024 – 2027</p>
+                    <p class="text-slate-400 text-sm flex-grow">Recipient of the Alessandro de Vita Computational Physics Prize 2024-25. Relevant Modules: Mathematics & Computation, Classical Physics, Astrophysics, Modern Physics.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\UCL.png" alt="University College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">MEng Computer Science</h3>
+                    <h4 class="text-sky-400">University College London</h4>
+                    <p class="text-xs text-slate-500 mb-2">QS World University Ranking: #9</p>
+                    <p class="text-sm text-slate-400 mb-4">2021 – 2023</p>
+                    <p class="text-slate-400 text-sm flex-grow">Gained robust training in theoretical computer science and software engineering. Key Modules: Theory of Computation, Algorithms, OOP, Discrete Maths.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\RGS.png" alt="Royal Grammar School" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">A Levels & GCSEs</h3>
+                    <h4 class="text-sky-400">Royal Grammar School, Newcastle</h4>
+                    <p class="text-xs text-slate-500 mb-2">UK Independent School Ranking: #56</p>
+                    <p class="text-sm text-slate-400 mb-4">2012 – 2019</p>
+                    <p class="text-slate-400 text-sm flex-grow">A* in Maths, Further Maths, & Physics. 7 A*s & 4 As at GCSE.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Experience</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\KCL.png" alt="King's College London" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">Summer Researcher</h3>
+                    <h4 class="text-sky-400">Dept. of Physics, King's College London</h4>
+                    <p class="text-sm text-slate-500 mb-4">Starting Jun 2025</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
+                        <li>Working on machine-learning-driven analysis of carbon nanoclusters.</li>
+                        <li>Applying physics-informed neural networks and dimensionality reduction.</li>
+                    </ul>
+                </div>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\fish.JPG" alt="Kannan Industrials" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">iOS Developer (Freelance)</h3>
+                    <h4 class="text-sky-400">Kannan Industrials</h4>
+                    <p class="text-sm text-slate-500 mb-4">Feb 2021 – Present</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
+                        <li>Designed and deployed several iOS apps (iMinuteDOEShelp, iPong, DabCounter).</li>
+                        <li>Implemented real-time sensor data processing and CoreML integration.</li>
+                    </ul>
+                </div>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\NHS.PNG" alt="NHS Digital" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">Data Science Intern</h3>
+                    <h4 class="text-sky-400">NHS Digital, Leeds</h4>
+                    <p class="text-sm text-slate-500 mb-4">Nov 2019</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
+                        <li>Built an NLP pipeline (LSTM, Word2Vec) to predict ICD-9 codes.</li>
+                        <li>Used t-SNE for model visualization and clinical informatics exploration.</li>
+                    </ul>
+                </div>
+                <div class="glass-card rounded-2xl p-6 flex flex-col">
+                    <img src="images\kennedy.png" alt="Kennedy Institute of Rheumatology" class="w-20 h-20 rounded-full mb-4 border-2 border-slate-700">
+                    <h3 class="text-xl font-bold text-slate-100">Research Intern</h3>
+                    <h4 class="text-sky-400">Kennedy Institute of Rheumatology, Oxford</h4>
+                    <p class="text-sm text-slate-500 mb-4">Nov 2019</p>
+                    <ul class="list-disc list-inside text-slate-400 text-sm space-y-2 flex-grow">
+                        <li>Trained CNNs for image classification (MNIST, CIFAR) with TensorFlow.</li>
+                        <li>Developed an LSTM trading bot for time-series prediction.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Skills</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-sky-400 text-lg font-bold mb-3">Languages</h3>
+                    <p class="text-slate-300">Python, C, C++, Java, Swift, Objective-C, Haskell</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-sky-400 text-lg font-bold mb-3">Frameworks & ML</h3>
+                    <p class="text-slate-300">TensorFlow, Scikit-learn, Flask, Word2Vec, LSTM, CoreML</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-sky-400 text-lg font-bold mb-3">Platforms</h3>
+                    <p class="text-slate-300">iOS, Arduino, macOS, Linux, Windows</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Select Projects</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">AR Lens</h3>
+                    <p class="text-slate-400 text-sm">Snapchat AR Lens with 2.5M+ views and 100K+ downloads.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">iCrypto</h3>
+                    <p class="text-slate-400 text-sm">Market forecasting app using Bayesian deep learning.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">TetrisAI</h3>
+                    <p class="text-slate-400 text-sm">Reinforcement learning agent to master Tetris gameplay.</p>
+                </div>
+                 <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">iPong</h3>
+                    <p class="text-slate-400 text-sm">ML-powered pong game for Apple Watch using CoreML & Swift.</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">GPComm</h3>
+                    <p class="text-slate-400 text-sm">Full-stack patient-doctor communication application.</p>
+                </div>
+                 <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">YoteCoin</h3>
+                    <p class="text-slate-400 text-sm">Smart contract token built on the Ethereum blockchain.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificates" class="py-24 scroll-reveal">
+            <h2 class="section-header text-4xl font-bold text-center mb-16 tracking-tight">Certificates</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">Machine Learning</h3>
+                    <h4 class="text-sky-400 mb-2">Stanford / Coursera</h4>
+                    <p class="text-xs text-slate-500">ID: WZPCZKU8PJA9</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">Deep Learning</h3>
+                    <h4 class="text-sky-400 mb-2">DeepLearning.AI</h4>
+                    <p class="text-xs text-slate-500">ID: BDYCCTSVUHD3</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-slate-100">CS50x</h3>
+                    <h4 class="text-sky-400 mb-2">Harvard University</h4>
+                    <p class="text-xs text-slate-500">ID: 6e593e86fca2494b8b1c9af455a8d29d</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-10">
+        <p class="text-slate-500 text-sm">&copy; 2025 Kannan Sekar Annu Radha. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            const contentSections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            const navObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { 
+                rootMargin: '0px 0px -50% 0px' 
+            });
+
+            contentSections.forEach(section => {
+                navObserver.observe(section);
+            });
+        });
+
+        // --- Three.js Liquid Glass Background ---
+        let scene, camera, renderer, material;
+        let mouse = new THREE.Vector2();
+
+        function initLiquidBackground() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 1;
+
+            const canvas = document.getElementById('liquid-canvas');
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const geometry = new THREE.PlaneGeometry(2, 2);
+            const vertexShader = `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = vec4(position, 1.0);
+                }
+            `;
+            const fragmentShader = `
+                uniform vec2 u_resolution;
+                uniform float u_time;
+                uniform vec2 u_mouse;
+                varying vec2 vUv;
+                vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+                vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+                float snoise(vec2 v) {
+                    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+                    vec2 i  = floor(v + dot(v, C.yy) );
+                    vec2 x0 = v -   i + dot(i, C.xx);
+                    vec2 i1;
+                    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+                    vec4 x12 = x0.xyxy + C.xxzz;
+                    x12.xy -= i1;
+                    i = mod289(i);
+                    vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
+                    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+                    m = m*m;
+                    m = m*m;
+                    vec3 x = 2.0 * fract(p * C.www) - 1.0;
+                    vec3 h = abs(x) - 0.5;
+                    vec3 ox = floor(x + 0.5);
+                    vec3 a0 = x - ox;
+                    m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+                    vec3 g;
+                    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+                    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+                    return 130.0 * dot(m, g);
+                }
+                void main() {
+                    vec2 st = gl_FragCoord.xy / u_resolution.xy;
+                    st.x *= u_resolution.x / u_resolution.y;
+                    vec3 color = vec3(0.0);
+                    float n = snoise(st * 2.0 - u_time * 0.1);
+                    float mouseDist = distance(st, u_mouse);
+                    float warp = smoothstep(0.2, 0.0, mouseDist);
+                    vec2 p = st * 3.0 + (n * 0.5) + (warp * 0.2);
+                    float f = snoise(p + u_time * 0.2);
+                    f = mix(f, snoise(p + f), 0.5);
+                    color = mix(vec3(0.05, 0.05, 0.15), vec3(0.1, 0.2, 0.45), smoothstep(-0.2, 1.0, f));
+                    color += pow(max(0.0, f), 2.0) * 0.3;
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `;
+            
+            material = new THREE.ShaderMaterial({
+                vertexShader,
+                fragmentShader,
+                uniforms: {
+                    u_time: { value: 0 },
+                    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+                    u_mouse: { value: new THREE.Vector2(0.5, 0.5) }
+                }
+            });
+
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('mousemove', onMouseMove, false);
+            animate();
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            material.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(event) {
+            mouse.x = event.clientX / window.innerWidth;
+            mouse.y = 1.0 - (event.clientY / window.innerHeight); // Invert Y
+            material.uniforms.u_mouse.value.copy(mouse);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            material.uniforms.u_time.value += 0.005;
+            renderer.render(scene, camera);
+        }
+        
+        initLiquidBackground();
+    </script>
+</body>
+</html>
