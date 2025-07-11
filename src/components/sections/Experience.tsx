@@ -12,7 +12,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="old/images/KCL.png"
+                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/KCL.png"
                 alt="King's College London"
                 width={32}
                 height={32}
@@ -59,7 +59,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="old/images/fish.JPG"
+                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/fish.JPG"
                 alt="Kannan Industrials"
                 width={32}
                 height={32}
@@ -103,7 +103,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="old/images/NHS.PNG"
+                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/NHS.PNG"
                 alt="NHS Digital"
                 width={32}
                 height={32}
@@ -147,8 +147,14 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center text-white text-xs font-bold">
-                KI
-              </div>
+              <Image
+                src="https://github.com/KannanSA/kannan.github.io/blob/main/old/images/kennedy.png"
+                alt="Kennedy Institute of Rheumatology"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
             </div>
             <div className="flex-1">
               <p className="text-neutral-800 dark:text-neutral-200 text-lg md:text-xl font-semibold mb-2">
