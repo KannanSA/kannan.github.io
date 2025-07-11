@@ -1,6 +1,7 @@
 {
-  "name": "app",
+  "name": "sakannan-com",
   "version": "0.1.0",
+  "description": "SAKannan.com",
   "private": true,
   "engines": {
     "node": ">=20.0.0"

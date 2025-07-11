@@ -12,7 +12,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/1752259699893-ctiiqx0z1wg.png"
+                src="old/images/KCL.png"
                 alt="King's College London"
                 width={32}
                 height={32}
@@ -59,7 +59,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/1752259700874-naf8xkh29gk.png"
+                src="old/images/fish.JPG"
                 alt="Kannan Industrials"
                 width={32}
                 height={32}
@@ -103,7 +103,7 @@ export const Experience = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/1752259702059-scjsm40k0yf.PNG"
+                src="old/images/NHS.PNG"
                 alt="NHS Digital"
                 width={32}
                 height={32}
