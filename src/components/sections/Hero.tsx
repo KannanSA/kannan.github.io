@@ -101,7 +101,7 @@ export default function Hero() {
           className="flex items-center justify-center gap-6 mb-12"
         >
           <motion.a
-            href="https://linkedin.com/in/kannansekara"
+            href="https://linkedin.com/in/kannan-sekar/"
             target="_blank"
             rel="noopener noreferrer"
             className="apple-card w-12 h-12 rounded-full flex items-center justify-center !p-0 hover:bg-blue-50 dark:hover:bg-blue-900/20"
@@ -112,7 +112,7 @@ export default function Hero() {
           </motion.a>
           
           <motion.a
-            href="https://github.com/kannansekara"
+            href="https://github.com/kannansa"
             target="_blank"
             rel="noopener noreferrer"
             className="apple-card w-12 h-12 rounded-full flex items-center justify-center !p-0 hover:bg-gray-50 dark:hover:bg-gray-800"
