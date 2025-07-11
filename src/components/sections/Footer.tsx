@@ -17,13 +17,13 @@ export default function Footer() {
     },
     {
       name: 'LinkedIn',
-      href: 'https://linkedin.com/in/kannansekara',
+      href: 'https://linkedin.com/in/kannan-sekar/',
       icon: <Linkedin className="w-5 h-5" />,
       label: 'LinkedIn Profile'
     },
     {
       name: 'GitHub',
-      href: 'https://github.com/kannansekara',
+      href: 'https://github.com/kannanSA',
       icon: <Github className="w-5 h-5" />,
       label: 'GitHub Profile'
     }
