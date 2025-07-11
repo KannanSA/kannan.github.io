@@ -12,7 +12,7 @@ export const Education = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/blob/main/old/images/KCL.png"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/KCL.png"
                 alt="King's College London"
                 width={32}
                 height={32}
@@ -54,7 +54,7 @@ export const Education = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/blob/main/old/images/UCL.png"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/UCL.png"
                 alt="University College London"
                 width={32}
                 height={32}
@@ -92,7 +92,7 @@ export const Education = () => {
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
               <Image
-                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/blob/main/old/images/RGS.png"
+                src="https://raw.githubusercontent.com/KannanSA/kannan.github.io/main/old/images/RGS.png"
                 alt="Royal Grammar School"
                 width={32}
                 height={32}
