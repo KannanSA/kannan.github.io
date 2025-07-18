@@ -256,7 +256,7 @@ export default function Projects() {
               Discover additional projects, experiments, and contributions on GitHub
             </p>
             <motion.a
-              href="https://github.com/kannansekara"
+              href="https://github.com/kannansa"
               target="_blank"
               rel="noopener noreferrer"
               className="apple-button-primary inline-flex items-center space-x-2"
@@ -264,7 +264,7 @@ export default function Projects() {
               whileTap={{ scale: 0.98 }}
             >
               <Github className="w-4 h-4" />
-              <span>View GitHub Profile</span>
+              <span>View Projects</span>
             </motion.a>
           </div>
         </motion.div>
