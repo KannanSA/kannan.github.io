@@ -191,6 +191,9 @@ export const Experience = () => {
   
   return (
     <section className="w-full py-20" id="experience">
+      <div className="text-center mb-12">
+        <h2 className="sf-pro-headline text-black dark:text-white">Experience</h2>
+      </div>
       <Timeline data={data} />
     </section>
   );

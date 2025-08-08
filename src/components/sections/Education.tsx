@@ -130,6 +130,9 @@ export const Education = () => {
   
   return (
     <section className="w-full py-20" id="education">
+      <div className="text-center mb-12">
+        <h2 className="sf-pro-headline text-black dark:text-white">Education</h2>
+      </div>
       <Timeline data={data} />
     </section>
   );

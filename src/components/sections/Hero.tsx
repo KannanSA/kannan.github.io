@@ -1,7 +1,7 @@
 "use client";
 
-import { Mail, Linkedin, Github, ArrowRight, ChevronDown } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Mail, Linkedin, Github, ChevronDown } from 'lucide-react'
+import { motion } from 'motion/react'
 
 export default function Hero() {
   const scrollToNextSection = () => {
@@ -77,6 +77,7 @@ export default function Hero() {
           <motion.a
             href="mailto:kannansekara@gmail.com"
             className="apple-button-primary"
+            data-magnet
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -88,6 +89,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             className="apple-button-secondary"
+            data-magnet
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -101,14 +103,11 @@ export default function Hero() {
           className="flex items-center justify-center gap-6 mb-12"
         >
           <motion.a
-<<<<<<< HEAD
             href="https://linkedin.com/in/kannan-sekar/"
-=======
-            href="https://linkedin.com/in/kannan-sekar"
->>>>>>> c974fe1 (dishfish)
             target="_blank"
             rel="noopener noreferrer"
             className="apple-card w-12 h-12 rounded-full flex items-center justify-center !p-0 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+            data-magnet
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -120,6 +119,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             className="apple-card w-12 h-12 rounded-full flex items-center justify-center !p-0 hover:bg-gray-50 dark:hover:bg-gray-800"
+            data-magnet
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -129,6 +129,7 @@ export default function Hero() {
           <motion.a
             href="mailto:kannansekara@gmail.com"
             className="apple-card w-12 h-12 rounded-full flex items-center justify-center !p-0 hover:bg-gray-50 dark:hover:bg-gray-800"
+            data-magnet
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >

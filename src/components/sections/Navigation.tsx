@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Menu, X } from 'lucide-react'
 
 export default function Navigation() {

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CustomCursor from "@/components/ui/custom-cursor";
+import LiquidBackground from "@/components/ui/liquid-background";
 
 export const metadata: Metadata = {
   title: "SAKannan.com",
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <LiquidBackground />
+        {children}
+        <CustomCursor />
+      </body>
     </html>
   );
 }
