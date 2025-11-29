@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Kannan Sekar - Software Engineer & Researcher",
   description: "Bridging the gap between Physics, CS, and Math. Building production-grade AI systems and optimizing algorithms for cloud, mobile, and embedded environments.",
+  icons: {
+    icon: "/MrFatness.jpeg",
+  },
 };
 
 export default function RootLayout({
