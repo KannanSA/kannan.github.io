@@ -541,7 +541,7 @@ export default function Portfolio() {
                 {personalInfo.name}
               </h1>
               <p className="text-2xl md:text-3xl text-slate-500 dark:text-slate-400 font-light">
-                Engineer <span className="text-slate-300 dark:text-slate-600">/</span> Researcher <span className="text-slate-300 dark:text-slate-600">/</span> Builder
+                Engineer <span className="text-slate-300 dark:text-slate-600">/</span> Researcher <span className="text-slate-300 dark:text-slate-600">/</span> Gamer
               </p>
             </div>
 
