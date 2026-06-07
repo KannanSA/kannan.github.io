@@ -6,16 +6,11 @@ import {
   ArrowRight,
   ArrowUpRight,
   Atom,
-  BookOpen,
-  Brain,
   Briefcase,
-  Calendar,
-  CheckCircle2,
-  Cloud,
   Code,
   Cpu,
   Database,
-  ExternalLink,
+  Download,
   FileText,
   Gauge,
   Github,
@@ -23,30 +18,20 @@ import {
   GraduationCap,
   Home,
   Layers,
-  Linkedin,
   Mail,
-  MapPin,
+  Monitor,
   Menu,
   Rocket,
   School,
-  Server,
   ShieldCheck,
   Smartphone,
   Sparkles,
+  Sun,
   Terminal,
   X,
-  Zap,
 } from 'lucide-react';
 
 type Accent = 'blue' | 'red' | 'yellow' | 'green' | 'slate';
-
-type Media = {
-  src?: string;
-  monogram?: string;
-  label: string;
-  tone: string;
-  fit?: 'contain' | 'cover';
-};
 
 type Experience = {
   role: string;
@@ -57,7 +42,6 @@ type Experience = {
   result: string;
   tags: string[];
   accent: Accent;
-  media: Media;
 };
 
 type Education = {
@@ -66,7 +50,6 @@ type Education = {
   year: string;
   details: string;
   accent: Accent;
-  media: Media;
 };
 
 type Project = {
@@ -81,23 +64,12 @@ type Project = {
 
 const personalInfo = {
   name: 'Kannan Sekar Annu Radha',
-  shortName: 'Kannan',
   tagline: 'Software Engineer & Researcher',
   bio: 'I build production-grade AI systems at the intersection of Physics and Computer Science, spanning probabilistic modeling, GPU acceleration, and edge AI.',
   email: 'kannansekara@gmail.com',
   linkedin: 'https://linkedin.com/in/kannan-sekar',
   github: 'https://github.com/kannansa',
   website: 'https://sakannan.com',
-};
-
-const mediaSources = {
-  kings:
-    'https://commons.wikimedia.org/wiki/Special:FilePath/King%27s_College_London_logo.svg',
-  ucl: 'https://commons.wikimedia.org/wiki/Special:FilePath/UCL_Crest.svg',
-  rgs: 'https://commons.wikimedia.org/wiki/Special:FilePath/RGS_Logo.jpg',
-  kennedy: 'https://www.kennedy.ox.ac.uk/images/site-logos/kennedy-logo',
-  nhs:
-    'https://commons.wikimedia.org/wiki/Special:FilePath/NHS-Digital-logo_WEB_LEFT-100x855.png',
 };
 
 const experience: Experience[] = [
@@ -111,12 +83,6 @@ const experience: Experience[] = [
     result: '+80% prediction accuracy, -60% simulation time',
     tags: ['TensorFlow', 'CUDA', 'PINNs', 'Materials'],
     accent: 'blue',
-    media: {
-      src: mediaSources.kings,
-      label: 'Research lab',
-      tone: 'from-[#7f1d1d] to-[#dc2626]',
-      fit: 'contain',
-    },
   },
   {
     role: 'Software Engineer & CEO',
@@ -124,15 +90,10 @@ const experience: Experience[] = [
     period: 'Feb 2021 - Present',
     location: 'London / Chennai',
     description:
-      "Architected and shipped iOS applications including 1minute DOEShelp, iPong, and DabCounter, with CoreML inference tuned for Apple Watch constraints.",
+      'Architected and shipped iOS applications including 1minute DOEShelp, iPong, and DabCounter, with CoreML inference tuned for Apple Watch constraints.',
     result: '70% faster real-time inference on constrained hardware',
     tags: ['Swift', 'CoreML', 'iOS', 'CI/CD'],
     accent: 'green',
-    media: {
-      monogram: 'KI',
-      label: 'Product studio',
-      tone: 'from-[#06281f] via-[#0f766e] to-[#16a34a]',
-    },
   },
   {
     role: 'Research Intern',
@@ -144,12 +105,6 @@ const experience: Experience[] = [
     result: '40% improvement over biomedical imaging baselines',
     tags: ['CNNs', 'PyTorch', 'Biomedical Imaging'],
     accent: 'red',
-    media: {
-      src: mediaSources.kennedy,
-      label: 'Biomedical research',
-      tone: 'from-[#3b0764] via-[#7e22ce] to-[#f97316]',
-      fit: 'contain',
-    },
   },
   {
     role: 'Data Science Intern',
@@ -161,12 +116,6 @@ const experience: Experience[] = [
     result: 'ICD-9 coding accuracy improved from 42% to 71%',
     tags: ['NLP', 'LSTM', 'Healthcare Data'],
     accent: 'yellow',
-    media: {
-      src: mediaSources.nhs,
-      label: 'Healthcare data',
-      tone: 'from-[#003087] to-[#005eb8]',
-      fit: 'contain',
-    },
   },
 ];
 
@@ -178,12 +127,6 @@ const education: Education[] = [
     details:
       'Alessandro de Vita Computational Physics Prize 2024-25. Modules include computational physics, quantum mechanics, and statistical mechanics.',
     accent: 'blue',
-    media: {
-      src: mediaSources.kings,
-      label: 'Physics',
-      tone: 'from-[#7f1d1d] to-[#dc2626]',
-      fit: 'contain',
-    },
   },
   {
     school: 'University College London',
@@ -192,12 +135,6 @@ const education: Education[] = [
     details:
       'Coursework across algorithms, machine learning, theory of computation, and distributed systems.',
     accent: 'red',
-    media: {
-      src: mediaSources.ucl,
-      label: 'Computer science',
-      tone: 'from-[#2e1065] to-[#7c3aed]',
-      fit: 'contain',
-    },
   },
   {
     school: 'Royal Grammar School, Newcastle',
@@ -206,12 +143,6 @@ const education: Education[] = [
     details:
       'A*A*A* in Mathematics, Further Mathematics, and Physics. 7 A*s and 4 As at GCSE.',
     accent: 'green',
-    media: {
-      src: mediaSources.rgs,
-      label: 'Mathematics',
-      tone: 'from-[#14532d] to-[#16a34a]',
-      fit: 'contain',
-    },
   },
 ];
 
@@ -260,7 +191,7 @@ const projects: Project[] = [
     title: 'NLP NHS System',
     description:
       'Clinical text ICD-9 prediction system with AWS deployment experiments and anomaly detection.',
-    icon: <Brain className="h-5 w-5" />,
+    icon: <Activity className="h-5 w-5" />,
     tech: ['NLP', 'AWS', 'Python'],
     accent: 'blue',
     visual: 'clinical',
@@ -291,41 +222,93 @@ const skills = [
   },
   {
     title: 'Cloud / Systems',
-    icon: <Cloud className="h-5 w-5" />,
+    icon: <Database className="h-5 w-5" />,
     items: ['GCP', 'Docker', 'Kubernetes', 'CI/CD', 'Git'],
   },
   {
     title: 'Research Tooling',
-    icon: <Database className="h-5 w-5" />,
+    icon: <Terminal className="h-5 w-5" />,
     items: ['REST APIs', 'GraphQL', 'OpenMP', 'LAMMPS', 'JAX'],
   },
 ];
 
 const proofPoints = [
   {
-    title: 'Production AI',
-    copy: 'Shipped clinical, research, and consumer ML systems.',
+    title: 'Production Systems',
+    copy: 'Shipped to clinical and research environments',
     icon: <Rocket className="h-5 w-5" />,
   },
   {
     title: 'GPU Acceleration',
-    copy: 'CUDA, PyTorch, TensorFlow, and performance profiling.',
+    copy: 'CUDA, PyTorch, JAX for high-performance ML',
     icon: <Gauge className="h-5 w-5" />,
   },
   {
-    title: 'Scientific Modeling',
-    copy: 'PINNs, uncertainty, and computational physics.',
+    title: 'Probabilistic Modeling',
+    copy: 'Bayesian methods, UQ, and scientific ML',
     icon: <Activity className="h-5 w-5" />,
   },
   {
     title: 'Edge AI',
-    copy: 'Optimized inference on mobile and watch hardware.',
+    copy: 'Optimized inference on resource-constrained devices',
     icon: <Smartphone className="h-5 w-5" />,
   },
   {
-    title: 'Engineering Taste',
-    copy: 'Readable, monitored, repeatable systems.',
+    title: 'High Standards',
+    copy: 'Tested, monitored, and built for reliability',
     icon: <ShieldCheck className="h-5 w-5" />,
+  },
+];
+
+const workHighlights = [
+  {
+    role: 'Software Engineer',
+    company: 'Kannan Industrials',
+    period: 'May 2022 - Present',
+    location: 'Chennai, India',
+    description:
+      'Engineered data platforms and ML systems for industrial automation and predictive maintenance. Built GPU-accelerated pipelines for real-time anomaly detection and forecasting.',
+    tags: ['Python', 'PyTorch', 'CUDA', 'FastAPI', 'PostgreSQL', 'Docker'],
+    accent: 'blue' as Accent,
+    mark: 'kings',
+  },
+  {
+    role: 'Research Software Engineer',
+    company: 'Kennedy Institute of Rheumatology',
+    period: 'Oct 2021 - Apr 2022',
+    location: 'London, UK',
+    description:
+      'Developed reproducible AI workflows for biomedical imaging and longitudinal patient modeling. Implemented scalable training pipelines on HPC infrastructure.',
+    tags: ['Python', 'MONAI', 'PyTorch', 'SLURM', 'DVC', 'Linux'],
+    accent: 'blue' as Accent,
+    mark: 'kennedy',
+  },
+];
+
+const projectHighlights = [
+  {
+    title: 'Bayesian Neural Operator for PDEs',
+    description:
+      'Scalable operator learning with uncertainty quantification for parametric PDEs using JAX and Fourier Neural Operators.',
+    tech: ['JAX', 'Python', 'NumPy', 'Optax', 'HPC'],
+    visual: 'flow',
+    link: 'https://github.com/KannanSA/New-C240-only-searches-Feb2024',
+  },
+  {
+    title: 'Edge AI for Respiratory Monitoring',
+    description:
+      'Efficient on-device inference for respiratory disease screening using quantized CNNs on ARM and Jetson platforms.',
+    tech: ['PyTorch', 'ONNX', 'TensorRT', 'OpenCV', 'C++'],
+    visual: 'xray',
+    link: 'https://github.com/KannanSA/NLPK',
+  },
+  {
+    title: 'Probabilistic Patient Trajectories',
+    description:
+      'Bayesian state-space models for disease progression modeling with missing data and irregular observations.',
+    tech: ['PyMC', 'ArviZ', 'Pandas', 'NumPy', 'Matplotlib'],
+    visual: 'scatter',
+    link: 'https://github.com/kannansa',
   },
 ];
 
@@ -345,7 +328,7 @@ const accentStyles: Record<
     border: string;
     bg: string;
     dot: string;
-    shadow: string;
+    soft: string;
   }
 > = {
   blue: {
@@ -353,42 +336,58 @@ const accentStyles: Record<
     border: 'border-[#1a73e8]',
     bg: 'bg-[#e8f0fe]',
     dot: 'bg-[#1a73e8]',
-    shadow: 'shadow-[#1a73e8]/10',
+    soft: 'from-[#e8f0fe] to-white',
   },
   red: {
     text: 'text-[#d93025]',
     border: 'border-[#d93025]',
     bg: 'bg-[#fce8e6]',
     dot: 'bg-[#d93025]',
-    shadow: 'shadow-[#d93025]/10',
+    soft: 'from-[#fce8e6] to-white',
   },
   yellow: {
     text: 'text-[#f9ab00]',
     border: 'border-[#f9ab00]',
     bg: 'bg-[#fef7e0]',
     dot: 'bg-[#f9ab00]',
-    shadow: 'shadow-[#f9ab00]/10',
+    soft: 'from-[#fef7e0] to-white',
   },
   green: {
     text: 'text-[#188038]',
     border: 'border-[#188038]',
     bg: 'bg-[#e6f4ea]',
     dot: 'bg-[#188038]',
-    shadow: 'shadow-[#188038]/10',
+    soft: 'from-[#e6f4ea] to-white',
   },
   slate: {
     text: 'text-[#3c4043]',
     border: 'border-[#3c4043]',
     bg: 'bg-[#f1f3f4]',
     dot: 'bg-[#3c4043]',
-    shadow: 'shadow-slate-900/10',
+    soft: 'from-[#f1f3f4] to-white',
   },
 };
+
+const codeRows = [
+  ['01', '# physics-informed solver on GPU', 'text-[#81c995]'],
+  ['02', 'import jax.numpy as jnp', 'text-[#c58af9]'],
+  ['03', 'from models import bayes_pinn', 'text-[#8ab4f8]'],
+  ['04', 'from kernels import carbon_cluster', 'text-[#8ab4f8]'],
+  ['05', '', 'text-[#5f6368]'],
+  ['06', '@jit', 'text-[#fdd663]'],
+  ['07', 'def predict(params, x):', 'text-[#e8eaed]'],
+  ['08', '    mu, sigma = bayes_pinn(params, x)', 'text-[#bdc1c6]'],
+  ['09', '    return calibrate(mu, sigma)', 'text-[#bdc1c6]'],
+  ['10', '', 'text-[#5f6368]'],
+  ['11', 'metrics = run_pipeline(seed=42)', 'text-[#8ab4f8]'],
+  ['12', 'assert metrics.latency_ms < budget', 'text-[#81c995]'],
+  ['13', 'export("candidate.onnx")', 'text-[#e8eaed]'],
+];
 
 function BrandMark() {
   return (
     <a href="#home" className="flex items-center gap-2" aria-label="Go to home">
-      <span className="font-semibold text-[1.35rem] leading-none tracking-normal">
+      <span className="font-semibold text-[1.45rem] leading-none tracking-normal">
         <span className="text-[#1a73e8]">K</span>
         <span className="text-[#d93025]">S</span>
         <span className="text-[#f9ab00]">A</span>
@@ -398,257 +397,536 @@ function BrandMark() {
   );
 }
 
-function SectionHeader({
-  id,
-  eyebrow,
-  title,
-  copy,
-  icon,
-}: {
-  id: string;
-  eyebrow: string;
-  title: string;
-  copy?: string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-      <div className="max-w-2xl">
-        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#5f6368]">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-[#dadce0] bg-white text-[#1a73e8]">
-            {icon}
-          </span>
-          {eyebrow}
-        </div>
-        <h2 id={id} className="text-3xl font-semibold leading-tight text-[#202124] md:text-4xl">
-          {title}
-        </h2>
-      </div>
-      {copy ? <p className="max-w-md text-sm leading-6 text-[#5f6368]">{copy}</p> : null}
-    </div>
-  );
-}
-
-function MediaTile({ media, className = '' }: { media: Media; className?: string }) {
-  return (
-    <div
-      className={`relative overflow-hidden rounded-lg border border-white/40 bg-gradient-to-br ${media.tone} ${className}`}
-    >
-      <div className="absolute inset-0 bg-grid opacity-25" />
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/35 to-transparent" />
-      <div className="relative flex h-full min-h-[132px] items-center justify-center p-5">
-        {media.src ? (
-          <div className="flex h-20 w-24 items-center justify-center rounded-md bg-white/95 p-3 shadow-sm">
-            <img
-              src={media.src}
-              alt={`${media.label} visual`}
-              className={`h-full w-full ${
-                media.fit === 'cover' ? 'object-cover' : 'object-contain'
-              }`}
-            />
-          </div>
-        ) : (
-          <div className="flex h-20 w-20 items-center justify-center rounded-md border border-white/30 bg-white/10 font-mono text-2xl font-semibold text-white shadow-sm backdrop-blur">
-            {media.monogram}
-          </div>
-        )}
-      </div>
-      <div className="absolute bottom-3 left-3 rounded-md border border-white/20 bg-black/25 px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-white/90 backdrop-blur">
-        {media.label}
-      </div>
-    </div>
-  );
-}
-
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-md border border-[#dadce0] bg-[#f8fafd] px-2.5 py-1 text-xs font-medium text-[#5f6368]">
+    <span className="inline-flex h-6 items-center rounded-md border border-[#dadce0] bg-[#f8fafd] px-2 text-[0.72rem] font-medium leading-none text-[#5f6368]">
       {children}
     </span>
   );
 }
 
-function ProjectVisual({
-  visual,
-  accent,
-  icon,
+function Panel({
+  id,
+  title,
+  action,
+  children,
 }: {
-  visual: Project['visual'];
-  accent: Accent;
-  icon: React.ReactNode;
+  id?: string;
+  title: string;
+  action?: React.ReactNode;
+  children: React.ReactNode;
 }) {
-  const style = accentStyles[accent];
+  const titleId = id ? `${id}-title` : undefined;
 
-  if (visual === 'field') {
-    return (
-      <div className="relative h-36 overflow-hidden rounded-lg bg-[#101418]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_30%,rgba(66,133,244,0.65),transparent_28%),radial-gradient(circle_at_70%_60%,rgba(251,188,4,0.75),transparent_30%),linear-gradient(135deg,rgba(15,157,88,0.25),transparent)]" />
-        <div className="absolute inset-5 rounded-md border border-white/10 bg-grid opacity-50" />
-        <div className="absolute bottom-4 left-4 flex items-center gap-2 font-mono text-xs text-emerald-300">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          simulation stable
+  return (
+    <section
+      id={id}
+      aria-labelledby={titleId}
+      className="rounded-lg border border-[#dadce0] bg-white shadow-[0_1px_2px_rgba(60,64,67,0.08)]"
+    >
+      <div className="flex min-h-16 items-center justify-between gap-4 border-b border-[#dadce0] px-5 py-4">
+        <h2 id={titleId} className="text-xl font-semibold leading-tight text-[#202124]">
+          {title}
+        </h2>
+        {action}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function Sidebar() {
+  return (
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-[168px] border-r border-[#dadce0] bg-white/95 backdrop-blur-xl lg:block">
+      <div className="flex h-full flex-col justify-between px-6 py-8">
+        <div>
+          <BrandMark />
+          <div className="mt-9 h-px bg-[#e8eaed]" />
+          <nav className="mt-3 space-y-1">
+            {navLinks.map((link, index) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`relative flex h-10 items-center gap-3 px-0 text-sm font-medium transition-colors ${
+                  index === 0
+                    ? 'text-[#1a73e8]'
+                    : 'text-[#3c4043] hover:bg-[#f1f3f4] hover:text-[#1a73e8]'
+                }`}
+              >
+                {index === 0 ? (
+                  <span className="absolute -left-6 h-8 w-1 rounded-r-full bg-[#1a73e8]" />
+                ) : null}
+                <span className={index === 0 ? 'text-[#1a73e8]' : 'text-[#5f6368]'}>{link.icon}</span>
+                {link.name}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="space-y-4 text-xs text-[#5f6368]">
+          <div className="grid grid-cols-2 divide-x divide-[#dadce0] border-y border-[#e8eaed] py-3">
+            <button type="button" aria-label="Light appearance" className="flex h-8 items-center justify-center text-[#202124]">
+              <Sun className="h-4 w-4" />
+            </button>
+            <button type="button" aria-label="System appearance" className="flex h-8 items-center justify-center text-[#202124]">
+              <Monitor className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="flex gap-1.5" aria-hidden="true">
+            <span className="h-1.5 flex-1 rounded-full bg-[#1a73e8]" />
+            <span className="h-1.5 flex-1 rounded-full bg-[#d93025]" />
+            <span className="h-1.5 flex-1 rounded-full bg-[#f9ab00]" />
+            <span className="h-1.5 flex-1 rounded-full bg-[#188038]" />
+          </div>
         </div>
       </div>
-    );
-  }
+    </aside>
+  );
+}
 
-  if (visual === 'stack') {
-    return (
-      <div className="relative h-36 overflow-hidden rounded-lg bg-[#202124] p-4">
-        <div className="grid h-full grid-cols-8 gap-1">
-          {Array.from({ length: 40 }).map((_, index) => (
-            <span
-              key={index}
-              className={`rounded-sm ${
-                index % 7 === 0
-                  ? 'bg-[#1a73e8]'
-                  : index % 5 === 0
-                    ? 'bg-[#fbbc04]'
-                    : index % 3 === 0
-                      ? 'bg-[#34a853]'
-                      : 'bg-white/12'
-              }`}
-            />
+function MobileHeader({
+  isMenuOpen,
+  setIsMenuOpen,
+}: {
+  isMenuOpen: boolean;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  return (
+    <header className="sticky top-0 z-50 border-b border-[#dadce0] bg-white/95 backdrop-blur-xl lg:hidden">
+      <div className="flex items-center justify-between px-5 py-4">
+        <BrandMark />
+        <button
+          type="button"
+          aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-[#dadce0] text-[#3c4043]"
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+      {isMenuOpen ? (
+        <nav className="grid border-t border-[#dadce0] bg-white px-3 py-3">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium text-[#3c4043] hover:bg-[#f1f3f4]"
+            >
+              {link.icon}
+              {link.name}
+            </a>
           ))}
-        </div>
-        <div className="absolute bottom-4 right-4 rounded-md bg-white px-2.5 py-1 font-mono text-xs text-[#202124]">
-          policy=greedy
-        </div>
-      </div>
-    );
-  }
+        </nav>
+      ) : null}
+    </header>
+  );
+}
 
-  if (visual === 'device') {
-    return (
-      <div className="flex h-36 items-center justify-center rounded-lg bg-gradient-to-br from-[#e6f4ea] to-white">
-        <div className="relative h-28 w-24 rounded-[1.25rem] border-[7px] border-[#202124] bg-[#0b1014] shadow-lg">
-          <div className="absolute inset-3 rounded-lg border border-[#34a853]/40">
-            <div className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#34a853]" />
-            <div className="absolute inset-x-2 top-4 h-px bg-[#34a853]/60" />
-            <div className="absolute inset-y-2 left-1/2 w-px bg-[#34a853]/60" />
+function ConsolePanel() {
+  return (
+    <div className="w-full overflow-hidden rounded-md border border-[#20262a] bg-[#0f1418] shadow-2xl shadow-slate-950/20">
+      <div className="flex items-center gap-6 border-b border-white/10 px-5 py-3 font-mono text-[0.68rem] uppercase tracking-normal text-[#9aa0a6]">
+        <span className="border-b-2 border-[#1a73e8] pb-3 text-[#8ab4f8]">system console</span>
+        <span>research notebook</span>
+        <span className="hidden sm:inline">model diagnostics</span>
+        <span className="hidden md:inline">system map</span>
+      </div>
+      <div className="grid lg:grid-cols-[0.42fr_0.58fr]">
+        <div className="border-b border-white/10 p-4 lg:border-b-0 lg:border-r lg:border-white/10">
+          <div className="space-y-1 font-mono text-[0.68rem] leading-[1.08rem]">
+            {codeRows.map(([line, row, color]) => (
+              <div key={`${line}-${row}`} className="grid grid-cols-[1.55rem_1fr] gap-3">
+                <span className="select-none text-right text-[#5f6368]">{line}</span>
+                <span className={color}>{row || '\u00a0'}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 rounded-md border border-[#34a853]/30 bg-[#102719] px-3 py-2 font-mono text-[0.68rem] text-[#81c995]">
+            &gt; system healthy. all services nominal.
+          </div>
+        </div>
+        <div className="p-4">
+          <div className="mb-3 flex items-center justify-between font-mono text-[0.72rem] uppercase tracking-normal text-[#bdc1c6]">
+            <span>latent space</span>
+            <span>uncertainty</span>
+          </div>
+          <div className="grid gap-4 md:grid-cols-[1fr_56px]">
+            <div className="relative h-[205px] overflow-hidden rounded-md border border-white/10 bg-[#0b1014]">
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)] bg-[size:22px_22px]" />
+              <svg className="absolute inset-0 h-full w-full" viewBox="0 0 440 276" aria-hidden="true">
+                <path
+                  d="M54 224 L386 204 L386 52 L54 74 Z"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.18)"
+                  strokeWidth="1"
+                />
+                <path d="M54 224 L92 246 L424 226 L386 204" fill="none" stroke="rgba(255,255,255,0.12)" />
+                <path d="M386 52 L424 74 L424 226" fill="none" stroke="rgba(255,255,255,0.12)" />
+                {Array.from({ length: 150 }).map((_, index) => {
+                  const x = 48 + ((index * 31) % 344);
+                  const wave = 141 + Math.sin(index * 0.29) * 47 + ((index * 17) % 34) - 17;
+                  const y = Math.max(50, Math.min(226, wave));
+                  const palette = ['#1a73e8', '#00acc1', '#34a853', '#fbbc04', '#ea4335'];
+                  const fill = palette[Math.floor((x - 48) / 70) % palette.length];
+
+                  return <circle key={index} cx={x} cy={y} r={2.25} fill={fill} opacity="0.9" />;
+                })}
+                <path
+                  d="M42 172 C96 110 139 111 185 144 S266 207 329 132 S397 94 424 104"
+                  fill="none"
+                  stroke="#8ab4f8"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  opacity="0.9"
+                />
+                <path
+                  d="M42 196 C99 139 139 135 184 164 S267 225 329 156 S395 123 424 128"
+                  fill="none"
+                  stroke="#34a853"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  opacity="0.68"
+                />
+              </svg>
+            </div>
+            <div className="hidden h-[205px] rounded-md border border-white/10 bg-[#11171c] p-2 md:block">
+              <div className="h-full rounded-sm bg-[linear-gradient(to_top,#1a73e8,#00acc1,#34a853,#fbbc04,#ea4335)]" />
+            </div>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.65rem] text-[#bdc1c6]">
+            {['GPU 0  A100 80GB', 'GPU 1  A100 80GB', 'CPU 32/64T', 'RAM 128GB'].map((item) => (
+              <span key={item} className="flex items-center gap-1.5 whitespace-nowrap">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#34a853]" />
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-  if (visual === 'clinical') {
+function ProjectThumb({ project }: { project: Project }) {
+  const accent = accentStyles[project.accent];
+
+  if (project.visual === 'field') {
     return (
-      <div className="relative h-36 overflow-hidden rounded-lg bg-[#f8fafd]">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(26,115,232,0.08)_1px,transparent_1px),linear-gradient(rgba(26,115,232,0.08)_1px,transparent_1px)] bg-[size:18px_18px]" />
-        <div className="absolute left-1/2 top-1/2 h-20 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#dadce0] bg-white shadow-sm" />
-        <div className="absolute left-1/2 top-[52%] h-px w-28 -translate-x-1/2 bg-[#1a73e8]" />
-        <div className="absolute left-[46%] top-8 h-20 w-px bg-[#1a73e8]/60" />
-        <div className="absolute bottom-4 left-4 font-mono text-xs text-[#5f6368]">icd9.score=0.71</div>
+      <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-[#dadce0] bg-[#f8fafd]">
+        <img src="/research-visual.png" alt="" className="h-full w-full object-cover" />
       </div>
     );
   }
 
-  if (visual === 'chain') {
+  if (project.visual === 'stack') {
     return (
-      <div className="relative flex h-36 items-center justify-center overflow-hidden rounded-lg bg-[#202124]">
-        {[0, 1, 2, 3].map((item) => (
-          <div
-            key={item}
-            className="mx-[-4px] flex h-14 w-14 rotate-45 items-center justify-center rounded-lg border border-white/20 bg-white/5"
-          >
-            <div className="-rotate-45 font-mono text-xs text-white/80">0x{item + 7}</div>
-          </div>
+      <div className="grid h-14 w-16 shrink-0 grid-cols-5 gap-0.5 rounded-md border border-[#dadce0] bg-[#202124] p-2">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <span
+            key={index}
+            className={`rounded-sm ${
+              index % 7 === 0
+                ? 'bg-[#1a73e8]'
+                : index % 5 === 0
+                  ? 'bg-[#fbbc04]'
+                  : index % 3 === 0
+                    ? 'bg-[#34a853]'
+                    : 'bg-white/15'
+            }`}
+          />
         ))}
       </div>
     );
   }
 
+  if (project.visual === 'device') {
+    return (
+      <div className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-[#dadce0] bg-gradient-to-br from-[#e6f4ea] to-white">
+        <div className="relative h-10 w-8 rounded-[0.72rem] border-[4px] border-[#202124] bg-[#0b1014]">
+          <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#34a853]" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`flex h-36 items-center justify-center rounded-lg ${style.bg} ${style.text}`}>
-      <div className="rounded-lg border border-current/20 bg-white/70 p-4 shadow-sm">{icon}</div>
+    <div
+      className={`flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-[#dadce0] bg-gradient-to-br ${accent.soft} ${accent.text}`}
+    >
+      {project.icon}
     </div>
   );
 }
 
-function ConsolePanel() {
-  const rows = [
-    ['import jax.numpy as jnp', 'text-[#c58af9]'],
-    ['from physics import pinn, uncertainty', 'text-[#8ab4f8]'],
-    ['@jit', 'text-[#fdd663]'],
-    ['def predict(params, carbon_cluster):', 'text-[#e8eaed]'],
-    ['    return model.apply(params, carbon_cluster)', 'text-[#bdc1c6]'],
-    [''],
-    ['metrics = run_gpu_pipeline(seed=42)', 'text-[#8ab4f8]'],
-    ['assert metrics.latency_ms < budget', 'text-[#81c995]'],
-  ];
+function OrganizationMark({ type }: { type: string }) {
+  if (type === 'kennedy') {
+    return (
+      <div className="flex h-[86px] w-[90px] shrink-0 items-center justify-center rounded-md border border-[#dadce0] bg-white">
+        <div className="relative h-14 w-14 rounded-full border-[5px] border-[#0b4ea2]">
+          <span className="absolute left-1/2 top-2 h-8 w-[3px] -translate-x-1/2 rounded-full bg-[#0b4ea2]" />
+          <span className="absolute left-4 top-6 h-5 w-[3px] rotate-[-28deg] rounded-full bg-[#0b4ea2]" />
+          <span className="absolute right-4 top-6 h-5 w-[3px] rotate-[28deg] rounded-full bg-[#0b4ea2]" />
+          <span className="absolute left-1/2 top-4 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-[#0b4ea2]" />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-[#2f3437] bg-[#111518] shadow-2xl shadow-slate-950/20">
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#8ab4f8]">
-          <Server className="h-4 w-4" />
-          System Console
-        </div>
-        <div className="flex items-center gap-2 font-mono text-xs text-[#9aa0a6]">
-          <span className="h-2 w-2 rounded-full bg-[#34a853]" />
-          nominal
-        </div>
-      </div>
-      <div className="grid gap-0 lg:grid-cols-[1fr_0.92fr]">
-        <div className="border-b border-white/10 p-5 lg:border-b-0 lg:border-r">
-          <div className="space-y-2 font-mono text-[0.78rem] leading-5">
-            {rows.map(([row, color], index) => (
-              <div key={`${row}-${index}`} className="grid grid-cols-[1.5rem_1fr] gap-3">
-                <span className="select-none text-right text-[#5f6368]">{index + 1}</span>
-                <span className={color || 'text-[#5f6368]'}>{row}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 rounded-md border border-[#34a853]/30 bg-[#123323]/60 px-3 py-2 font-mono text-xs text-[#81c995]">
-            &gt; all tests passed. deployment candidate promoted.
-          </div>
-        </div>
-        <div className="relative min-h-[270px] p-5">
-          <div className="mb-3 flex items-center justify-between font-mono text-xs text-[#9aa0a6]">
-            <span>latent space</span>
-            <span>uq: calibrated</span>
-          </div>
-          <div className="relative h-[205px] overflow-hidden rounded-md border border-white/10 bg-[#0b1014]">
-            <div className="absolute inset-0 bg-grid opacity-25" />
-            {Array.from({ length: 54 }).map((_, index) => {
-              const left = 8 + ((index * 37) % 82);
-              const top = 12 + ((index * 53) % 74);
-              const colors = ['bg-[#1a73e8]', 'bg-[#34a853]', 'bg-[#fbbc04]', 'bg-[#ea4335]'];
-              return (
-                <span
-                  key={index}
-                  className={`absolute h-1.5 w-1.5 rounded-full ${colors[index % colors.length]} opacity-80`}
-                  style={{ left: `${left}%`, top: `${top}%` }}
-                />
-              );
-            })}
-            <svg className="absolute inset-0 h-full w-full" viewBox="0 0 420 220" aria-hidden="true">
-              <path
-                d="M26 152 C94 58 154 55 211 122 S315 197 394 74"
-                fill="none"
-                stroke="#8ab4f8"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M26 168 C98 92 155 85 211 142 S319 207 394 109"
-                fill="none"
-                stroke="#34a853"
-                strokeWidth="2"
-                strokeLinecap="round"
-                opacity="0.75"
-              />
-            </svg>
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.68rem] text-[#bdc1c6]">
-            <span>GPU A100</span>
-            <span>CPU 32/64T</span>
-            <span>RAM 128GB</span>
-          </div>
-        </div>
-      </div>
+    <div className="flex h-[86px] w-[90px] shrink-0 flex-col items-center justify-center rounded-md bg-[#061a3a] text-white shadow-sm">
+      <div className="font-serif text-5xl leading-none">K</div>
+      <div className="mt-1 font-serif text-sm tracking-[0.28em]">1935</div>
     </div>
+  );
+}
+
+function ProjectHighlightVisual({ visual }: { visual: string }) {
+  if (visual === 'xray') {
+    return (
+      <div className="relative h-[112px] w-[198px] shrink-0 overflow-hidden rounded-md bg-[#101418]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(255,255,255,0.95),rgba(255,255,255,0.18)_34%,transparent_59%)] opacity-80" />
+        <div className="absolute left-1/2 top-3 h-24 w-10 -translate-x-1/2 rounded-full bg-white/20 blur-[1px]" />
+        <div className="absolute left-[28%] top-2 h-28 w-16 rounded-full border border-white/15 bg-white/10 blur-[0.5px]" />
+        <div className="absolute right-[28%] top-2 h-28 w-16 rounded-full border border-white/15 bg-white/10 blur-[0.5px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)]" />
+      </div>
+    );
+  }
+
+  if (visual === 'scatter') {
+    return (
+      <div className="relative h-[112px] w-[198px] shrink-0 overflow-hidden rounded-md bg-[#11181c]">
+        {Array.from({ length: 120 }).map((_, index) => {
+          const isLeft = index < 60;
+          const cx = isLeft ? 52 : 142;
+          const cy = isLeft ? 58 : 56;
+          const x = cx + Math.sin(index * 2.17) * (8 + (index % 9) * 2.8);
+          const y = cy + Math.cos(index * 1.63) * (7 + (index % 8) * 2.6);
+          return (
+            <span
+              key={index}
+              className={`absolute h-1.5 w-1.5 rounded-full ${isLeft ? 'bg-[#27d7e6]' : 'bg-[#f08f86]'}`}
+              style={{ left: `${x}px`, top: `${y}px`, opacity: 0.55 + (index % 5) * 0.08 }}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-[112px] w-[198px] shrink-0 overflow-hidden rounded-md bg-[#101418]">
+      <img src="/research-visual.png" alt="" className="h-full w-full object-cover saturate-150" />
+    </div>
+  );
+}
+
+function ExperiencePanel() {
+  return (
+    <Panel
+      id="experience"
+      title="Work Experience"
+    >
+      <div className="relative px-6 pb-7 pt-2">
+        <div className="absolute bottom-7 left-[1.62rem] top-[4.6rem] w-px bg-[#dadce0]" />
+        {workHighlights.map((job) => {
+          const accent = accentStyles[job.accent];
+
+          return (
+            <article key={`${job.role}-${job.company}`} className="relative grid min-h-[154px] grid-cols-[92px_1fr] gap-5 py-4">
+              <span className={`absolute -left-[0.4rem] top-7 z-10 h-2.5 w-2.5 rounded-full ${accent.dot} ring-4 ring-white`} />
+              <OrganizationMark type={job.mark} />
+              <div className="min-w-0 pt-1">
+                <div className="flex flex-col gap-1">
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold leading-6 text-[#202124]">{job.role}</h3>
+                    <p className={`text-sm font-semibold ${accent.text}`}>{job.company}</p>
+                  </div>
+                </div>
+                <p className="mt-1 text-xs text-[#5f6368]">
+                  {job.period} <span className="px-1">-</span> {job.location}
+                </p>
+                <p className="mt-3 max-w-3xl text-sm leading-[1.45rem] text-[#3c4043]">{job.description}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {job.tags.map((tag) => (
+                    <Tag key={tag}>{tag}</Tag>
+                  ))}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+}
+
+function ProjectsPanel() {
+  return (
+    <Panel
+      id="projects"
+      title="Featured Projects"
+      action={
+        <a
+          href={personalInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-[#1a73e8]"
+        >
+          View all projects
+          <ArrowRight className="h-4 w-4" />
+        </a>
+      }
+    >
+      <div className="px-6 pb-5 pt-1">
+        {projectHighlights.map((project) => (
+          <article
+            key={project.title}
+            className="grid gap-4 border-b border-[#eceff1] py-3 last:border-0 md:grid-cols-[198px_1fr_32px] md:items-center"
+          >
+            <ProjectHighlightVisual visual={project.visual} />
+            <div className="min-w-0">
+              <h3 className="text-base font-semibold leading-6 text-[#202124]">{project.title}</h3>
+              <p className="mt-2 max-w-2xl text-sm leading-[1.45rem] text-[#3c4043]">{project.description}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {project.tech.map((tech) => (
+                  <Tag key={tech}>{tech}</Tag>
+                ))}
+              </div>
+            </div>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.title}`}
+              className="flex h-9 w-9 items-center justify-center justify-self-start rounded-md text-[#202124] transition-colors hover:bg-[#f1f3f4] md:justify-self-end"
+            >
+              <Github className="h-5 w-5" />
+            </a>
+          </article>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+function EducationPanel() {
+  return (
+    <Panel id="education" title="Education & Awards">
+      <div className="grid gap-0 px-5 py-2">
+        {education.map((edu) => {
+          const accent = accentStyles[edu.accent];
+
+          return (
+            <article key={edu.school} className="grid gap-4 border-b border-[#eceff1] py-5 last:border-0 sm:grid-cols-[116px_1fr]">
+              <div className="flex items-start gap-3 text-xs text-[#5f6368]">
+                <span className={`mt-1 h-2.5 w-2.5 rounded-full ${accent.dot}`} />
+                <span className="font-medium">{edu.year}</span>
+              </div>
+              <div>
+                <div className="flex items-start gap-3">
+                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${accent.bg} ${accent.text}`}>
+                    <School className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-base font-semibold leading-6 text-[#202124]">{edu.school}</h3>
+                    <p className={`text-sm font-semibold ${accent.text}`}>{edu.degree}</p>
+                  </div>
+                </div>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-[#5f6368]">{edu.details}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+}
+
+function SkillsPanel() {
+  return (
+    <Panel id="skills" title="Technical Skills">
+      <div className="px-5 py-3">
+        {skills.map((group, index) => {
+          const accents: Accent[] = ['blue', 'red', 'yellow', 'green'];
+          const accent = accentStyles[accents[index]];
+
+          return (
+            <article key={group.title} className="grid gap-3 border-b border-[#eceff1] py-4 last:border-0 sm:grid-cols-[156px_1fr] sm:items-start">
+              <div className="flex items-center gap-3">
+                <span className={`flex h-9 w-9 items-center justify-center rounded-md ${accent.bg} ${accent.text}`}>
+                  {group.icon}
+                </span>
+                <h3 className="text-sm font-semibold text-[#202124]">{group.title}</h3>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+}
+
+function ProofStrip() {
+  return (
+    <div className="grid border-t border-[#dadce0] sm:grid-cols-2 xl:grid-cols-5">
+      {proofPoints.map((point) => (
+        <div key={point.title} className="border-b border-[#dadce0] px-6 py-5 xl:border-b-0 xl:border-r last:xl:border-r-0">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 text-[#202124]">{point.icon}</span>
+            <div>
+              <h3 className="text-sm font-semibold text-[#202124]">{point.title}</h3>
+              <p className="mt-1 text-xs leading-5 text-[#5f6368]">{point.copy}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ContactPanel() {
+  return (
+    <section id="contact" className="px-5 pb-12 pt-5 md:px-8 lg:px-10 xl:px-14">
+      <div className="mx-auto grid max-w-[1500px] gap-6 rounded-lg border border-[#202124] bg-[#202124] p-6 text-white shadow-xl shadow-slate-950/10 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+        <div>
+          <div className="mb-5 flex gap-1.5" aria-hidden="true">
+            <span className="h-1.5 w-12 rounded-full bg-[#1a73e8]" />
+            <span className="h-1.5 w-12 rounded-full bg-[#d93025]" />
+            <span className="h-1.5 w-12 rounded-full bg-[#f9ab00]" />
+            <span className="h-1.5 w-12 rounded-full bg-[#188038]" />
+          </div>
+          <h2 className="text-3xl font-semibold leading-tight md:text-4xl">Build something precise.</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#bdc1c6]">
+            Open to AI engineering, high-performance computing, and research roles where correctness,
+            speed, and clarity matter.
+          </p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-white px-5 text-sm font-semibold text-[#202124] transition-colors hover:bg-[#e8eaed]"
+          >
+            <Mail className="h-4 w-4" />
+            Email
+          </a>
+          <a
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          >
+            LinkedIn
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -657,346 +935,60 @@ export default function Portfolio() {
 
   return (
     <main id="home" className="min-h-screen bg-[#f8fafd] text-[#202124]">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[168px] border-r border-[#dadce0] bg-white/90 backdrop-blur-xl lg:block">
-        <div className="flex h-full flex-col justify-between px-5 py-8">
-          <div>
-            <BrandMark />
-            <nav className="mt-10 space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="group flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-[#3c4043] transition-colors hover:bg-[#e8f0fe] hover:text-[#1a73e8]"
-                >
-                  <span className="text-[#5f6368] group-hover:text-[#1a73e8]">{link.icon}</span>
-                  {link.name}
-                </a>
-              ))}
-            </nav>
-          </div>
-          <div className="space-y-4">
-            <div className="flex gap-1.5" aria-hidden="true">
-              <span className="h-1.5 flex-1 rounded-full bg-[#1a73e8]" />
-              <span className="h-1.5 flex-1 rounded-full bg-[#d93025]" />
-              <span className="h-1.5 flex-1 rounded-full bg-[#f9ab00]" />
-              <span className="h-1.5 flex-1 rounded-full bg-[#188038]" />
-            </div>
-            <div className="flex items-center justify-between text-[#5f6368]">
-              <a href={personalInfo.github} aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                <Github className="h-4 w-4 transition-colors hover:text-[#202124]" />
-              </a>
-              <a href={personalInfo.linkedin} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="h-4 w-4 transition-colors hover:text-[#202124]" />
-              </a>
-              <a href={`mailto:${personalInfo.email}`} aria-label="Email Kannan">
-                <Mail className="h-4 w-4 transition-colors hover:text-[#202124]" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <header className="sticky top-0 z-50 border-b border-[#dadce0] bg-white/92 backdrop-blur-xl lg:hidden">
-        <div className="flex items-center justify-between px-5 py-4">
-          <BrandMark />
-          <button
-            type="button"
-            aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
-            className="flex h-10 w-10 items-center justify-center rounded-md border border-[#dadce0] text-[#3c4043]"
-            onClick={() => setIsMenuOpen((open) => !open)}
-          >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-        {isMenuOpen ? (
-          <nav className="grid border-t border-[#dadce0] bg-white px-3 py-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium text-[#3c4043] hover:bg-[#f1f3f4]"
-              >
-                {link.icon}
-                {link.name}
-              </a>
-            ))}
-          </nav>
-        ) : null}
-      </header>
+      <Sidebar />
+      <MobileHeader isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
       <div className="lg:pl-[168px]">
-        <section className="border-b border-[#dadce0] bg-white">
-          <div className="mx-auto grid max-w-[1420px] gap-8 px-5 py-10 md:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:px-10 lg:py-12 xl:px-14">
-            <div className="flex min-h-[470px] flex-col justify-center">
-              <h1 className="max-w-[760px] text-5xl font-semibold leading-[1.02] text-[#202124] md:text-7xl">
-                {personalInfo.name}
-              </h1>
-              <p className="mt-5 text-2xl font-medium text-[#5f6368] md:text-3xl">
-                {personalInfo.tagline}
-              </p>
-              <p className="mt-6 max-w-[650px] text-lg leading-8 text-[#3c4043]">{personalInfo.bio}</p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#projects"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#1a73e8] px-5 text-sm font-semibold text-white shadow-lg shadow-[#1a73e8]/20 transition-transform hover:-translate-y-0.5 hover:bg-[#1558b0]"
-                >
-                  View my work
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-[#dadce0] bg-white px-5 text-sm font-semibold text-[#202124] transition-colors hover:bg-[#f1f3f4]"
-                >
-                  <Mail className="h-4 w-4" />
-                  Start a conversation
-                </a>
-              </div>
-              <div className="mt-10 grid max-w-xl grid-cols-2 gap-3 text-sm text-[#5f6368] sm:grid-cols-3">
-                <div className="rounded-lg border border-[#dadce0] bg-[#f8fafd] p-3">
-                  <div className="font-mono text-xl font-semibold text-[#202124]">80%</div>
-                  <div>accuracy lift</div>
-                </div>
-                <div className="rounded-lg border border-[#dadce0] bg-[#f8fafd] p-3">
-                  <div className="font-mono text-xl font-semibold text-[#202124]">60%</div>
-                  <div>sim time cut</div>
-                </div>
-                <div className="rounded-lg border border-[#dadce0] bg-[#f8fafd] p-3">
-                  <div className="font-mono text-xl font-semibold text-[#202124]">2.88M</div>
-                  <div>AR views</div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <ConsolePanel />
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-[1420px] border-t border-[#dadce0] md:grid-cols-5">
-            {proofPoints.map((point) => (
-              <div key={point.title} className="border-b border-[#dadce0] p-5 md:border-b-0 md:border-r last:md:border-r-0">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 text-[#202124]">{point.icon}</span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#202124]">{point.title}</h3>
-                    <p className="mt-1 text-xs leading-5 text-[#5f6368]">{point.copy}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="experience" className="px-5 py-16 md:px-8 lg:px-10 xl:px-14">
-          <div className="mx-auto max-w-[1320px]">
-            <SectionHeader
-              id="experience-title"
-              eyebrow="Work Experience"
-              title="Research taste, production systems, measurable outcomes."
-              copy="Each role is framed around the operating environment, the technical system, and the result. The images make the timeline scannable without turning it into a logo wall."
-              icon={<Briefcase className="h-4 w-4" />}
-            />
-            <div className="grid gap-4">
-              {experience.map((job, index) => {
-                const accent = accentStyles[job.accent];
-                return (
-                  <article
-                    key={`${job.company}-${job.role}`}
-                    className={`grid gap-5 rounded-lg border border-[#dadce0] bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl ${accent.shadow} md:grid-cols-[210px_1fr] md:p-5`}
+        <section className="px-5 pt-4 md:px-7">
+          <div className="mx-auto overflow-hidden rounded-lg border border-[#dadce0] bg-white shadow-[0_1px_2px_rgba(60,64,67,0.06)] xl:max-w-[1322px]">
+            <div className="grid gap-8 px-6 py-7 md:px-10 xl:min-h-[392px] xl:grid-cols-[0.76fr_1.24fr] xl:items-center xl:px-10 xl:py-5">
+              <div className="flex flex-col justify-center">
+                <h1 className="max-w-[520px] text-[2.75rem] font-semibold leading-[1.05] text-[#202124] sm:text-5xl md:text-6xl xl:text-[3.42rem]">
+                  <span className="block whitespace-nowrap">Kannan Sekar</span>
+                  <span className="block whitespace-nowrap">Annu Radha</span>
+                </h1>
+                <p className="mt-4 text-2xl font-medium text-[#5f6368]">
+                  {personalInfo.tagline}
+                </p>
+                <p className="mt-5 max-w-[520px] text-base leading-6 text-[#3c4043]">{personalInfo.bio}</p>
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                  <a
+                    href="#projects"
+                    className="inline-flex h-9 w-fit items-center justify-center gap-2 rounded-md bg-[#1a73e8] px-4 text-sm font-semibold text-white shadow-lg shadow-[#1a73e8]/20 transition-transform hover:-translate-y-0.5 hover:bg-[#1558b0] whitespace-nowrap"
                   >
-                    <MediaTile media={job.media} />
-                    <div className="flex flex-col justify-between gap-5">
-                      <div>
-                        <div className="mb-3 flex flex-wrap items-center gap-2 text-xs font-medium text-[#5f6368]">
-                          <span className={`h-2 w-2 rounded-full ${accent.dot}`} />
-                          <span className="font-mono">0{index + 1}</span>
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3.5 w-3.5" />
-                            {job.period}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <MapPin className="h-3.5 w-3.5" />
-                            {job.location}
-                          </span>
-                        </div>
-                        <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
-                          <h3 className="text-2xl font-semibold leading-tight text-[#202124]">{job.role}</h3>
-                          <p className={`text-sm font-semibold ${accent.text}`}>{job.company}</p>
-                        </div>
-                        <p className="mt-4 max-w-3xl text-sm leading-6 text-[#3c4043]">{job.description}</p>
-                      </div>
-                      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="flex flex-wrap gap-2">
-                          {job.tags.map((tag) => (
-                            <Tag key={tag}>{tag}</Tag>
-                          ))}
-                        </div>
-                        <div className="inline-flex w-fit items-center gap-2 rounded-md border border-[#dadce0] bg-[#f8fafd] px-3 py-2 text-xs font-semibold text-[#202124]">
-                          <CheckCircle2 className={`h-4 w-4 ${accent.text}`} />
-                          {job.result}
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section id="projects" className="border-y border-[#dadce0] bg-white px-5 py-16 md:px-8 lg:px-10 xl:px-14">
-          <div className="mx-auto max-w-[1320px]">
-            <SectionHeader
-              id="projects-title"
-              eyebrow="Featured Projects"
-              title="Systems that make constraints explicit."
-              copy="A portfolio section should prove engineering range quickly: simulation, reinforcement learning, mobile inference, AR, NLP, and smart contracts."
-              icon={<Sparkles className="h-4 w-4" />}
-            />
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {projects.map((project) => {
-                const accent = accentStyles[project.accent];
-                return (
-                  <article
-                    key={project.title}
-                    className="flex min-h-full flex-col overflow-hidden rounded-lg border border-[#dadce0] bg-[#f8fafd] shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
+                    View My Work
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="#contact"
+                    className="inline-flex h-9 w-fit items-center justify-center gap-2 rounded-md px-4 text-sm font-medium text-[#202124] transition-colors hover:bg-[#f1f3f4] whitespace-nowrap"
                   >
-                    <ProjectVisual visual={project.visual} accent={project.accent} icon={project.icon} />
-                    <div className="flex flex-1 flex-col p-5">
-                      <div className="mb-4 flex items-start justify-between gap-4">
-                        <div className={`flex h-10 w-10 items-center justify-center rounded-md border ${accent.border} ${accent.bg} ${accent.text}`}>
-                          {project.icon}
-                        </div>
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Open ${project.title}`}
-                          className="rounded-md border border-[#dadce0] bg-white p-2 text-[#5f6368] transition-colors hover:text-[#202124]"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </div>
-                      <h3 className="text-xl font-semibold text-[#202124]">{project.title}</h3>
-                      <p className="mt-3 flex-1 text-sm leading-6 text-[#5f6368]">{project.description}</p>
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {project.tech.map((tech) => (
-                          <Tag key={tech}>{tech}</Tag>
-                        ))}
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section id="education" className="px-5 py-16 md:px-8 lg:px-10 xl:px-14">
-          <div className="mx-auto max-w-[1320px]">
-            <SectionHeader
-              id="education-title"
-              eyebrow="Education & Awards"
-              title="Physics depth, computer science foundations, mathematics discipline."
-              copy="The education section now carries the same visual weight as work history, with image-backed institute cards and concise academic context."
-              icon={<BookOpen className="h-4 w-4" />}
-            />
-            <div className="grid gap-4 lg:grid-cols-3">
-              {education.map((edu) => {
-                const accent = accentStyles[edu.accent];
-                return (
-                  <article
-                    key={edu.school}
-                    className="overflow-hidden rounded-lg border border-[#dadce0] bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl"
-                  >
-                    <MediaTile media={edu.media} className="rounded-none border-0" />
-                    <div className="p-5">
-                      <div className="mb-4 flex items-center justify-between gap-3">
-                        <div className={`flex h-10 w-10 items-center justify-center rounded-md ${accent.bg} ${accent.text}`}>
-                          <School className="h-5 w-5" />
-                        </div>
-                        <span className="rounded-md border border-[#dadce0] bg-[#f8fafd] px-2.5 py-1 font-mono text-xs text-[#5f6368]">
-                          {edu.year}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-semibold text-[#202124]">{edu.school}</h3>
-                      <p className={`mt-1 text-sm font-semibold ${accent.text}`}>{edu.degree}</p>
-                      <p className="mt-4 text-sm leading-6 text-[#5f6368]">{edu.details}</p>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section id="skills" className="border-y border-[#dadce0] bg-white px-5 py-16 md:px-8 lg:px-10 xl:px-14">
-          <div className="mx-auto max-w-[1320px]">
-            <SectionHeader
-              id="skills-title"
-              eyebrow="Technical Skills"
-              title="A compact map of the stack."
-              copy="Grouped for how engineering conversations actually happen: language, modeling, cloud systems, and research tooling."
-              icon={<Zap className="h-4 w-4" />}
-            />
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              {skills.map((group, index) => {
-                const accents: Accent[] = ['blue', 'red', 'yellow', 'green'];
-                const accent = accentStyles[accents[index]];
-                return (
-                  <article key={group.title} className="rounded-lg border border-[#dadce0] bg-[#f8fafd] p-5">
-                    <div className="mb-5 flex items-center gap-3">
-                      <span className={`flex h-10 w-10 items-center justify-center rounded-md ${accent.bg} ${accent.text}`}>
-                        {group.icon}
-                      </span>
-                      <h3 className="text-lg font-semibold text-[#202124]">{group.title}</h3>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {group.items.map((item) => (
-                        <Tag key={item}>{item}</Tag>
-                      ))}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" className="px-5 py-16 md:px-8 lg:px-10 xl:px-14">
-          <div className="mx-auto grid max-w-[1320px] gap-6 rounded-lg border border-[#dadce0] bg-[#202124] p-6 text-white md:grid-cols-[1fr_auto] md:items-center md:p-8">
-            <div>
-              <div className="mb-4 flex gap-1.5" aria-hidden="true">
-                <span className="h-1.5 w-12 rounded-full bg-[#1a73e8]" />
-                <span className="h-1.5 w-12 rounded-full bg-[#d93025]" />
-                <span className="h-1.5 w-12 rounded-full bg-[#f9ab00]" />
-                <span className="h-1.5 w-12 rounded-full bg-[#188038]" />
+                    Download CV
+                    <Download className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
-              <h2 className="text-3xl font-semibold md:text-4xl">Build something precise.</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-[#bdc1c6]">
-                Open to AI engineering, high-performance computing, and research roles where correctness,
-                speed, and clarity matter.
-              </p>
+              <div className="flex items-center">
+                <ConsolePanel />
+              </div>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-white px-5 text-sm font-semibold text-[#202124] transition-colors hover:bg-[#e8eaed]"
-              >
-                <Mail className="h-4 w-4" />
-                Email
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                LinkedIn
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </div>
+            <ProofStrip />
           </div>
-          <footer className="mx-auto flex max-w-[1320px] flex-col gap-3 py-8 text-sm text-[#5f6368] md:flex-row md:items-center md:justify-between">
+        </section>
+
+        <section className="px-5 py-3 md:px-7">
+          <div className="mx-auto grid gap-3 xl:max-w-[1322px] xl:grid-cols-2">
+            <ExperiencePanel />
+            <ProjectsPanel />
+            <EducationPanel />
+            <SkillsPanel />
+          </div>
+        </section>
+
+        <ContactPanel />
+
+        <footer className="border-t border-[#dadce0] px-5 py-6 text-sm text-[#5f6368] md:px-8 lg:px-10 xl:px-14">
+          <div className="mx-auto flex max-w-[1500px] flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <p>&copy; {new Date().getFullYear()} {personalInfo.name}. Built with Next.js and Tailwind.</p>
             <div className="flex gap-4">
               <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#202124]">
@@ -1011,8 +1003,8 @@ export default function Portfolio() {
                 Back to top
               </a>
             </div>
-          </footer>
-        </section>
+          </div>
+        </footer>
       </div>
     </main>
   );
