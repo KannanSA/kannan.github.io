@@ -2,10 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Material 3 Expressive tokens ---------- */
 :root {
   color-scheme: light;
-  --background: #f8fafd;
-  --foreground: #202124;
+
+  --bg: #fdfcff;
+  --surface: #ffffff;
+  --surface-dim: #f8fafd;
+  --surface-container-low: #f5f8fc;
+  --surface-container: #f0f4f9;
+  --surface-container-high: #e9eef6;
+  --on-surface: #1f1f1f;
+  --on-surface-variant: #444746;
+  --on-surface-muted: #5f6368;
+
+  --primary: #0b57d0;
+  --on-primary: #ffffff;
+  --primary-container: #d3e3fd;
+  --on-primary-container: #041e49;
+
+  --secondary-container: #c2e7ff;
+  --on-secondary-container: #001d35;
+
+  --tertiary-container: #c4eed0;
+  --on-tertiary-container: #072711;
+
+  --yellow-container: #fef7e0;
+  --on-yellow-container: #684e00;
+
+  --error: #d93025;
+  --error-container: #fce8e6;
+  --on-error-container: #410e0b;
+
+  --outline: #c4c7c5;
+  --outline-variant: #e1e3e1;
+
+  --inverse-surface: #1f1f1f;
+  --inverse-on-surface: #f2f2f2;
+
+  --g-blue: #1a73e8;
+  --g-red: #ea4335;
+  --g-yellow: #fbbc04;
+  --g-green: #34a853;
+
+  --shadow-1: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-2: 0 1px 2px rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  --shadow-3: 0 4px 8px 3px rgba(60, 64, 67, 0.15), 0 1px 3px rgba(60, 64, 67, 0.3);
+
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #101114;
+  --surface: #1b1c1f;
+  --surface-dim: #131417;
+  --surface-container-low: #17181b;
+  --surface-container: #1e1f23;
+  --surface-container-high: #26282c;
+  --on-surface: #e3e3e3;
+  --on-surface-variant: #c4c7c5;
+  --on-surface-muted: #9aa0a6;
+
+  --primary: #a8c7fa;
+  --on-primary: #062e6f;
+  --primary-container: #0842a0;
+  --on-primary-container: #d3e3fd;
+
+  --secondary-container: #004a77;
+  --on-secondary-container: #c2e7ff;
+
+  --tertiary-container: #0f5223;
+  --on-tertiary-container: #c4eed0;
+
+  --yellow-container: #4e3d00;
+  --on-yellow-container: #f8e7a8;
+
+  --error: #f2b8b5;
+  --error-container: #8c1d18;
+  --on-error-container: #f9dedc;
+
+  --outline: #444746;
+  --outline-variant: #33353a;
+
+  --inverse-surface: #e3e3e3;
+  --inverse-on-surface: #1f1f1f;
+
+  --g-blue: #8ab4f8;
+  --g-red: #f28b82;
+  --g-yellow: #fdd663;
+  --g-green: #81c995;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 6px 2px rgba(0, 0, 0, 0.3);
+  --shadow-3: 0 4px 8px 3px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -14,24 +106,27 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--background);
+  background: var(--bg);
 }
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--on-surface);
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  font-feature-settings:
-    "cv02" 1,
-    "cv03" 1,
-    "cv04" 1,
-    "cv11" 1;
-  text-rendering: geometricPrecision;
+    "Google Sans Text", "Outfit", Inter, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s var(--ease-emphasized), color 0.4s var(--ease-emphasized);
+}
+
+.font-display {
+  font-family:
+    "Google Sans", "Google Sans Display", "Outfit", Inter, ui-sans-serif, system-ui,
+    sans-serif;
+  letter-spacing: -0.02em;
 }
 
 img {
@@ -39,15 +134,300 @@ img {
 }
 
 ::selection {
-  background: #1a73e8;
-  color: white;
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+/* ---------- Dynamic background scene ---------- */
+.bg-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+  opacity: 0.32;
+}
+
+.dark .aurora {
+  opacity: 0.2;
+}
+
+.aurora-1 {
+  width: 58vmax;
+  height: 58vmax;
+  top: -22vmax;
+  left: -14vmax;
+  background: radial-gradient(circle at 32% 32%, var(--g-blue), transparent 62%);
+  animation: aurora-drift-1 26s ease-in-out infinite alternate;
+}
+
+.aurora-2 {
+  width: 46vmax;
+  height: 46vmax;
+  top: 30%;
+  right: -18vmax;
+  background: radial-gradient(circle at 60% 40%, var(--g-red), transparent 62%);
+  animation: aurora-drift-2 32s ease-in-out infinite alternate;
+}
+
+.aurora-3 {
+  width: 44vmax;
+  height: 44vmax;
+  bottom: -18vmax;
+  left: 8%;
+  background: radial-gradient(circle at 45% 55%, var(--g-green), transparent 62%);
+  animation: aurora-drift-3 29s ease-in-out infinite alternate;
+}
+
+.aurora-4 {
+  width: 34vmax;
+  height: 34vmax;
+  top: 55%;
+  left: 38%;
+  background: radial-gradient(circle at 50% 50%, var(--g-yellow), transparent 60%);
+  animation: aurora-drift-2 24s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes aurora-drift-1 {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translate3d(12vw, 9vh, 0) rotate(40deg) scale(1.18);
+  }
+}
+
+@keyframes aurora-drift-2 {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1.1);
+  }
+  to {
+    transform: translate3d(-10vw, -8vh, 0) rotate(-35deg) scale(0.92);
+  }
+}
+
+@keyframes aurora-drift-3 {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  to {
+    transform: translate3d(9vw, -10vh, 0) scale(1.2);
+  }
 }
 
 .bg-grid {
+  position: absolute;
+  inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-  background-size: 18px 18px;
+    linear-gradient(var(--outline-variant) 1px, transparent 1px),
+    linear-gradient(90deg, var(--outline-variant) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.55;
+  -webkit-mask-image: radial-gradient(
+    480px circle at var(--mx, 50%) var(--my, 30%),
+    black 0%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    480px circle at var(--mx, 50%) var(--my, 30%),
+    black 0%,
+    transparent 78%
+  );
+  transition: opacity 0.4s var(--ease-emphasized);
+}
+
+.bg-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
+  }
+
+  .bg-grid {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 0.25;
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.99);
+  transition:
+    opacity 0.7s var(--ease-emphasized),
+    transform 0.7s var(--ease-emphasized);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ---------- Expressive shape morph blob ---------- */
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 42% 58% 61% 39% / 45% 43% 57% 55%;
+  }
+  25% {
+    border-radius: 58% 42% 39% 61% / 55% 57% 43% 45%;
+  }
+  50% {
+    border-radius: 39% 61% 45% 55% / 61% 39% 58% 42%;
+  }
+  75% {
+    border-radius: 55% 45% 58% 42% / 42% 61% 39% 58%;
+  }
+}
+
+.blob {
+  animation: blob-morph 14s ease-in-out infinite;
+}
+
+@keyframes float-y {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.float-slow {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow {
+  animation: spin-slow 32s linear infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.82);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
+
+/* ---------- M3 shape-shift hover (signature expressive move) ---------- */
+.shape-shift {
+  border-radius: 28px;
+  transition:
+    border-radius 0.45s var(--ease-spring),
+    transform 0.45s var(--ease-spring),
+    box-shadow 0.45s var(--ease-emphasized),
+    background-color 0.3s var(--ease-emphasized),
+    border-color 0.3s var(--ease-emphasized);
+}
+
+.shape-shift:hover {
+  border-radius: 44px;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3);
+}
+
+.pill-shift {
+  border-radius: 999px;
+  transition:
+    border-radius 0.4s var(--ease-spring),
+    transform 0.4s var(--ease-spring),
+    box-shadow 0.4s var(--ease-emphasized),
+    background-color 0.25s var(--ease-emphasized);
+}
+
+.pill-shift:hover {
+  border-radius: 16px;
+  transform: translateY(-2px);
+}
+
+.pill-shift:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ---------- Gradient text ---------- */
+.gradient-text {
+  background: linear-gradient(
+    100deg,
+    var(--g-blue) 0%,
+    #9168c0 28%,
+    var(--g-red) 52%,
+    var(--g-yellow) 74%,
+    var(--g-green) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  animation: gradient-pan 9s ease-in-out infinite alternate;
+}
+
+@keyframes gradient-pan {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- Type-scale draw line ---------- */
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-path {
+  stroke-dasharray: 1000;
+  animation: draw 3.2s var(--ease-emphasized) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -58,5 +438,10 @@ img {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

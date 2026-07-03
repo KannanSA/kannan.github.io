@@ -1,28 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Activity,
   ArrowRight,
   ArrowUpRight,
   Atom,
-  Briefcase,
   Code,
   Cpu,
   Database,
-  Download,
-  FileText,
   Gauge,
   Github,
-  GitBranch,
   GraduationCap,
-  Home,
   Layers,
+  Linkedin,
   Mail,
-  Monitor,
   Menu,
+  Moon,
   Rocket,
-  School,
   ShieldCheck,
   Smartphone,
   Sparkles,
@@ -31,80 +26,62 @@ import {
   X,
 } from 'lucide-react';
 
-type Accent = 'blue' | 'red' | 'yellow' | 'green' | 'slate';
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
 
-type Experience = {
-  role: string;
-  company: string;
-  period: string;
-  location: string;
-  description: string;
-  result: string;
-  tags: string[];
-  accent: Accent;
-};
-
-type Education = {
-  school: string;
-  degree: string;
-  year: string;
-  details: string;
-  accent: Accent;
-};
-
-type Project = {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  tech: string[];
-  accent: Accent;
-  link: string;
-  visual: 'field' | 'stack' | 'device' | 'ar' | 'clinical' | 'chain';
-};
+type Tone = 'primary' | 'secondary' | 'tertiary' | 'yellow' | 'error' | 'neutral';
 
 const personalInfo = {
   name: 'Kannan Sekar Annu Radha',
   tagline: 'Software Engineer & Researcher',
-  bio: 'I build production-grade AI systems at the intersection of Physics and Computer Science, spanning probabilistic modeling, GPU acceleration, and edge AI.',
+  bio: 'I build production-grade AI systems at the intersection of Physics and Computer Science — probabilistic modeling, GPU acceleration, and edge AI.',
   email: 'kannansekara@gmail.com',
   linkedin: 'https://linkedin.com/in/kannan-sekar',
   github: 'https://github.com/kannansa',
   website: 'https://sakannan.com',
 };
 
-const experience: Experience[] = [
+const stats = [
+  { value: '80%', label: 'prediction accuracy gain', tone: 'primary' as Tone },
+  { value: '2.88M', label: 'AR lens views', tone: 'tertiary' as Tone },
+  { value: '70%', label: 'faster edge inference', tone: 'yellow' as Tone },
+  { value: '6+', label: 'shipped products', tone: 'error' as Tone },
+];
+
+const experience = [
   {
     role: 'Summer Researcher & KURF Fellow',
     company: "Dept. of Physics, King's College London",
-    period: 'Jun 2025 - Present',
+    period: 'Jun 2025 — Present',
     location: 'London, UK',
     description:
       'Applied physics-informed neural networks to carbon nanocluster modeling, then built the GPU pipeline around repeatable experiment runs.',
-    result: '+80% prediction accuracy, -60% simulation time',
+    result: '+80% prediction accuracy · −60% simulation time',
     tags: ['TensorFlow', 'CUDA', 'PINNs', 'Materials'],
-    accent: 'blue',
+    tone: 'primary' as Tone,
   },
   {
     role: 'Software Engineer & CEO',
     company: 'Kannan Industrials',
-    period: 'Feb 2021 - Present',
+    period: 'Feb 2021 — Present',
     location: 'London / Chennai',
     description:
       'Architected and shipped iOS applications including 1minute DOEShelp, iPong, and DabCounter, with CoreML inference tuned for Apple Watch constraints.',
     result: '70% faster real-time inference on constrained hardware',
     tags: ['Swift', 'CoreML', 'iOS', 'CI/CD'],
-    accent: 'green',
+    tone: 'tertiary' as Tone,
   },
   {
     role: 'Research Intern',
-    company: 'Kennedy Institute of Rheumatology',
+    company: 'Kennedy Institute of Rheumatology, Oxford',
     period: 'Nov 2019',
     location: 'Oxford, UK',
     description:
       'Developed CNN workflows for biomedical imaging and experimented with mixed-precision GPU training for research-grade modeling.',
     result: '40% improvement over biomedical imaging baselines',
     tags: ['CNNs', 'PyTorch', 'Biomedical Imaging'],
-    accent: 'red',
+    tone: 'error' as Tone,
   },
   {
     role: 'Data Science Intern',
@@ -113,99 +90,94 @@ const experience: Experience[] = [
     location: 'Leeds, UK',
     description:
       'Built an LSTM + Word2Vec NLP system for clinical note classification and anomaly detection over operational healthcare data.',
-    result: 'ICD-9 coding accuracy improved from 42% to 71%',
+    result: 'ICD-9 coding accuracy improved from 42% → 71%',
     tags: ['NLP', 'LSTM', 'Healthcare Data'],
-    accent: 'yellow',
+    tone: 'yellow' as Tone,
   },
 ];
 
-const education: Education[] = [
+const education = [
   {
     school: "King's College London",
     degree: 'BSc Physics',
-    year: '2024 - 2027',
+    year: '2024 — 2027',
     details:
-      'Alessandro de Vita Computational Physics Prize 2024-25. Modules include computational physics, quantum mechanics, and statistical mechanics.',
-    accent: 'blue',
+      'Alessandro de Vita Computational Physics Prize 2024–25. Computational physics, quantum mechanics, statistical mechanics.',
+    tone: 'primary' as Tone,
   },
   {
     school: 'University College London',
     degree: 'MEng Computer Science',
-    year: '2021 - 2023',
+    year: '2021 — 2023',
     details:
-      'Coursework across algorithms, machine learning, theory of computation, and distributed systems.',
-    accent: 'red',
+      'Algorithms, machine learning, theory of computation, and distributed systems.',
+    tone: 'error' as Tone,
   },
   {
     school: 'Royal Grammar School, Newcastle',
     degree: 'A Levels',
-    year: '2012 - 2019',
-    details:
-      'A*A*A* in Mathematics, Further Mathematics, and Physics. 7 A*s and 4 As at GCSE.',
-    accent: 'green',
+    year: '2012 — 2019',
+    details: 'A*A*A* in Mathematics, Further Mathematics, and Physics. 7 A*s and 4 As at GCSE.',
+    tone: 'tertiary' as Tone,
   },
 ];
 
-const projects: Project[] = [
+const projects = [
   {
     title: 'HPC Molecular Simulation',
     description:
       'Parallelised LAMMPS simulations for material discovery using AIRSS, LMP KOKKOS, OpenMP, and CUDA.',
-    icon: <Atom className="h-5 w-5" />,
+    icon: <Atom className="h-6 w-6" />,
     tech: ['CUDA', 'OpenMP', 'LAMMPS'],
-    accent: 'blue',
-    visual: 'field',
+    tone: 'primary' as Tone,
     link: 'https://github.com/KannanSA/New-C240-only-searches-Feb2024',
+    big: true,
   },
   {
     title: 'TetrisAI',
-    description:
-      'Deep reinforcement learning agent achieving a 95% win rate against heuristic baselines.',
-    icon: <Cpu className="h-5 w-5" />,
+    description: 'Deep RL agent achieving a 95% win rate against heuristic baselines.',
+    icon: <Cpu className="h-6 w-6" />,
     tech: ['Deep RL', 'Python'],
-    accent: 'red',
-    visual: 'stack',
+    tone: 'error' as Tone,
     link: 'https://github.com/KannanSA/TetrisAI',
+    big: false,
   },
   {
     title: 'iPong Watch Agent',
-    description:
-      'CoreML pong agent optimized for Apple Watch GPU and thermal constraints.',
-    icon: <Smartphone className="h-5 w-5" />,
+    description: 'CoreML pong agent optimized for Apple Watch GPU and thermal constraints.',
+    icon: <Smartphone className="h-6 w-6" />,
     tech: ['CoreML', 'Swift', 'watchOS'],
-    accent: 'green',
-    visual: 'device',
+    tone: 'tertiary' as Tone,
     link: 'https://github.com/KannanSA/iPong',
+    big: false,
   },
   {
     title: 'AR Lens',
-    description:
-      'Snapchat filter system that reached 2.88M+ views and 150K downloads.',
-    icon: <Sparkles className="h-5 w-5" />,
+    description: 'Snapchat filter system that reached 2.88M+ views and 150K downloads.',
+    icon: <Sparkles className="h-6 w-6" />,
     tech: ['AR', 'Lens Studio'],
-    accent: 'yellow',
-    visual: 'ar',
+    tone: 'yellow' as Tone,
     link: 'https://github.com/KannanSA/Argumented-Reality-SC',
+    big: false,
   },
   {
     title: 'NLP NHS System',
     description:
       'Clinical text ICD-9 prediction system with AWS deployment experiments and anomaly detection.',
-    icon: <Activity className="h-5 w-5" />,
+    icon: <Activity className="h-6 w-6" />,
     tech: ['NLP', 'AWS', 'Python'],
-    accent: 'blue',
-    visual: 'clinical',
+    tone: 'secondary' as Tone,
     link: 'https://github.com/KannanSA/NLPK',
+    big: true,
   },
   {
     title: 'YoteCoin Smart Contract',
-    description:
-      'Gas-optimized Ethereum smart contract that reduced transaction costs by 35%.',
-    icon: <Layers className="h-5 w-5" />,
+    description: 'Gas-optimized Ethereum smart contract that cut transaction costs by 35%.',
+    icon: <Layers className="h-6 w-6" />,
     tech: ['Solidity', 'Blockchain'],
-    accent: 'slate',
-    visual: 'chain',
+    tone: 'neutral' as Tone,
     link: 'https://github.com/KannanSA/YoteCoin',
+    big: false,
   },
 ];
 
@@ -213,799 +185,867 @@ const skills = [
   {
     title: 'Languages',
     icon: <Code className="h-5 w-5" />,
+    tone: 'primary' as Tone,
     items: ['Python', 'C', 'C++', 'Java', 'Swift', 'Objective-C', 'Haskell', 'Bash'],
   },
   {
     title: 'AI / ML',
     icon: <Cpu className="h-5 w-5" />,
-    items: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'CoreML', 'Keras'],
+    tone: 'error' as Tone,
+    items: ['TensorFlow', 'PyTorch', 'JAX', 'Scikit-learn', 'CoreML', 'Keras'],
   },
   {
     title: 'Cloud / Systems',
     icon: <Database className="h-5 w-5" />,
-    items: ['GCP', 'Docker', 'Kubernetes', 'CI/CD', 'Git'],
+    tone: 'yellow' as Tone,
+    items: ['GCP', 'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Git'],
   },
   {
     title: 'Research Tooling',
     icon: <Terminal className="h-5 w-5" />,
-    items: ['REST APIs', 'GraphQL', 'OpenMP', 'LAMMPS', 'JAX'],
+    tone: 'tertiary' as Tone,
+    items: ['REST APIs', 'GraphQL', 'OpenMP', 'LAMMPS', 'SLURM'],
   },
 ];
 
 const proofPoints = [
-  {
-    title: 'Production Systems',
-    copy: 'Shipped to clinical and research environments',
-    icon: <Rocket className="h-5 w-5" />,
-  },
-  {
-    title: 'GPU Acceleration',
-    copy: 'CUDA, PyTorch, JAX for high-performance ML',
-    icon: <Gauge className="h-5 w-5" />,
-  },
-  {
-    title: 'Probabilistic Modeling',
-    copy: 'Bayesian methods, UQ, and scientific ML',
-    icon: <Activity className="h-5 w-5" />,
-  },
-  {
-    title: 'Edge AI',
-    copy: 'Optimized inference on resource-constrained devices',
-    icon: <Smartphone className="h-5 w-5" />,
-  },
-  {
-    title: 'High Standards',
-    copy: 'Tested, monitored, and built for reliability',
-    icon: <ShieldCheck className="h-5 w-5" />,
-  },
-];
-
-const workHighlights = [
-  {
-    role: 'Software Engineer',
-    company: 'Kannan Industrials',
-    period: 'May 2022 - Present',
-    location: 'Chennai, India',
-    description:
-      'Engineered data platforms and ML systems for industrial automation and predictive maintenance. Built GPU-accelerated pipelines for real-time anomaly detection and forecasting.',
-    tags: ['Python', 'PyTorch', 'CUDA', 'FastAPI', 'PostgreSQL', 'Docker'],
-    accent: 'blue' as Accent,
-    mark: 'kings',
-  },
-  {
-    role: 'Research Software Engineer',
-    company: 'Kennedy Institute of Rheumatology',
-    period: 'Oct 2021 - Apr 2022',
-    location: 'London, UK',
-    description:
-      'Developed reproducible AI workflows for biomedical imaging and longitudinal patient modeling. Implemented scalable training pipelines on HPC infrastructure.',
-    tags: ['Python', 'MONAI', 'PyTorch', 'SLURM', 'DVC', 'Linux'],
-    accent: 'blue' as Accent,
-    mark: 'kennedy',
-  },
-];
-
-const projectHighlights = [
-  {
-    title: 'Bayesian Neural Operator for PDEs',
-    description:
-      'Scalable operator learning with uncertainty quantification for parametric PDEs using JAX and Fourier Neural Operators.',
-    tech: ['JAX', 'Python', 'NumPy', 'Optax', 'HPC'],
-    visual: 'flow',
-    link: 'https://github.com/KannanSA/New-C240-only-searches-Feb2024',
-  },
-  {
-    title: 'Edge AI for Respiratory Monitoring',
-    description:
-      'Efficient on-device inference for respiratory disease screening using quantized CNNs on ARM and Jetson platforms.',
-    tech: ['PyTorch', 'ONNX', 'TensorRT', 'OpenCV', 'C++'],
-    visual: 'xray',
-    link: 'https://github.com/KannanSA/NLPK',
-  },
-  {
-    title: 'Probabilistic Patient Trajectories',
-    description:
-      'Bayesian state-space models for disease progression modeling with missing data and irregular observations.',
-    tech: ['PyMC', 'ArviZ', 'Pandas', 'NumPy', 'Matplotlib'],
-    visual: 'scatter',
-    link: 'https://github.com/kannansa',
-  },
+  { title: 'Production Systems', icon: <Rocket className="h-4 w-4" /> },
+  { title: 'GPU Acceleration', icon: <Gauge className="h-4 w-4" /> },
+  { title: 'Probabilistic Modeling', icon: <Activity className="h-4 w-4" /> },
+  { title: 'Edge AI', icon: <Smartphone className="h-4 w-4" /> },
+  { title: 'Built for Reliability', icon: <ShieldCheck className="h-4 w-4" /> },
+  { title: 'Physics × CS', icon: <Atom className="h-4 w-4" /> },
 ];
 
 const navLinks = [
-  { name: 'Home', href: '#home', icon: <Home className="h-4 w-4" /> },
-  { name: 'Experience', href: '#experience', icon: <Briefcase className="h-4 w-4" /> },
-  { name: 'Projects', href: '#projects', icon: <GitBranch className="h-4 w-4" /> },
-  { name: 'Education', href: '#education', icon: <GraduationCap className="h-4 w-4" /> },
-  { name: 'Skills', href: '#skills', icon: <Terminal className="h-4 w-4" /> },
-  { name: 'Contact', href: '#contact', icon: <Mail className="h-4 w-4" /> },
+  { name: 'Work', href: '#experience' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Education', href: '#education' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Contact', href: '#contact' },
 ];
 
-const accentStyles: Record<
-  Accent,
-  {
-    text: string;
-    border: string;
-    bg: string;
-    dot: string;
-    soft: string;
-  }
-> = {
-  blue: {
-    text: 'text-[#1a73e8]',
-    border: 'border-[#1a73e8]',
-    bg: 'bg-[#e8f0fe]',
-    dot: 'bg-[#1a73e8]',
-    soft: 'from-[#e8f0fe] to-white',
+/* ------------------------------------------------------------------ */
+/* Tonal styles                                                        */
+/* ------------------------------------------------------------------ */
+
+const tones: Record<Tone, { bg: string; fg: string; chipBg: string }> = {
+  primary: {
+    bg: 'bg-[var(--primary-container)]',
+    fg: 'text-[var(--on-primary-container)]',
+    chipBg: 'bg-[var(--primary-container)] text-[var(--on-primary-container)]',
   },
-  red: {
-    text: 'text-[#d93025]',
-    border: 'border-[#d93025]',
-    bg: 'bg-[#fce8e6]',
-    dot: 'bg-[#d93025]',
-    soft: 'from-[#fce8e6] to-white',
+  secondary: {
+    bg: 'bg-[var(--secondary-container)]',
+    fg: 'text-[var(--on-secondary-container)]',
+    chipBg: 'bg-[var(--secondary-container)] text-[var(--on-secondary-container)]',
+  },
+  tertiary: {
+    bg: 'bg-[var(--tertiary-container)]',
+    fg: 'text-[var(--on-tertiary-container)]',
+    chipBg: 'bg-[var(--tertiary-container)] text-[var(--on-tertiary-container)]',
   },
   yellow: {
-    text: 'text-[#f9ab00]',
-    border: 'border-[#f9ab00]',
-    bg: 'bg-[#fef7e0]',
-    dot: 'bg-[#f9ab00]',
-    soft: 'from-[#fef7e0] to-white',
+    bg: 'bg-[var(--yellow-container)]',
+    fg: 'text-[var(--on-yellow-container)]',
+    chipBg: 'bg-[var(--yellow-container)] text-[var(--on-yellow-container)]',
   },
-  green: {
-    text: 'text-[#188038]',
-    border: 'border-[#188038]',
-    bg: 'bg-[#e6f4ea]',
-    dot: 'bg-[#188038]',
-    soft: 'from-[#e6f4ea] to-white',
+  error: {
+    bg: 'bg-[var(--error-container)]',
+    fg: 'text-[var(--on-error-container)]',
+    chipBg: 'bg-[var(--error-container)] text-[var(--on-error-container)]',
   },
-  slate: {
-    text: 'text-[#3c4043]',
-    border: 'border-[#3c4043]',
-    bg: 'bg-[#f1f3f4]',
-    dot: 'bg-[#3c4043]',
-    soft: 'from-[#f1f3f4] to-white',
+  neutral: {
+    bg: 'bg-[var(--surface-container-high)]',
+    fg: 'text-[var(--on-surface)]',
+    chipBg: 'bg-[var(--surface-container-high)] text-[var(--on-surface)]',
   },
 };
 
-const codeRows = [
-  ['01', '# physics-informed solver on GPU', 'text-[#81c995]'],
-  ['02', 'import jax.numpy as jnp', 'text-[#c58af9]'],
-  ['03', 'from models import bayes_pinn', 'text-[#8ab4f8]'],
-  ['04', 'from kernels import carbon_cluster', 'text-[#8ab4f8]'],
-  ['05', '', 'text-[#5f6368]'],
-  ['06', '@jit', 'text-[#fdd663]'],
-  ['07', 'def predict(params, x):', 'text-[#e8eaed]'],
-  ['08', '    mu, sigma = bayes_pinn(params, x)', 'text-[#bdc1c6]'],
-  ['09', '    return calibrate(mu, sigma)', 'text-[#bdc1c6]'],
-  ['10', '', 'text-[#5f6368]'],
-  ['11', 'metrics = run_pipeline(seed=42)', 'text-[#8ab4f8]'],
-  ['12', 'assert metrics.latency_ms < budget', 'text-[#81c995]'],
-  ['13', 'export("candidate.onnx")', 'text-[#e8eaed]'],
-];
+/* ------------------------------------------------------------------ */
+/* Hooks                                                               */
+/* ------------------------------------------------------------------ */
 
-function BrandMark() {
+function useTheme() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
+  const toggle = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle('dark', next);
+    try {
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+    } catch {}
+  };
+
+  return { isDark, toggle };
+}
+
+function useReveal() {
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+}
+
+/* ------------------------------------------------------------------ */
+/* Dynamic background                                                  */
+/* ------------------------------------------------------------------ */
+
+function DynamicBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const scene = sceneRef.current;
+    if (!canvas || !scene) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Cursor spotlight for the grid layer
+    const onPointer = (e: PointerEvent) => {
+      scene.style.setProperty('--mx', `${e.clientX}px`);
+      scene.style.setProperty('--my', `${e.clientY}px`);
+    };
+    window.addEventListener('pointermove', onPointer, { passive: true });
+
+    if (reduced) {
+      return () => window.removeEventListener('pointermove', onPointer);
+    }
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return () => window.removeEventListener('pointermove', onPointer);
+
+    let width = 0;
+    let height = 0;
+    let raf = 0;
+    const mouse = { x: -9999, y: -9999 };
+
+    type P = { x: number; y: number; vx: number; vy: number; r: number; c: string };
+    let particles: P[] = [];
+
+    const readColors = () => {
+      const s = getComputedStyle(document.documentElement);
+      return ['--g-blue', '--g-red', '--g-yellow', '--g-green'].map((v) =>
+        s.getPropertyValue(v).trim(),
+      );
+    };
+    let colors = readColors();
+    let linkColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+
+    const themeObserver = new MutationObserver(() => {
+      colors = readColors();
+      linkColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+      particles.forEach((p, i) => (p.c = colors[i % colors.length]));
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const target = Math.min(90, Math.floor((width * height) / 20000));
+      particles = Array.from({ length: target }, (_, i) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: 1.2 + Math.random() * 2.2,
+        c: colors[i % colors.length],
+      }));
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const onMouse = (e: PointerEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    const onLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+    window.addEventListener('pointermove', onMouse, { passive: true });
+    window.addEventListener('pointerout', onLeave);
+
+    const LINK_DIST = 120;
+    const MOUSE_DIST = 170;
+
+    const tick = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const p of particles) {
+        // gentle mouse repulsion
+        const dxm = p.x - mouse.x;
+        const dym = p.y - mouse.y;
+        const dm = Math.hypot(dxm, dym);
+        if (dm < MOUSE_DIST && dm > 0.01) {
+          const f = ((MOUSE_DIST - dm) / MOUSE_DIST) * 0.06;
+          p.vx += (dxm / dm) * f;
+          p.vy += (dym / dm) * f;
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+        // keep a minimum drift
+        if (Math.abs(p.vx) < 0.08) p.vx += (Math.random() - 0.5) * 0.04;
+        if (Math.abs(p.vy) < 0.08) p.vy += (Math.random() - 0.5) * 0.04;
+
+        if (p.x < -20) p.x = width + 20;
+        if (p.x > width + 20) p.x = -20;
+        if (p.y < -20) p.y = height + 20;
+        if (p.y > height + 20) p.y = -20;
+      }
+
+      // links
+      ctx.lineWidth = 1;
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          if (Math.abs(dx) > LINK_DIST || Math.abs(dy) > LINK_DIST) continue;
+          const d = Math.hypot(dx, dy);
+          if (d < LINK_DIST) {
+            ctx.globalAlpha = (1 - d / LINK_DIST) * 0.28;
+            ctx.strokeStyle = linkColor;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+        // link to cursor
+        const dmx = a.x - mouse.x;
+        const dmy = a.y - mouse.y;
+        const dm = Math.hypot(dmx, dmy);
+        if (dm < MOUSE_DIST) {
+          ctx.globalAlpha = (1 - dm / MOUSE_DIST) * 0.35;
+          ctx.strokeStyle = linkColor;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+
+      // dots
+      for (const p of particles) {
+        ctx.globalAlpha = 0.65;
+        ctx.fillStyle = p.c;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      themeObserver.disconnect();
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('pointermove', onPointer);
+      window.removeEventListener('pointermove', onMouse);
+      window.removeEventListener('pointerout', onLeave);
+    };
+  }, []);
+
   return (
-    <a href="#home" className="flex items-center gap-2" aria-label="Go to home">
-      <span className="font-semibold text-[1.45rem] leading-none tracking-normal">
-        <span className="text-[#1a73e8]">K</span>
-        <span className="text-[#d93025]">S</span>
-        <span className="text-[#f9ab00]">A</span>
-        <span className="text-[#188038]">R</span>
-      </span>
-    </a>
+    <div ref={sceneRef} aria-hidden="true" className="bg-scene">
+      <div className="aurora aurora-1" />
+      <div className="aurora aurora-2" />
+      <div className="aurora aurora-3" />
+      <div className="aurora aurora-4" />
+      <div className="bg-grid" />
+      <canvas ref={canvasRef} className="bg-particles" />
+    </div>
   );
 }
 
-function Tag({ children }: { children: React.ReactNode }) {
+/* ------------------------------------------------------------------ */
+/* Building blocks                                                     */
+/* ------------------------------------------------------------------ */
+
+function Chip({ children, tone = 'neutral' }: { children: React.ReactNode; tone?: Tone }) {
   return (
-    <span className="inline-flex h-6 items-center rounded-md border border-[#dadce0] bg-[#f8fafd] px-2 text-[0.72rem] font-medium leading-none text-[#5f6368]">
+    <span
+      className={`inline-flex h-8 items-center rounded-full px-3.5 text-[0.8rem] font-medium ${tones[tone].chipBg}`}
+    >
       {children}
     </span>
   );
 }
 
-function Panel({
-  id,
+function SectionHeader({
+  kicker,
   title,
-  action,
-  children,
+  tone = 'primary',
 }: {
-  id?: string;
+  kicker: string;
   title: string;
-  action?: React.ReactNode;
-  children: React.ReactNode;
+  tone?: Tone;
 }) {
-  const titleId = id ? `${id}-title` : undefined;
-
   return (
-    <section
-      id={id}
-      aria-labelledby={titleId}
-      className="rounded-lg border border-[#dadce0] bg-white shadow-[0_1px_2px_rgba(60,64,67,0.08)]"
-    >
-      <div className="flex min-h-16 items-center justify-between gap-4 border-b border-[#dadce0] px-5 py-4">
-        <h2 id={titleId} className="text-xl font-semibold leading-tight text-[#202124]">
-          {title}
-        </h2>
-        {action}
-      </div>
-      {children}
-    </section>
+    <div className="reveal mb-10 md:mb-14">
+      <span
+        className={`inline-flex h-8 items-center rounded-full px-4 text-[0.78rem] font-semibold uppercase tracking-[0.12em] ${tones[tone].chipBg}`}
+      >
+        {kicker}
+      </span>
+      <h2 className="font-display mt-5 text-4xl font-semibold leading-[1.06] text-[var(--on-surface)] sm:text-5xl md:text-6xl">
+        {title}
+      </h2>
+    </div>
   );
 }
 
-function Sidebar() {
+function BrandMark() {
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-[168px] border-r border-[#dadce0] bg-white/95 backdrop-blur-xl lg:block">
-      <div className="flex h-full flex-col justify-between px-6 py-8">
-        <div>
+    <a href="#home" aria-label="Go to home" className="font-display flex items-center text-2xl font-bold leading-none">
+      <span className="text-[var(--g-blue)]">K</span>
+      <span className="text-[var(--g-red)]">S</span>
+      <span className="text-[var(--g-yellow)]">A</span>
+      <span className="text-[var(--g-green)]">R</span>
+    </a>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Navigation                                                          */
+/* ------------------------------------------------------------------ */
+
+function Nav() {
+  const { isDark, toggle } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4">
+      <nav
+        className={`flex w-full max-w-4xl items-center justify-between gap-2 rounded-full border px-3 py-2 backdrop-blur-xl transition-all duration-500 ${
+          scrolled
+            ? 'border-[var(--outline-variant)] bg-[color-mix(in_srgb,var(--surface)_82%,transparent)] shadow-[var(--shadow-2)]'
+            : 'border-transparent bg-transparent'
+        }`}
+      >
+        <div className="pl-3">
           <BrandMark />
-          <div className="mt-9 h-px bg-[#e8eaed]" />
-          <nav className="mt-3 space-y-1">
-            {navLinks.map((link, index) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`relative flex h-10 items-center gap-3 px-0 text-sm font-medium transition-colors ${
-                  index === 0
-                    ? 'text-[#1a73e8]'
-                    : 'text-[#3c4043] hover:bg-[#f1f3f4] hover:text-[#1a73e8]'
-                }`}
-              >
-                {index === 0 ? (
-                  <span className="absolute -left-6 h-8 w-1 rounded-r-full bg-[#1a73e8]" />
-                ) : null}
-                <span className={index === 0 ? 'text-[#1a73e8]' : 'text-[#5f6368]'}>{link.icon}</span>
-                {link.name}
-              </a>
-            ))}
-          </nav>
         </div>
-        <div className="space-y-4 text-xs text-[#5f6368]">
-          <div className="grid grid-cols-2 divide-x divide-[#dadce0] border-y border-[#e8eaed] py-3">
-            <button type="button" aria-label="Light appearance" className="flex h-8 items-center justify-center text-[#202124]">
-              <Sun className="h-4 w-4" />
-            </button>
-            <button type="button" aria-label="System appearance" className="flex h-8 items-center justify-center text-[#202124]">
-              <Monitor className="h-4 w-4" />
-            </button>
-          </div>
-          <div className="flex gap-1.5" aria-hidden="true">
-            <span className="h-1.5 flex-1 rounded-full bg-[#1a73e8]" />
-            <span className="h-1.5 flex-1 rounded-full bg-[#d93025]" />
-            <span className="h-1.5 flex-1 rounded-full bg-[#f9ab00]" />
-            <span className="h-1.5 flex-1 rounded-full bg-[#188038]" />
-          </div>
-        </div>
-      </div>
-    </aside>
-  );
-}
 
-function MobileHeader({
-  isMenuOpen,
-  setIsMenuOpen,
-}: {
-  isMenuOpen: boolean;
-  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-  return (
-    <header className="sticky top-0 z-50 border-b border-[#dadce0] bg-white/95 backdrop-blur-xl lg:hidden">
-      <div className="flex items-center justify-between px-5 py-4">
-        <BrandMark />
-        <button
-          type="button"
-          aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-[#dadce0] text-[#3c4043]"
-          onClick={() => setIsMenuOpen((open) => !open)}
-        >
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-      {isMenuOpen ? (
-        <nav className="grid border-t border-[#dadce0] bg-white px-3 py-3">
+        <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              onClick={() => setIsMenuOpen(false)}
-              className="flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium text-[#3c4043] hover:bg-[#f1f3f4]"
+              className="rounded-full px-4 py-2 text-sm font-medium text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container-high)] hover:text-[var(--on-surface)]"
             >
-              {link.icon}
               {link.name}
             </a>
           ))}
-        </nav>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="pill-shift flex h-10 w-10 items-center justify-center border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)]"
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="pill-shift hidden h-10 items-center gap-2 bg-[var(--primary)] px-5 text-sm font-semibold text-[var(--on-primary)] md:inline-flex"
+          >
+            Get in touch
+          </a>
+          <button
+            type="button"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+            onClick={() => setMenuOpen((o) => !o)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)] md:hidden"
+          >
+            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
+      </nav>
+
+      {menuOpen ? (
+        <div className="absolute inset-x-4 top-[4.6rem] rounded-[28px] border border-[var(--outline-variant)] bg-[var(--surface)] p-3 shadow-[var(--shadow-3)] md:hidden">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="block rounded-2xl px-4 py-3.5 text-base font-medium text-[var(--on-surface)] transition-colors hover:bg-[var(--surface-container)]"
+            >
+              {link.name}
+            </a>
+          ))}
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="mt-2 flex h-12 items-center justify-center rounded-full bg-[var(--primary)] text-sm font-semibold text-[var(--on-primary)]"
+          >
+            Get in touch
+          </a>
+        </div>
       ) : null}
     </header>
   );
 }
 
-function ConsolePanel() {
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+function Hero() {
   return (
-    <div className="w-full overflow-hidden rounded-md border border-[#20262a] bg-[#0f1418] shadow-2xl shadow-slate-950/20">
-      <div className="flex items-center gap-6 border-b border-white/10 px-5 py-3 font-mono text-[0.68rem] uppercase tracking-normal text-[#9aa0a6]">
-        <span className="border-b-2 border-[#1a73e8] pb-3 text-[#8ab4f8]">system console</span>
-        <span>research notebook</span>
-        <span className="hidden sm:inline">model diagnostics</span>
-        <span className="hidden md:inline">system map</span>
-      </div>
-      <div className="grid lg:grid-cols-[0.42fr_0.58fr]">
-        <div className="border-b border-white/10 p-4 lg:border-b-0 lg:border-r lg:border-white/10">
-          <div className="space-y-1 font-mono text-[0.68rem] leading-[1.08rem]">
-            {codeRows.map(([line, row, color]) => (
-              <div key={`${line}-${row}`} className="grid grid-cols-[1.55rem_1fr] gap-3">
-                <span className="select-none text-right text-[#5f6368]">{line}</span>
-                <span className={color}>{row || '\u00a0'}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-3 rounded-md border border-[#34a853]/30 bg-[#102719] px-3 py-2 font-mono text-[0.68rem] text-[#81c995]">
-            &gt; system healthy. all services nominal.
-          </div>
-        </div>
-        <div className="p-4">
-          <div className="mb-3 flex items-center justify-between font-mono text-[0.72rem] uppercase tracking-normal text-[#bdc1c6]">
-            <span>latent space</span>
-            <span>uncertainty</span>
-          </div>
-          <div className="grid gap-4 md:grid-cols-[1fr_56px]">
-            <div className="relative h-[205px] overflow-hidden rounded-md border border-white/10 bg-[#0b1014]">
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)] bg-[size:22px_22px]" />
-              <svg className="absolute inset-0 h-full w-full" viewBox="0 0 440 276" aria-hidden="true">
-                <path
-                  d="M54 224 L386 204 L386 52 L54 74 Z"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.18)"
-                  strokeWidth="1"
-                />
-                <path d="M54 224 L92 246 L424 226 L386 204" fill="none" stroke="rgba(255,255,255,0.12)" />
-                <path d="M386 52 L424 74 L424 226" fill="none" stroke="rgba(255,255,255,0.12)" />
-                {Array.from({ length: 150 }).map((_, index) => {
-                  const x = 48 + ((index * 31) % 344);
-                  const wave = 141 + Math.sin(index * 0.29) * 47 + ((index * 17) % 34) - 17;
-                  const y = Math.max(50, Math.min(226, wave));
-                  const palette = ['#1a73e8', '#00acc1', '#34a853', '#fbbc04', '#ea4335'];
-                  const fill = palette[Math.floor((x - 48) / 70) % palette.length];
-
-                  return <circle key={index} cx={x} cy={y} r={2.25} fill={fill} opacity="0.9" />;
-                })}
-                <path
-                  d="M42 172 C96 110 139 111 185 144 S266 207 329 132 S397 94 424 104"
-                  fill="none"
-                  stroke="#8ab4f8"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  opacity="0.9"
-                />
-                <path
-                  d="M42 196 C99 139 139 135 184 164 S267 225 329 156 S395 123 424 128"
-                  fill="none"
-                  stroke="#34a853"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  opacity="0.68"
-                />
-              </svg>
-            </div>
-            <div className="hidden h-[205px] rounded-md border border-white/10 bg-[#11171c] p-2 md:block">
-              <div className="h-full rounded-sm bg-[linear-gradient(to_top,#1a73e8,#00acc1,#34a853,#fbbc04,#ea4335)]" />
-            </div>
-          </div>
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[0.65rem] text-[#bdc1c6]">
-            {['GPU 0  A100 80GB', 'GPU 1  A100 80GB', 'CPU 32/64T', 'RAM 128GB'].map((item) => (
-              <span key={item} className="flex items-center gap-1.5 whitespace-nowrap">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#34a853]" />
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProjectThumb({ project }: { project: Project }) {
-  const accent = accentStyles[project.accent];
-
-  if (project.visual === 'field') {
-    return (
-      <div className="h-14 w-16 shrink-0 overflow-hidden rounded-md border border-[#dadce0] bg-[#f8fafd]">
-        <img src="/research-visual.png" alt="" className="h-full w-full object-cover" />
-      </div>
-    );
-  }
-
-  if (project.visual === 'stack') {
-    return (
-      <div className="grid h-14 w-16 shrink-0 grid-cols-5 gap-0.5 rounded-md border border-[#dadce0] bg-[#202124] p-2">
-        {Array.from({ length: 20 }).map((_, index) => (
-          <span
-            key={index}
-            className={`rounded-sm ${
-              index % 7 === 0
-                ? 'bg-[#1a73e8]'
-                : index % 5 === 0
-                  ? 'bg-[#fbbc04]'
-                  : index % 3 === 0
-                    ? 'bg-[#34a853]'
-                    : 'bg-white/15'
-            }`}
-          />
-        ))}
-      </div>
-    );
-  }
-
-  if (project.visual === 'device') {
-    return (
-      <div className="flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-[#dadce0] bg-gradient-to-br from-[#e6f4ea] to-white">
-        <div className="relative h-10 w-8 rounded-[0.72rem] border-[4px] border-[#202124] bg-[#0b1014]">
-          <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#34a853]" />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={`flex h-14 w-16 shrink-0 items-center justify-center rounded-md border border-[#dadce0] bg-gradient-to-br ${accent.soft} ${accent.text}`}
-    >
-      {project.icon}
-    </div>
-  );
-}
-
-function OrganizationMark({ type }: { type: string }) {
-  if (type === 'kennedy') {
-    return (
-      <div className="flex h-[86px] w-[90px] shrink-0 items-center justify-center rounded-md border border-[#dadce0] bg-white">
-        <div className="relative h-14 w-14 rounded-full border-[5px] border-[#0b4ea2]">
-          <span className="absolute left-1/2 top-2 h-8 w-[3px] -translate-x-1/2 rounded-full bg-[#0b4ea2]" />
-          <span className="absolute left-4 top-6 h-5 w-[3px] rotate-[-28deg] rounded-full bg-[#0b4ea2]" />
-          <span className="absolute right-4 top-6 h-5 w-[3px] rotate-[28deg] rounded-full bg-[#0b4ea2]" />
-          <span className="absolute left-1/2 top-4 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-[#0b4ea2]" />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex h-[86px] w-[90px] shrink-0 flex-col items-center justify-center rounded-md bg-[#061a3a] text-white shadow-sm">
-      <div className="font-serif text-5xl leading-none">K</div>
-      <div className="mt-1 font-serif text-sm tracking-[0.28em]">1935</div>
-    </div>
-  );
-}
-
-function ProjectHighlightVisual({ visual }: { visual: string }) {
-  if (visual === 'xray') {
-    return (
-      <div className="relative h-[112px] w-[198px] shrink-0 overflow-hidden rounded-md bg-[#101418]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(255,255,255,0.95),rgba(255,255,255,0.18)_34%,transparent_59%)] opacity-80" />
-        <div className="absolute left-1/2 top-3 h-24 w-10 -translate-x-1/2 rounded-full bg-white/20 blur-[1px]" />
-        <div className="absolute left-[28%] top-2 h-28 w-16 rounded-full border border-white/15 bg-white/10 blur-[0.5px]" />
-        <div className="absolute right-[28%] top-2 h-28 w-16 rounded-full border border-white/15 bg-white/10 blur-[0.5px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)]" />
-      </div>
-    );
-  }
-
-  if (visual === 'scatter') {
-    return (
-      <div className="relative h-[112px] w-[198px] shrink-0 overflow-hidden rounded-md bg-[#11181c]">
-        {Array.from({ length: 120 }).map((_, index) => {
-          const isLeft = index < 60;
-          const cx = isLeft ? 52 : 142;
-          const cy = isLeft ? 58 : 56;
-          const x = cx + Math.sin(index * 2.17) * (8 + (index % 9) * 2.8);
-          const y = cy + Math.cos(index * 1.63) * (7 + (index % 8) * 2.6);
-          return (
-            <span
-              key={index}
-              className={`absolute h-1.5 w-1.5 rounded-full ${isLeft ? 'bg-[#27d7e6]' : 'bg-[#f08f86]'}`}
-              style={{ left: `${x}px`, top: `${y}px`, opacity: 0.55 + (index % 5) * 0.08 }}
+    <section id="home" className="relative overflow-hidden px-5 pb-16 pt-36 md:pt-44">
+      {/* ambient shapes */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="blob absolute -right-24 -top-24 h-[420px] w-[420px] bg-[var(--primary-container)] opacity-70 md:h-[560px] md:w-[560px]" />
+        <div className="blob absolute -left-32 top-[42%] h-[340px] w-[340px] bg-[var(--tertiary-container)] opacity-50 [animation-delay:-6s]" />
+        <div className="float-slow absolute right-[16%] top-[58%] hidden h-16 w-16 rounded-[22px] bg-[var(--yellow-container)] md:block" />
+        <div className="spin-slow absolute left-[12%] top-[22%] hidden md:block">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+            <path
+              d="M36 4 L42 26 L64 22 L48 38 L66 52 L43 50 L44 70 L33 51 L14 62 L24 43 L4 36 L25 31 L16 10 L34 24 Z"
+              fill="var(--error-container)"
             />
-          );
-        })}
+          </svg>
+        </div>
       </div>
-    );
-  }
 
-  return (
-    <div className="h-[112px] w-[198px] shrink-0 overflow-hidden rounded-md bg-[#101418]">
-      <img src="/research-visual.png" alt="" className="h-full w-full object-cover saturate-150" />
-    </div>
-  );
-}
+      <div className="relative mx-auto max-w-6xl">
+        <div className="reveal inline-flex items-center gap-2.5 rounded-full border border-[var(--outline-variant)] bg-[var(--surface)] py-1.5 pl-2 pr-4 shadow-[var(--shadow-1)]">
+          <span className="flex h-7 items-center rounded-full bg-[var(--tertiary-container)] px-3 text-xs font-semibold text-[var(--on-tertiary-container)]">
+            <span className="pulse-dot mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-[var(--g-green)]" />
+            Available
+          </span>
+          <span className="text-sm font-medium text-[var(--on-surface-variant)]">
+            Physics @ King&apos;s College London · AI Engineering
+          </span>
+        </div>
 
-function ExperiencePanel() {
-  return (
-    <Panel
-      id="experience"
-      title="Work Experience"
-    >
-      <div className="relative px-6 pb-7 pt-2">
-        <div className="absolute bottom-7 left-[1.62rem] top-[4.6rem] w-px bg-[#dadce0]" />
-        {workHighlights.map((job) => {
-          const accent = accentStyles[job.accent];
+        <h1 className="font-display reveal mt-8 max-w-5xl text-[3.4rem] font-semibold leading-[0.98] tracking-[-0.03em] text-[var(--on-surface)] sm:text-7xl md:text-[6.2rem]" style={{ ['--reveal-delay' as string]: '80ms' }}>
+          Kannan Sekar
+          <br />
+          <span className="gradient-text">Annu Radha</span>
+        </h1>
 
-          return (
-            <article key={`${job.role}-${job.company}`} className="relative grid min-h-[154px] grid-cols-[92px_1fr] gap-5 py-4">
-              <span className={`absolute -left-[0.4rem] top-7 z-10 h-2.5 w-2.5 rounded-full ${accent.dot} ring-4 ring-white`} />
-              <OrganizationMark type={job.mark} />
-              <div className="min-w-0 pt-1">
-                <div className="flex flex-col gap-1">
-                  <div className="min-w-0">
-                    <h3 className="text-base font-semibold leading-6 text-[#202124]">{job.role}</h3>
-                    <p className={`text-sm font-semibold ${accent.text}`}>{job.company}</p>
-                  </div>
-                </div>
-                <p className="mt-1 text-xs text-[#5f6368]">
-                  {job.period} <span className="px-1">-</span> {job.location}
-                </p>
-                <p className="mt-3 max-w-3xl text-sm leading-[1.45rem] text-[#3c4043]">{job.description}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {job.tags.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
-                  ))}
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </Panel>
-  );
-}
+        <p className="reveal mt-7 max-w-2xl text-lg leading-relaxed text-[var(--on-surface-variant)] md:text-xl" style={{ ['--reveal-delay' as string]: '160ms' }}>
+          {personalInfo.bio}
+        </p>
 
-function ProjectsPanel() {
-  return (
-    <Panel
-      id="projects"
-      title="Featured Projects"
-      action={
-        <a
-          href={personalInfo.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-[#1a73e8]"
-        >
-          View all projects
-          <ArrowRight className="h-4 w-4" />
-        </a>
-      }
-    >
-      <div className="px-6 pb-5 pt-1">
-        {projectHighlights.map((project) => (
-          <article
-            key={project.title}
-            className="grid gap-4 border-b border-[#eceff1] py-3 last:border-0 md:grid-cols-[198px_1fr_32px] md:items-center"
+        <div className="reveal mt-10 flex flex-wrap items-center gap-3" style={{ ['--reveal-delay' as string]: '240ms' }}>
+          <a
+            href="#projects"
+            className="pill-shift inline-flex h-14 items-center gap-2.5 bg-[var(--primary)] px-8 text-base font-semibold text-[var(--on-primary)] shadow-[var(--shadow-2)]"
           >
-            <ProjectHighlightVisual visual={project.visual} />
-            <div className="min-w-0">
-              <h3 className="text-base font-semibold leading-6 text-[#202124]">{project.title}</h3>
-              <p className="mt-2 max-w-2xl text-sm leading-[1.45rem] text-[#3c4043]">{project.description}</p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {project.tech.map((tech) => (
-                  <Tag key={tech}>{tech}</Tag>
-                ))}
-              </div>
-            </div>
+            View my work
+            <ArrowRight className="h-5 w-5" />
+          </a>
+          <div className="ml-1 flex items-center gap-1.5">
             <a
-              href={project.link}
+              href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${project.title}`}
-              className="flex h-9 w-9 items-center justify-center justify-self-start rounded-md text-[#202124] transition-colors hover:bg-[#f1f3f4] md:justify-self-end"
+              aria-label="GitHub"
+              className="pill-shift flex h-12 w-12 items-center justify-center border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)]"
             >
               <Github className="h-5 w-5" />
             </a>
-          </article>
-        ))}
-      </div>
-    </Panel>
-  );
-}
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="pill-shift flex h-12 w-12 items-center justify-center border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)]"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
 
-function EducationPanel() {
-  return (
-    <Panel id="education" title="Education & Awards">
-      <div className="grid gap-0 px-5 py-2">
-        {education.map((edu) => {
-          const accent = accentStyles[edu.accent];
-
-          return (
-            <article key={edu.school} className="grid gap-4 border-b border-[#eceff1] py-5 last:border-0 sm:grid-cols-[116px_1fr]">
-              <div className="flex items-start gap-3 text-xs text-[#5f6368]">
-                <span className={`mt-1 h-2.5 w-2.5 rounded-full ${accent.dot}`} />
-                <span className="font-medium">{edu.year}</span>
-              </div>
-              <div>
-                <div className="flex items-start gap-3">
-                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${accent.bg} ${accent.text}`}>
-                    <School className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <h3 className="text-base font-semibold leading-6 text-[#202124]">{edu.school}</h3>
-                    <p className={`text-sm font-semibold ${accent.text}`}>{edu.degree}</p>
-                  </div>
-                </div>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-[#5f6368]">{edu.details}</p>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </Panel>
-  );
-}
-
-function SkillsPanel() {
-  return (
-    <Panel id="skills" title="Technical Skills">
-      <div className="px-5 py-3">
-        {skills.map((group, index) => {
-          const accents: Accent[] = ['blue', 'red', 'yellow', 'green'];
-          const accent = accentStyles[accents[index]];
-
-          return (
-            <article key={group.title} className="grid gap-3 border-b border-[#eceff1] py-4 last:border-0 sm:grid-cols-[156px_1fr] sm:items-start">
-              <div className="flex items-center gap-3">
-                <span className={`flex h-9 w-9 items-center justify-center rounded-md ${accent.bg} ${accent.text}`}>
-                  {group.icon}
-                </span>
-                <h3 className="text-sm font-semibold text-[#202124]">{group.title}</h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {group.items.map((item) => (
-                  <Tag key={item}>{item}</Tag>
-                ))}
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </Panel>
-  );
-}
-
-function ProofStrip() {
-  return (
-    <div className="grid border-t border-[#dadce0] sm:grid-cols-2 xl:grid-cols-5">
-      {proofPoints.map((point) => (
-        <div key={point.title} className="border-b border-[#dadce0] px-6 py-5 xl:border-b-0 xl:border-r last:xl:border-r-0">
-          <div className="flex items-start gap-3">
-            <span className="mt-0.5 text-[#202124]">{point.icon}</span>
-            <div>
-              <h3 className="text-sm font-semibold text-[#202124]">{point.title}</h3>
-              <p className="mt-1 text-xs leading-5 text-[#5f6368]">{point.copy}</p>
+        {/* stats */}
+        <div className="reveal mt-16 grid grid-cols-2 gap-3 md:grid-cols-4" style={{ ['--reveal-delay' as string]: '320ms' }}>
+          {stats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={`shape-shift p-6 md:p-7 ${tones[stat.tone].bg} ${tones[stat.tone].fg} ${
+                i % 2 === 1 ? 'md:translate-y-4' : ''
+              }`}
+            >
+              <div className="font-display text-4xl font-semibold tracking-tight md:text-5xl">{stat.value}</div>
+              <div className="mt-2 text-sm font-medium opacity-80">{stat.label}</div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function ContactPanel() {
-  return (
-    <section id="contact" className="px-5 pb-12 pt-5 md:px-8 lg:px-10 xl:px-14">
-      <div className="mx-auto grid max-w-[1500px] gap-6 rounded-lg border border-[#202124] bg-[#202124] p-6 text-white shadow-xl shadow-slate-950/10 md:grid-cols-[1fr_auto] md:items-center md:p-8">
-        <div>
-          <div className="mb-5 flex gap-1.5" aria-hidden="true">
-            <span className="h-1.5 w-12 rounded-full bg-[#1a73e8]" />
-            <span className="h-1.5 w-12 rounded-full bg-[#d93025]" />
-            <span className="h-1.5 w-12 rounded-full bg-[#f9ab00]" />
-            <span className="h-1.5 w-12 rounded-full bg-[#188038]" />
-          </div>
-          <h2 className="text-3xl font-semibold leading-tight md:text-4xl">Build something precise.</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#bdc1c6]">
-            Open to AI engineering, high-performance computing, and research roles where correctness,
-            speed, and clarity matter.
-          </p>
-        </div>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-white px-5 text-sm font-semibold text-[#202124] transition-colors hover:bg-[#e8eaed]"
-          >
-            <Mail className="h-4 w-4" />
-            Email
-          </a>
-          <a
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 px-5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-          >
-            LinkedIn
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
+/* ------------------------------------------------------------------ */
+/* Marquee                                                             */
+/* ------------------------------------------------------------------ */
+
+function Marquee() {
+  const row = [...proofPoints, ...proofPoints];
+  return (
+    <div className="marquee relative mt-8 overflow-hidden border-y border-[var(--outline-variant)] bg-[var(--surface-container-low)] py-5">
+      <div className="marquee-track flex w-max items-center gap-3 px-3">
+        {row.map((point, i) => (
+          <span
+            key={`${point.title}-${i}`}
+            className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-[var(--outline-variant)] bg-[var(--surface)] px-5 py-2.5 text-sm font-medium text-[var(--on-surface-variant)]"
+          >
+            <span className="text-[var(--primary)]">{point.icon}</span>
+            {point.title}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Experience                                                          */
+/* ------------------------------------------------------------------ */
+
+function Experience() {
+  return (
+    <section id="experience" className="scroll-mt-28 px-5 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader kicker="Experience" title="Where I've built things" tone="primary" />
+        <div className="grid gap-4 md:grid-cols-2">
+          {experience.map((job, i) => (
+            <article
+              key={`${job.role}-${job.company}`}
+              className="shape-shift reveal flex flex-col border border-[var(--outline-variant)] bg-[var(--surface)] p-7 md:p-8"
+              style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <span
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[job.tone].bg} ${tones[job.tone].fg}`}
+                >
+                  <Rocket className="h-5 w-5" />
+                </span>
+                <span className="rounded-full bg-[var(--surface-container)] px-3.5 py-1.5 text-xs font-semibold text-[var(--on-surface-muted)]">
+                  {job.period}
+                </span>
+              </div>
+              <h3 className="font-display mt-5 text-2xl font-semibold leading-snug text-[var(--on-surface)]">
+                {job.role}
+              </h3>
+              <p className="mt-1 text-sm font-semibold text-[var(--primary)]">
+                {job.company} · {job.location}
+              </p>
+              <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-[var(--on-surface-variant)]">
+                {job.description}
+              </p>
+              <div className={`mt-5 rounded-2xl px-4 py-3 text-sm font-semibold ${tones[job.tone].chipBg}`}>
+                {job.result}
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {job.tags.map((tag) => (
+                  <Chip key={tag}>{tag}</Chip>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Projects (bento)                                                    */
+/* ------------------------------------------------------------------ */
+
+function Projects() {
+  return (
+    <section id="projects" className="scroll-mt-28 px-5 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <SectionHeader kicker="Projects" title="Selected work" tone="tertiary" />
+          <a
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pill-shift reveal mb-14 hidden h-12 items-center gap-2 border border-[var(--outline)] bg-[var(--surface)] px-6 text-sm font-semibold text-[var(--on-surface)] md:inline-flex"
+          >
+            All projects on GitHub
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, i) => (
+            <a
+              key={project.title}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`shape-shift reveal group flex flex-col p-7 md:p-8 ${tones[project.tone].bg} ${tones[project.tone].fg} ${
+                project.big ? 'sm:col-span-2 lg:col-span-2' : ''
+              }`}
+              style={{ ['--reveal-delay' as string]: `${(i % 3) * 80}ms` }}
+            >
+              <div className="flex items-start justify-between">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--surface)] text-[var(--on-surface)] shadow-[var(--shadow-1)] transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">
+                  {project.icon}
+                </span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--surface)] text-[var(--on-surface)] opacity-0 transition-all duration-300 group-hover:opacity-100">
+                  <ArrowUpRight className="h-5 w-5" />
+                </span>
+              </div>
+              <h3 className="font-display mt-8 text-2xl font-semibold leading-snug md:text-[1.7rem]">
+                {project.title}
+              </h3>
+              <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed opacity-80">{project.description}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {project.tech.map((tech) => (
+                  <span
+                    key={tech}
+                    className="inline-flex h-7 items-center rounded-full bg-[var(--surface)] px-3 text-xs font-semibold text-[var(--on-surface)]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <a
+          href={personalInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pill-shift mt-6 flex h-12 items-center justify-center gap-2 border border-[var(--outline)] bg-[var(--surface)] text-sm font-semibold text-[var(--on-surface)] md:hidden"
+        >
+          All projects on GitHub
+          <ArrowUpRight className="h-4 w-4" />
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Education                                                           */
+/* ------------------------------------------------------------------ */
+
+function Education() {
+  return (
+    <section id="education" className="scroll-mt-28 px-5 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader kicker="Education" title="Foundations" tone="yellow" />
+        <div className="grid gap-4 lg:grid-cols-3">
+          {education.map((edu, i) => (
+            <article
+              key={edu.school}
+              className="shape-shift reveal border border-[var(--outline-variant)] bg-[var(--surface)] p-7 md:p-8"
+              style={{ ['--reveal-delay' as string]: `${i * 90}ms` }}
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${tones[edu.tone].bg} ${tones[edu.tone].fg}`}
+                >
+                  <GraduationCap className="h-5 w-5" />
+                </span>
+                <span className="text-sm font-semibold text-[var(--on-surface-muted)]">{edu.year}</span>
+              </div>
+              <h3 className="font-display mt-6 text-xl font-semibold text-[var(--on-surface)]">{edu.school}</h3>
+              <p className="mt-1 text-sm font-semibold text-[var(--primary)]">{edu.degree}</p>
+              <p className="mt-4 text-sm leading-relaxed text-[var(--on-surface-variant)]">{edu.details}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Skills                                                              */
+/* ------------------------------------------------------------------ */
+
+function Skills() {
+  return (
+    <section id="skills" className="scroll-mt-28 px-5 py-20 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader kicker="Skills" title="Tools of the trade" tone="error" />
+        <div className="grid gap-4 md:grid-cols-2">
+          {skills.map((group, i) => (
+            <article
+              key={group.title}
+              className="shape-shift reveal border border-[var(--outline-variant)] bg-[var(--surface)] p-7 md:p-8"
+              style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
+            >
+              <div className="flex items-center gap-4">
+                <span
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${tones[group.tone].bg} ${tones[group.tone].fg}`}
+                >
+                  {group.icon}
+                </span>
+                <h3 className="font-display text-xl font-semibold text-[var(--on-surface)]">{group.title}</h3>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="inline-flex h-9 items-center rounded-full border border-[var(--outline-variant)] bg-[var(--surface-container-low)] px-4 text-sm font-medium text-[var(--on-surface-variant)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Contact                                                             */
+/* ------------------------------------------------------------------ */
+
+function Contact() {
+  return (
+    <section id="contact" className="scroll-mt-28 px-5 py-20 md:py-28">
+      <div className="reveal relative mx-auto max-w-6xl overflow-hidden rounded-[36px] bg-[var(--primary-container)] px-7 py-16 text-center md:rounded-[48px] md:px-16 md:py-24">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div className="blob absolute -left-20 -top-24 h-72 w-72 bg-[var(--tertiary-container)] opacity-60" />
+          <div className="blob absolute -bottom-28 -right-16 h-80 w-80 bg-[var(--yellow-container)] opacity-50 [animation-delay:-7s]" />
+        </div>
+        <div className="relative">
+          <div className="mx-auto flex w-fit gap-1.5" aria-hidden="true">
+            <span className="h-2 w-10 rounded-full bg-[var(--g-blue)]" />
+            <span className="h-2 w-10 rounded-full bg-[var(--g-red)]" />
+            <span className="h-2 w-10 rounded-full bg-[var(--g-yellow)]" />
+            <span className="h-2 w-10 rounded-full bg-[var(--g-green)]" />
+          </div>
+          <h2 className="font-display mt-8 text-4xl font-semibold leading-[1.04] text-[var(--on-primary-container)] sm:text-5xl md:text-7xl">
+            Let&apos;s build something
+            <br />
+            precise together.
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[var(--on-primary-container)] opacity-80 md:text-lg">
+            Open to AI engineering, high-performance computing, and research roles where correctness,
+            speed, and clarity matter.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="pill-shift inline-flex h-14 items-center gap-2.5 bg-[var(--on-primary-container)] px-8 text-base font-semibold text-[var(--primary-container)]"
+            >
+              <Mail className="h-5 w-5" />
+              {personalInfo.email}
+            </a>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill-shift inline-flex h-14 items-center gap-2.5 border-2 border-[var(--on-primary-container)] px-8 text-base font-semibold text-[var(--on-primary-container)]"
+            >
+              LinkedIn
+              <ArrowUpRight className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+function Footer() {
+  return (
+    <footer className="border-t border-[var(--outline-variant)] px-5 py-10">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-[var(--on-surface-muted)] md:flex-row">
+        <div className="flex items-center gap-3">
+          <BrandMark />
+          <span>© {new Date().getFullYear()} {personalInfo.name}</span>
+        </div>
+        <div className="flex items-center gap-5">
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--on-surface)]">
+            GitHub
+          </a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--on-surface)]">
+            LinkedIn
+          </a>
+          <a href={personalInfo.website} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--on-surface)]">
+            sakannan.com
+          </a>
+          <a href="#home" className="transition-colors hover:text-[var(--on-surface)]">
+            Back to top ↑
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Page                                                                */
+/* ------------------------------------------------------------------ */
+
 export default function Portfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useReveal();
 
   return (
-    <main id="home" className="min-h-screen bg-[#f8fafd] text-[#202124]">
-      <Sidebar />
-      <MobileHeader isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-
-      <div className="lg:pl-[168px]">
-        <section className="px-5 pt-4 md:px-7">
-          <div className="mx-auto overflow-hidden rounded-lg border border-[#dadce0] bg-white shadow-[0_1px_2px_rgba(60,64,67,0.06)] xl:max-w-[1322px]">
-            <div className="grid gap-8 px-6 py-7 md:px-10 xl:min-h-[392px] xl:grid-cols-[0.76fr_1.24fr] xl:items-center xl:px-10 xl:py-5">
-              <div className="flex flex-col justify-center">
-                <h1 className="max-w-[520px] text-[2.75rem] font-semibold leading-[1.05] text-[#202124] sm:text-5xl md:text-6xl xl:text-[3.42rem]">
-                  <span className="block whitespace-nowrap">Kannan Sekar</span>
-                  <span className="block whitespace-nowrap">Annu Radha</span>
-                </h1>
-                <p className="mt-4 text-2xl font-medium text-[#5f6368]">
-                  {personalInfo.tagline}
-                </p>
-                <p className="mt-5 max-w-[520px] text-base leading-6 text-[#3c4043]">{personalInfo.bio}</p>
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <a
-                    href="#projects"
-                    className="inline-flex h-9 w-fit items-center justify-center gap-2 rounded-md bg-[#1a73e8] px-4 text-sm font-semibold text-white shadow-lg shadow-[#1a73e8]/20 transition-transform hover:-translate-y-0.5 hover:bg-[#1558b0] whitespace-nowrap"
-                  >
-                    View My Work
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="#contact"
-                    className="inline-flex h-9 w-fit items-center justify-center gap-2 rounded-md px-4 text-sm font-medium text-[#202124] transition-colors hover:bg-[#f1f3f4] whitespace-nowrap"
-                  >
-                    Download CV
-                    <Download className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <ConsolePanel />
-              </div>
-            </div>
-            <ProofStrip />
-          </div>
-        </section>
-
-        <section className="px-5 py-3 md:px-7">
-          <div className="mx-auto grid gap-3 xl:max-w-[1322px] xl:grid-cols-2">
-            <ExperiencePanel />
-            <ProjectsPanel />
-            <EducationPanel />
-            <SkillsPanel />
-          </div>
-        </section>
-
-        <ContactPanel />
-
-        <footer className="border-t border-[#dadce0] px-5 py-6 text-sm text-[#5f6368] md:px-8 lg:px-10 xl:px-14">
-          <div className="mx-auto flex max-w-[1500px] flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <p>&copy; {new Date().getFullYear()} {personalInfo.name}. Built with Next.js and Tailwind.</p>
-            <div className="flex gap-4">
-              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#202124]">
-                GitHub
-              </a>
-              <a href={personalInfo.website} target="_blank" rel="noopener noreferrer" className="hover:text-[#202124]">
-                <span className="inline-flex items-center gap-1">
-                  Website <FileText className="h-3.5 w-3.5" />
-                </span>
-              </a>
-              <a href="#home" className="hover:text-[#202124]">
-                Back to top
-              </a>
-            </div>
-          </div>
-        </footer>
-      </div>
+    <main className="min-h-screen text-[var(--on-surface)]">
+      <DynamicBackground />
+      <Nav />
+      <Hero />
+      <Marquee />
+      <Experience />
+      <Projects />
+      <Education />
+      <Skills />
+      <Contact />
+      <Footer />
     </main>
   );
 }
