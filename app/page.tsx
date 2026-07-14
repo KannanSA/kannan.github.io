@@ -1,288 +1,269 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Activity,
-  ArrowRight,
-  ArrowUpRight,
-  Atom,
-  Code,
-  Cpu,
-  Database,
-  Gauge,
-  Github,
-  GraduationCap,
-  Layers,
-  Linkedin,
-  Mail,
-  Menu,
-  Moon,
-  Rocket,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Sun,
-  Terminal,
-  X,
-} from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
 /* Content                                                             */
 /* ------------------------------------------------------------------ */
 
-type Tone = 'primary' | 'secondary' | 'tertiary' | 'yellow' | 'error' | 'neutral';
-
 const personalInfo = {
   name: 'Kannan Sekar Annu Radha',
-  tagline: 'Software Engineer & Researcher',
-  bio: 'I build production-grade AI systems at the intersection of Physics and Computer Science — probabilistic modeling, GPU acceleration, and edge AI.',
+  bio: "I'm a software engineer and physics researcher at King's College London. My passion is building AI systems at the intersection of physics and computer science — probabilistic modeling, GPU acceleration, and edge AI.",
   email: 'kannansekara@gmail.com',
   linkedin: 'https://linkedin.com/in/kannan-sekar',
   github: 'https://github.com/kannansa',
   website: 'https://sakannan.com',
 };
 
-const stats = [
-  { value: '80%', label: 'prediction accuracy gain', tone: 'primary' as Tone },
-  { value: '2.88M', label: 'AR lens views', tone: 'tertiary' as Tone },
-  { value: '70%', label: 'faster edge inference', tone: 'yellow' as Tone },
-  { value: '6+', label: 'shipped products', tone: 'error' as Tone },
+type GridItem = {
+  title: string;
+  glyph?: string;
+  mark?: 'sakannan';
+  link: string;
+  external?: boolean;
+  spanCols?: boolean;
+  spanRows?: boolean;
+};
+
+const gridItems: GridItem[] = [
+  {
+    title: 'hpc molecular simulation',
+    glyph: '∇²ψ',
+    link: 'https://github.com/KannanSA/New-C240-only-searches-Feb2024',
+    external: true,
+    spanCols: true,
+  },
+  {
+    title: 'tetris ai',
+    glyph: '▛▟',
+    link: 'https://github.com/KannanSA/TetrisAI',
+    external: true,
+  },
+  {
+    title: 'ipong watch agent',
+    glyph: '│●',
+    link: 'https://github.com/KannanSA/iPong',
+    external: true,
+  },
+  {
+    title: 'ar lens · 2.88m views',
+    glyph: '◉',
+    link: 'https://github.com/KannanSA/Argumented-Reality-SC',
+    external: true,
+    spanRows: true,
+  },
+  {
+    title: 'nlp nhs system',
+    glyph: '✚',
+    link: 'https://github.com/KannanSA/NLPK',
+    external: true,
+  },
+  {
+    title: 'yotecoin smart contract',
+    glyph: 'Ξ',
+    link: 'https://github.com/KannanSA/YoteCoin',
+    external: true,
+    spanCols: true,
+  },
+  {
+    title: 'SAKannan · startup studio',
+    mark: 'sakannan',
+    link: '#top',
+    spanCols: true,
+  },
+  {
+    title: 'more on github',
+    glyph: '↗',
+    link: 'https://github.com/kannansa',
+    external: true,
+    spanCols: true,
+  },
 ];
 
 const experience = [
   {
-    role: 'Summer Researcher & KURF Fellow',
-    company: "Dept. of Physics, King's College London",
-    period: 'Jun 2025 — Present',
-    location: 'London, UK',
-    description:
-      'Applied physics-informed neural networks to carbon nanocluster modeling, then built the GPU pipeline around repeatable experiment runs.',
-    result: '+80% prediction accuracy · −60% simulation time',
-    tags: ['TensorFlow', 'CUDA', 'PINNs', 'Materials'],
-    tone: 'primary' as Tone,
+    glyph: 'ψ',
+    role: "Summer Researcher & KURF Fellow · King's College London",
+    detail:
+      'Physics-informed neural networks for carbon nanoclusters. +80% prediction accuracy, −60% simulation time. Jun 2025 — present.',
+    link: 'https://www.kcl.ac.uk/physics',
   },
   {
-    role: 'Software Engineer & CEO',
-    company: 'Kannan Industrials',
-    period: 'Feb 2021 — Present',
-    location: 'London / Chennai',
-    description:
-      'Architected and shipped iOS applications including 1minute DOEShelp, iPong, and DabCounter, with CoreML inference tuned for Apple Watch constraints.',
-    result: '70% faster real-time inference on constrained hardware',
-    tags: ['Swift', 'CoreML', 'iOS', 'CI/CD'],
-    tone: 'tertiary' as Tone,
+    glyph: '⌘',
+    role: 'Software Engineer & CEO · Kannan Industrials',
+    detail:
+      'Shipped iOS apps — 1minute DOEShelp, iPong, DabCounter. CoreML tuned for Apple Watch, 70% faster inference. 2021 — present.',
+    link: 'https://github.com/kannansa',
   },
   {
-    role: 'Research Intern',
-    company: 'Kennedy Institute of Rheumatology, Oxford',
-    period: 'Nov 2019',
-    location: 'Oxford, UK',
-    description:
-      'Developed CNN workflows for biomedical imaging and experimented with mixed-precision GPU training for research-grade modeling.',
-    result: '40% improvement over biomedical imaging baselines',
-    tags: ['CNNs', 'PyTorch', 'Biomedical Imaging'],
-    tone: 'error' as Tone,
+    glyph: '◔',
+    role: 'Research Intern · Kennedy Institute, Oxford',
+    detail:
+      'CNN workflows for biomedical imaging with mixed-precision GPU training. 40% over baselines. Nov 2019.',
+    link: 'https://www.kennedy.ox.ac.uk/',
   },
   {
-    role: 'Data Science Intern',
-    company: 'NHS Digital',
-    period: 'Nov 2019',
-    location: 'Leeds, UK',
-    description:
-      'Built an LSTM + Word2Vec NLP system for clinical note classification and anomaly detection over operational healthcare data.',
-    result: 'ICD-9 coding accuracy improved from 42% → 71%',
-    tags: ['NLP', 'LSTM', 'Healthcare Data'],
-    tone: 'yellow' as Tone,
+    glyph: '✚',
+    role: 'Data Science Intern · NHS Digital',
+    detail:
+      'LSTM + Word2Vec clinical-note classification. ICD-9 coding accuracy 42% → 71%. Nov 2019.',
+    link: 'https://digital.nhs.uk/',
   },
 ];
 
 const education = [
   {
-    school: "King's College London",
-    degree: 'BSc Physics',
-    year: '2024 — 2027',
-    details:
-      'Alessandro de Vita Computational Physics Prize 2024–25. Computational physics, quantum mechanics, statistical mechanics.',
-    tone: 'primary' as Tone,
+    glyph: 'φ',
+    school: "BSc Physics · King's College London",
+    detail:
+      'Alessandro de Vita Computational Physics Prize 2024–25. Computational physics, quantum mechanics, statistical mechanics. 2024 — 2027.',
+    link: 'https://www.kcl.ac.uk/physics',
   },
   {
-    school: 'University College London',
-    degree: 'MEng Computer Science',
-    year: '2021 — 2023',
-    details:
-      'Algorithms, machine learning, theory of computation, and distributed systems.',
-    tone: 'error' as Tone,
+    glyph: 'λ',
+    school: 'MEng Computer Science · UCL',
+    detail:
+      'Algorithms, machine learning, theory of computation, distributed systems. 2021 — 2023.',
+    link: 'https://www.ucl.ac.uk/',
   },
   {
-    school: 'Royal Grammar School, Newcastle',
-    degree: 'A Levels',
-    year: '2012 — 2019',
-    details: 'A*A*A* in Mathematics, Further Mathematics, and Physics. 7 A*s and 4 As at GCSE.',
-    tone: 'tertiary' as Tone,
+    glyph: '∑',
+    school: 'A Levels · Royal Grammar School, Newcastle',
+    detail:
+      'A*A*A* in Mathematics, Further Mathematics, and Physics. 2012 — 2019.',
+    link: 'https://www.rgs.newcastle.sch.uk/',
   },
 ];
 
-const projects = [
-  {
-    title: 'HPC Molecular Simulation',
-    description:
-      'Parallelised LAMMPS simulations for material discovery using AIRSS, LMP KOKKOS, OpenMP, and CUDA.',
-    icon: <Atom className="h-6 w-6" />,
-    tech: ['CUDA', 'OpenMP', 'LAMMPS'],
-    tone: 'primary' as Tone,
-    link: 'https://github.com/KannanSA/New-C240-only-searches-Feb2024',
-    big: true,
-  },
-  {
-    title: 'TetrisAI',
-    description: 'Deep RL agent achieving a 95% win rate against heuristic baselines.',
-    icon: <Cpu className="h-6 w-6" />,
-    tech: ['Deep RL', 'Python'],
-    tone: 'error' as Tone,
-    link: 'https://github.com/KannanSA/TetrisAI',
-    big: false,
-  },
-  {
-    title: 'iPong Watch Agent',
-    description: 'CoreML pong agent optimized for Apple Watch GPU and thermal constraints.',
-    icon: <Smartphone className="h-6 w-6" />,
-    tech: ['CoreML', 'Swift', 'watchOS'],
-    tone: 'tertiary' as Tone,
-    link: 'https://github.com/KannanSA/iPong',
-    big: false,
-  },
-  {
-    title: 'AR Lens',
-    description: 'Snapchat filter system that reached 2.88M+ views and 150K downloads.',
-    icon: <Sparkles className="h-6 w-6" />,
-    tech: ['AR', 'Lens Studio'],
-    tone: 'yellow' as Tone,
-    link: 'https://github.com/KannanSA/Argumented-Reality-SC',
-    big: false,
-  },
-  {
-    title: 'NLP NHS System',
-    description:
-      'Clinical text ICD-9 prediction system with AWS deployment experiments and anomaly detection.',
-    icon: <Activity className="h-6 w-6" />,
-    tech: ['NLP', 'AWS', 'Python'],
-    tone: 'secondary' as Tone,
-    link: 'https://github.com/KannanSA/NLPK',
-    big: true,
-  },
-  {
-    title: 'YoteCoin Smart Contract',
-    description: 'Gas-optimized Ethereum smart contract that cut transaction costs by 35%.',
-    icon: <Layers className="h-6 w-6" />,
-    tech: ['Solidity', 'Blockchain'],
-    tone: 'neutral' as Tone,
-    link: 'https://github.com/KannanSA/YoteCoin',
-    big: false,
-  },
+const stack = [
+  { label: 'languages', items: 'python · c/c++ · swift · java · haskell · bash' },
+  { label: 'ai / ml', items: 'tensorflow · pytorch · jax · coreml · scikit-learn' },
+  { label: 'systems', items: 'gcp · aws · docker · kubernetes · cuda · ci/cd' },
+  { label: 'research', items: 'openmp · lammps · slurm · airss · graphql' },
 ];
-
-const skills = [
-  {
-    title: 'Languages',
-    icon: <Code className="h-5 w-5" />,
-    tone: 'primary' as Tone,
-    items: ['Python', 'C', 'C++', 'Java', 'Swift', 'Objective-C', 'Haskell', 'Bash'],
-  },
-  {
-    title: 'AI / ML',
-    icon: <Cpu className="h-5 w-5" />,
-    tone: 'error' as Tone,
-    items: ['TensorFlow', 'PyTorch', 'JAX', 'Scikit-learn', 'CoreML', 'Keras'],
-  },
-  {
-    title: 'Cloud / Systems',
-    icon: <Database className="h-5 w-5" />,
-    tone: 'yellow' as Tone,
-    items: ['GCP', 'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Git'],
-  },
-  {
-    title: 'Research Tooling',
-    icon: <Terminal className="h-5 w-5" />,
-    tone: 'tertiary' as Tone,
-    items: ['REST APIs', 'GraphQL', 'OpenMP', 'LAMMPS', 'SLURM'],
-  },
-];
-
-const proofPoints = [
-  { title: 'Production Systems', icon: <Rocket className="h-4 w-4" /> },
-  { title: 'GPU Acceleration', icon: <Gauge className="h-4 w-4" /> },
-  { title: 'Probabilistic Modeling', icon: <Activity className="h-4 w-4" /> },
-  { title: 'Edge AI', icon: <Smartphone className="h-4 w-4" /> },
-  { title: 'Built for Reliability', icon: <ShieldCheck className="h-4 w-4" /> },
-  { title: 'Physics × CS', icon: <Atom className="h-4 w-4" /> },
-];
-
-const navLinks = [
-  { name: 'Work', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Education', href: '#education' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Contact', href: '#contact' },
-];
-
-/* ------------------------------------------------------------------ */
-/* Tonal styles                                                        */
-/* ------------------------------------------------------------------ */
-
-const tones: Record<Tone, { bg: string; fg: string; chipBg: string }> = {
-  primary: {
-    bg: 'bg-[var(--primary-container)]',
-    fg: 'text-[var(--on-primary-container)]',
-    chipBg: 'bg-[var(--primary-container)] text-[var(--on-primary-container)]',
-  },
-  secondary: {
-    bg: 'bg-[var(--secondary-container)]',
-    fg: 'text-[var(--on-secondary-container)]',
-    chipBg: 'bg-[var(--secondary-container)] text-[var(--on-secondary-container)]',
-  },
-  tertiary: {
-    bg: 'bg-[var(--tertiary-container)]',
-    fg: 'text-[var(--on-tertiary-container)]',
-    chipBg: 'bg-[var(--tertiary-container)] text-[var(--on-tertiary-container)]',
-  },
-  yellow: {
-    bg: 'bg-[var(--yellow-container)]',
-    fg: 'text-[var(--on-yellow-container)]',
-    chipBg: 'bg-[var(--yellow-container)] text-[var(--on-yellow-container)]',
-  },
-  error: {
-    bg: 'bg-[var(--error-container)]',
-    fg: 'text-[var(--on-error-container)]',
-    chipBg: 'bg-[var(--error-container)] text-[var(--on-error-container)]',
-  },
-  neutral: {
-    bg: 'bg-[var(--surface-container-high)]',
-    fg: 'text-[var(--on-surface)]',
-    chipBg: 'bg-[var(--surface-container-high)] text-[var(--on-surface)]',
-  },
-};
 
 /* ------------------------------------------------------------------ */
 /* Hooks                                                               */
 /* ------------------------------------------------------------------ */
 
-function useTheme() {
-  const [isDark, setIsDark] = useState(false);
+const GREETINGS = ['hi.', 'வணக்கம்.', 'hola.'];
+const REST_LINES = ["i'm", 'kannan.'];
+
+// Split into grapheme clusters so Tamil combining marks type as whole letters.
+function graphemes(text: string): string[] {
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+    return Array.from(segmenter.segment(text), (s) => s.segment);
+  }
+  return Array.from(text);
+}
+
+type TypedState = {
+  greeting: string;
+  rest: string[];
+  cursorLine: number;
+};
+
+function useTypewriter() {
+  const [state, setState] = useState<TypedState>({
+    greeting: '',
+    rest: REST_LINES.map(() => ''),
+    cursorLine: 0,
+  });
 
   useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
+    const TYPE = 95;
+    const DELETE = 50;
+    const LINE_PAUSE = 420;
+    const HOLD = 2400;
+    const START = 500;
+
+    let timer: ReturnType<typeof setTimeout>;
+    let greetIdx = 0;
+
+    const cur: TypedState = { greeting: '', rest: REST_LINES.map(() => ''), cursorLine: 0 };
+    const render = () =>
+      setState({ greeting: cur.greeting, rest: [...cur.rest], cursorLine: cur.cursorLine });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cur.greeting = GREETINGS[0];
+      cur.rest = [...REST_LINES];
+      render();
+      const swap = () => {
+        greetIdx = (greetIdx + 1) % GREETINGS.length;
+        cur.greeting = GREETINGS[greetIdx];
+        render();
+        timer = setTimeout(swap, HOLD);
+      };
+      timer = setTimeout(swap, HOLD);
+      return () => clearTimeout(timer);
+    }
+
+    const typeGreeting = (onDone: () => void) => {
+      const chars = graphemes(GREETINGS[greetIdx]);
+      let n = 0;
+      cur.cursorLine = 0;
+      const step = () => {
+        n += 1;
+        cur.greeting = chars.slice(0, n).join('');
+        render();
+        if (n < chars.length) timer = setTimeout(step, TYPE);
+        else onDone();
+      };
+      timer = setTimeout(step, TYPE);
+    };
+
+    const deleteGreeting = (onDone: () => void) => {
+      const chars = graphemes(cur.greeting);
+      let n = chars.length;
+      cur.cursorLine = 0;
+      const step = () => {
+        n -= 1;
+        cur.greeting = chars.slice(0, Math.max(0, n)).join('');
+        render();
+        if (n > 0) timer = setTimeout(step, DELETE);
+        else onDone();
+      };
+      timer = setTimeout(step, DELETE);
+    };
+
+    const typeRest = (lineIdx: number, onDone: () => void) => {
+      if (lineIdx >= REST_LINES.length) {
+        onDone();
+        return;
+      }
+      const chars = graphemes(REST_LINES[lineIdx]);
+      let n = 0;
+      cur.cursorLine = lineIdx + 1;
+      const step = () => {
+        n += 1;
+        cur.rest[lineIdx] = chars.slice(0, n).join('');
+        render();
+        if (n < chars.length) timer = setTimeout(step, TYPE);
+        else timer = setTimeout(() => typeRest(lineIdx + 1, onDone), LINE_PAUSE);
+      };
+      timer = setTimeout(step, TYPE);
+    };
+
+    const cycle = () => {
+      timer = setTimeout(() => {
+        deleteGreeting(() => {
+          greetIdx = (greetIdx + 1) % GREETINGS.length;
+          timer = setTimeout(() => typeGreeting(cycle), 350);
+        });
+      }, HOLD);
+    };
+
+    timer = setTimeout(() => {
+      typeGreeting(() => {
+        timer = setTimeout(() => typeRest(0, cycle), LINE_PAUSE);
+      });
+    }, START);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  const toggle = () => {
-    const next = !isDark;
-    setIsDark(next);
-    document.documentElement.classList.toggle('dark', next);
-    try {
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-    } catch {}
-  };
-
-  return { isDark, toggle };
+  return state;
 }
 
 function useReveal() {
@@ -297,7 +278,7 @@ function useReveal() {
           }
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
     );
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
@@ -305,691 +286,360 @@ function useReveal() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Dynamic background                                                  */
+/* Custom cursor                                                       */
 /* ------------------------------------------------------------------ */
 
-function DynamicBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sceneRef = useRef<HTMLDivElement>(null);
+function CustomCursor() {
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const scene = sceneRef.current;
-    if (!canvas || !scene) return;
+    const cursor = ref.current;
+    if (!cursor) return;
+    // Touch / coarse-pointer devices keep the native cursor.
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.documentElement.classList.add('has-custom-cursor');
 
-    // Cursor spotlight for the grid layer
-    const onPointer = (e: PointerEvent) => {
-      scene.style.setProperty('--mx', `${e.clientX}px`);
-      scene.style.setProperty('--my', `${e.clientY}px`);
+    const DEFAULT_SIZE = 36;
+    let lockedTarget: HTMLElement | null = null;
+    let pointerX = -999;
+    let pointerY = 0;
+
+    const releaseLockedTarget = () => {
+      if (lockedTarget) {
+        lockedTarget.style.removeProperty('--magnetic-x');
+        lockedTarget.style.removeProperty('--magnetic-y');
+      }
+      lockedTarget = null;
+      cursor.classList.remove('is-locked');
+      cursor.style.borderRadius = '100%';
+      cursor.style.transform = 'translate(-50%, -50%)';
     };
-    window.addEventListener('pointermove', onPointer, { passive: true });
 
-    if (reduced) {
-      return () => window.removeEventListener('pointermove', onPointer);
-    }
+    const lockToTarget = (target: HTMLElement) => {
+      const rect = target.getBoundingClientRect();
+      const halfWidth = Math.max(rect.width / 2, 1);
+      const halfHeight = Math.max(rect.height / 2, 1);
+      const xRatio = Math.max(-1, Math.min(1, (pointerX - rect.left - halfWidth) / halfWidth));
+      const yRatio = Math.max(-1, Math.min(1, (pointerY - rect.top - halfHeight) / halfHeight));
+      const borderRadius = getComputedStyle(target).borderRadius || '0px';
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return () => window.removeEventListener('pointermove', onPointer);
+      cursor.classList.add('is-locked');
+      cursor.classList.remove('is-text');
+      cursor.style.width = `${rect.width}px`;
+      cursor.style.height = `${rect.height}px`;
+      cursor.style.borderRadius = borderRadius;
+      cursor.style.left = `${rect.left + halfWidth}px`;
+      cursor.style.top = `${rect.top + halfHeight}px`;
+      cursor.style.transform = `translate(calc(-50% + ${xRatio}px), calc(-50% + ${yRatio}px))`;
 
-    let width = 0;
-    let height = 0;
-    let raf = 0;
-    const mouse = { x: -9999, y: -9999 };
+      target.style.setProperty('--magnetic-x', `${xRatio * 6}px`);
+      target.style.setProperty('--magnetic-y', `${yRatio * 6}px`);
+    };
 
-    type P = { x: number; y: number; vx: number; vy: number; r: number; c: string };
-    let particles: P[] = [];
+    const onMove = (e: MouseEvent) => {
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+      cursor.classList.add('is-visible');
+      const target = e.target instanceof Element ? e.target : null;
+      const nextLockedTarget = target?.closest<HTMLElement>('[data-cursor-lock]') ?? null;
 
-    const readColors = () => {
-      const s = getComputedStyle(document.documentElement);
-      return ['--g-blue', '--g-red', '--g-yellow', '--g-green'].map((v) =>
-        s.getPropertyValue(v).trim(),
+      if (nextLockedTarget) {
+        if (lockedTarget && lockedTarget !== nextLockedTarget) releaseLockedTarget();
+        lockedTarget = nextLockedTarget;
+        lockToTarget(nextLockedTarget);
+        return;
+      }
+
+      if (lockedTarget) releaseLockedTarget();
+
+      const text = target?.closest<HTMLElement>(
+        'h1, h2, h3, h4, h5, h6, p, dd, dt, figcaption, blockquote, label, textarea',
       );
+
+      cursor.style.left = `${pointerX}px`;
+      cursor.style.top = `${pointerY}px`;
+
+      if (text) {
+        const fontSize = parseFloat(getComputedStyle(text).fontSize) || 17.6;
+        cursor.classList.add('is-text');
+        cursor.style.width = '3px';
+        cursor.style.height = `${Math.round(fontSize * 1.4)}px`;
+      } else {
+        cursor.classList.remove('is-text');
+        cursor.style.width = `${DEFAULT_SIZE}px`;
+        cursor.style.height = `${DEFAULT_SIZE}px`;
+      }
     };
-    let colors = readColors();
-    let linkColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
 
-    const themeObserver = new MutationObserver(() => {
-      colors = readColors();
-      linkColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-      particles.forEach((p, i) => (p.c = colors[i % colors.length]));
-    });
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const target = Math.min(90, Math.floor((width * height) / 20000));
-      particles = Array.from({ length: target }, (_, i) => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: 1.2 + Math.random() * 2.2,
-        c: colors[i % colors.length],
-      }));
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const onMouse = (e: PointerEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    const onScroll = () => {
+      if (lockedTarget) lockToTarget(lockedTarget);
     };
     const onLeave = () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
+      releaseLockedTarget();
+      cursor.classList.remove('is-visible');
     };
-    window.addEventListener('pointermove', onMouse, { passive: true });
-    window.addEventListener('pointerout', onLeave);
+    const onEnter = () => cursor.classList.add('is-visible');
 
-    const LINK_DIST = 120;
-    const MOUSE_DIST = 170;
-
-    const tick = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      for (const p of particles) {
-        // gentle mouse repulsion
-        const dxm = p.x - mouse.x;
-        const dym = p.y - mouse.y;
-        const dm = Math.hypot(dxm, dym);
-        if (dm < MOUSE_DIST && dm > 0.01) {
-          const f = ((MOUSE_DIST - dm) / MOUSE_DIST) * 0.06;
-          p.vx += (dxm / dm) * f;
-          p.vy += (dym / dm) * f;
-        }
-
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vx *= 0.985;
-        p.vy *= 0.985;
-        // keep a minimum drift
-        if (Math.abs(p.vx) < 0.08) p.vx += (Math.random() - 0.5) * 0.04;
-        if (Math.abs(p.vy) < 0.08) p.vy += (Math.random() - 0.5) * 0.04;
-
-        if (p.x < -20) p.x = width + 20;
-        if (p.x > width + 20) p.x = -20;
-        if (p.y < -20) p.y = height + 20;
-        if (p.y > height + 20) p.y = -20;
-      }
-
-      // links
-      ctx.lineWidth = 1;
-      for (let i = 0; i < particles.length; i++) {
-        const a = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          if (Math.abs(dx) > LINK_DIST || Math.abs(dy) > LINK_DIST) continue;
-          const d = Math.hypot(dx, dy);
-          if (d < LINK_DIST) {
-            ctx.globalAlpha = (1 - d / LINK_DIST) * 0.28;
-            ctx.strokeStyle = linkColor;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-        // link to cursor
-        const dmx = a.x - mouse.x;
-        const dmy = a.y - mouse.y;
-        const dm = Math.hypot(dmx, dmy);
-        if (dm < MOUSE_DIST) {
-          ctx.globalAlpha = (1 - dm / MOUSE_DIST) * 0.35;
-          ctx.strokeStyle = linkColor;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.stroke();
-        }
-      }
-
-      // dots
-      for (const p of particles) {
-        ctx.globalAlpha = 0.65;
-        ctx.fillStyle = p.c;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
+    document.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('scroll', onScroll, { passive: true });
+    document.documentElement.addEventListener('mouseleave', onLeave);
+    document.documentElement.addEventListener('mouseenter', onEnter);
     return () => {
-      cancelAnimationFrame(raf);
-      themeObserver.disconnect();
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('pointermove', onPointer);
-      window.removeEventListener('pointermove', onMouse);
-      window.removeEventListener('pointerout', onLeave);
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('scroll', onScroll);
+      document.documentElement.removeEventListener('mouseleave', onLeave);
+      document.documentElement.removeEventListener('mouseenter', onEnter);
+      releaseLockedTarget();
+      document.documentElement.classList.remove('has-custom-cursor');
     };
   }, []);
 
-  return (
-    <div ref={sceneRef} aria-hidden="true" className="bg-scene">
-      <div className="aurora aurora-1" />
-      <div className="aurora aurora-2" />
-      <div className="aurora aurora-3" />
-      <div className="aurora aurora-4" />
-      <div className="bg-grid" />
-      <canvas ref={canvasRef} className="bg-particles" />
-    </div>
-  );
+  return <div ref={ref} className="cursor-dot" aria-hidden="true" />;
 }
 
 /* ------------------------------------------------------------------ */
-/* Building blocks                                                     */
+/* Intro                                                               */
 /* ------------------------------------------------------------------ */
 
-function Chip({ children, tone = 'neutral' }: { children: React.ReactNode; tone?: Tone }) {
-  return (
-    <span
-      className={`inline-flex h-8 items-center rounded-full px-3.5 text-[0.8rem] font-medium ${tones[tone].chipBg}`}
-    >
-      {children}
-    </span>
-  );
-}
-
-function SectionHeader({
-  kicker,
-  title,
-  tone = 'primary',
-}: {
-  kicker: string;
-  title: string;
-  tone?: Tone;
-}) {
-  return (
-    <div className="reveal mb-10 md:mb-14">
-      <span
-        className={`inline-flex h-8 items-center rounded-full px-4 text-[0.78rem] font-semibold uppercase tracking-[0.12em] ${tones[tone].chipBg}`}
-      >
-        {kicker}
-      </span>
-      <h2 className="font-display mt-5 text-4xl font-semibold leading-[1.06] text-[var(--on-surface)] sm:text-5xl md:text-6xl">
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-function BrandMark() {
-  return (
-    <a href="#home" aria-label="Go to home" className="font-display flex items-center text-2xl font-bold leading-none">
-      <span className="text-[var(--g-blue)]">K</span>
-      <span className="text-[var(--g-red)]">S</span>
-      <span className="text-[var(--g-yellow)]">A</span>
-      <span className="text-[var(--g-green)]">R</span>
-    </a>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Navigation                                                          */
-/* ------------------------------------------------------------------ */
-
-function Nav() {
-  const { isDark, toggle } = useTheme();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+function Intro() {
+  const typed = useTypewriter();
+  const [composing, setComposing] = useState(false);
+  const [message, setMessage] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    if (composing) textareaRef.current?.focus();
+  }, [composing]);
+
+  const send = () => {
+    const subject = encodeURIComponent('hi kannan');
+    const body = encodeURIComponent(message);
+    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
+  };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4">
-      <nav
-        className={`flex w-full max-w-4xl items-center justify-between gap-2 rounded-full border px-3 py-2 backdrop-blur-xl transition-all duration-500 ${
-          scrolled
-            ? 'border-[var(--outline-variant)] bg-[color-mix(in_srgb,var(--surface)_82%,transparent)] shadow-[var(--shadow-2)]'
-            : 'border-transparent bg-transparent'
-        }`}
-      >
-        <div className="pl-3">
-          <BrandMark />
-        </div>
-
-        <div className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container-high)] hover:text-[var(--on-surface)]"
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="pill-shift flex h-10 w-10 items-center justify-center border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)]"
-          >
-            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="pill-shift hidden h-10 items-center gap-2 bg-[var(--primary)] px-5 text-sm font-semibold text-[var(--on-primary)] md:inline-flex"
-          >
-            Get in touch
-          </a>
-          <button
-            type="button"
-            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
-            onClick={() => setMenuOpen((o) => !o)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)] md:hidden"
-          >
-            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
-        </div>
-      </nav>
-
-      {menuOpen ? (
-        <div className="absolute inset-x-4 top-[4.6rem] rounded-[28px] border border-[var(--outline-variant)] bg-[var(--surface)] p-3 shadow-[var(--shadow-3)] md:hidden">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="block rounded-2xl px-4 py-3.5 text-base font-medium text-[var(--on-surface)] transition-colors hover:bg-[var(--surface-container)]"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="mt-2 flex h-12 items-center justify-center rounded-full bg-[var(--primary)] text-sm font-semibold text-[var(--on-primary)]"
-          >
-            Get in touch
-          </a>
-        </div>
-      ) : null}
-    </header>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Hero                                                                */
-/* ------------------------------------------------------------------ */
-
-function Hero() {
-  return (
-    <section id="home" className="relative overflow-hidden px-5 pb-16 pt-36 md:pt-44">
-      {/* ambient shapes */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="blob absolute -right-24 -top-24 h-[420px] w-[420px] bg-[var(--primary-container)] opacity-70 md:h-[560px] md:w-[560px]" />
-        <div className="blob absolute -left-32 top-[42%] h-[340px] w-[340px] bg-[var(--tertiary-container)] opacity-50 [animation-delay:-6s]" />
-        <div className="float-slow absolute right-[16%] top-[58%] hidden h-16 w-16 rounded-[22px] bg-[var(--yellow-container)] md:block" />
-        <div className="spin-slow absolute left-[12%] top-[22%] hidden md:block">
-          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-            <path
-              d="M36 4 L42 26 L64 22 L48 38 L66 52 L43 50 L44 70 L33 51 L14 62 L24 43 L4 36 L25 31 L16 10 L34 24 Z"
-              fill="var(--error-container)"
+    <section className="flex min-h-screen items-center">
+      <div className="container-ref py-24">
+        {composing ? (
+          <div>
+            <textarea
+              ref={textareaRef}
+              className="composer"
+              placeholder="Type your message…"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              aria-label="Your message"
             />
-          </svg>
-        </div>
-      </div>
-
-      <div className="relative mx-auto max-w-6xl">
-        <div className="reveal inline-flex items-center gap-2.5 rounded-full border border-[var(--outline-variant)] bg-[var(--surface)] py-1.5 pl-2 pr-4 shadow-[var(--shadow-1)]">
-          <span className="flex h-7 items-center rounded-full bg-[var(--tertiary-container)] px-3 text-xs font-semibold text-[var(--on-tertiary-container)]">
-            <span className="pulse-dot mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-[var(--g-green)]" />
-            Available
-          </span>
-          <span className="text-sm font-medium text-[var(--on-surface-variant)]">
-            Physics @ King&apos;s College London · AI Engineering
-          </span>
-        </div>
-
-        <h1 className="font-display reveal mt-8 max-w-5xl text-[3.4rem] font-semibold leading-[0.98] tracking-[-0.03em] text-[var(--on-surface)] sm:text-7xl md:text-[6.2rem]" style={{ ['--reveal-delay' as string]: '80ms' }}>
-          Kannan Sekar
-          <br />
-          <span className="gradient-text">Annu Radha</span>
-        </h1>
-
-        <p className="reveal mt-7 max-w-2xl text-lg leading-relaxed text-[var(--on-surface-variant)] md:text-xl" style={{ ['--reveal-delay' as string]: '160ms' }}>
-          {personalInfo.bio}
-        </p>
-
-        <div className="reveal mt-10 flex flex-wrap items-center gap-3" style={{ ['--reveal-delay' as string]: '240ms' }}>
-          <a
-            href="#projects"
-            className="pill-shift inline-flex h-14 items-center gap-2.5 bg-[var(--primary)] px-8 text-base font-semibold text-[var(--on-primary)] shadow-[var(--shadow-2)]"
-          >
-            View my work
-            <ArrowRight className="h-5 w-5" />
-          </a>
-          <div className="ml-1 flex items-center gap-1.5">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="pill-shift flex h-12 w-12 items-center justify-center border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)]"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="pill-shift flex h-12 w-12 items-center justify-center border border-[var(--outline-variant)] bg-[var(--surface-container)] text-[var(--on-surface)]"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
-          </div>
-        </div>
-
-        {/* stats */}
-        <div className="reveal mt-16 grid grid-cols-2 gap-3 md:grid-cols-4" style={{ ['--reveal-delay' as string]: '320ms' }}>
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`shape-shift p-6 md:p-7 ${tones[stat.tone].bg} ${tones[stat.tone].fg} ${
-                i % 2 === 1 ? 'md:translate-y-4' : ''
-              }`}
-            >
-              <div className="font-display text-4xl font-semibold tracking-tight md:text-5xl">{stat.value}</div>
-              <div className="mt-2 text-sm font-medium opacity-80">{stat.label}</div>
+            <div className="mt-10 flex items-baseline gap-10">
+              <button
+                type="button"
+                className="btn-ref"
+                onClick={() => setComposing(false)}
+                data-cursor-lock
+              >
+                <span className="btn-icon">←</span>
+                <span className="btn-label">go back</span>
+              </button>
+              <button
+                type="button"
+                className="btn-ref"
+                onClick={send}
+                disabled={!message.trim()}
+                data-cursor-lock
+              >
+                <span className="btn-label">send</span>
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div>
+            <h1
+              className="text-[1.76rem] font-normal leading-[1.35]"
+              aria-label={`hi. i'm kannan.`}
+            >
+              {[typed.greeting, ...typed.rest].map((text, i) => (
+                <span key={i} aria-hidden="true" className="block">
+                  {text}
+                  {i === typed.cursorLine ? <span className="type-cursor" /> : null}
+                </span>
+              ))}
+            </h1>
+            <p className="body-copy mt-12">{personalInfo.bio}</p>
+            <div className="mt-12">
+              <button
+                type="button"
+                className="btn-ref"
+                onClick={() => setComposing(true)}
+                data-cursor-lock
+              >
+                <span className="btn-icon">→</span>
+                <span className="btn-label">say hi</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Marquee                                                             */
+/* Work grid                                                           */
 /* ------------------------------------------------------------------ */
 
-function Marquee() {
-  const row = [...proofPoints, ...proofPoints];
+function SAKannanMark() {
   return (
-    <div className="marquee relative mt-8 overflow-hidden border-y border-[var(--outline-variant)] bg-[var(--surface-container-low)] py-5">
-      <div className="marquee-track flex w-max items-center gap-3 px-3">
-        {row.map((point, i) => (
-          <span
-            key={`${point.title}-${i}`}
-            className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-[var(--outline-variant)] bg-[var(--surface)] px-5 py-2.5 text-sm font-medium text-[var(--on-surface-variant)]"
-          >
-            <span className="text-[var(--primary)]">{point.icon}</span>
-            {point.title}
-          </span>
-        ))}
-      </div>
+    <div className="startup-mark" aria-label="SAKannan">
+      <span className="startup-mark__sigil" aria-hidden="true">
+        <span>S</span>
+        <span>A</span>
+      </span>
+      <span className="startup-mark__word" aria-hidden="true">
+        <span>SA</span>Kannan
+      </span>
     </div>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Experience                                                          */
-/* ------------------------------------------------------------------ */
-
-function Experience() {
+function WorkGrid() {
   return (
-    <section id="experience" className="scroll-mt-28 px-5 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader kicker="Experience" title="Where I've built things" tone="primary" />
-        <div className="grid gap-4 md:grid-cols-2">
-          {experience.map((job, i) => (
-            <article
-              key={`${job.role}-${job.company}`}
-              className="shape-shift reveal flex flex-col border border-[var(--outline-variant)] bg-[var(--surface)] p-7 md:p-8"
-              style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <span
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[job.tone].bg} ${tones[job.tone].fg}`}
-                >
-                  <Rocket className="h-5 w-5" />
-                </span>
-                <span className="rounded-full bg-[var(--surface-container)] px-3.5 py-1.5 text-xs font-semibold text-[var(--on-surface-muted)]">
-                  {job.period}
-                </span>
-              </div>
-              <h3 className="font-display mt-5 text-2xl font-semibold leading-snug text-[var(--on-surface)]">
-                {job.role}
-              </h3>
-              <p className="mt-1 text-sm font-semibold text-[var(--primary)]">
-                {job.company} · {job.location}
-              </p>
-              <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-[var(--on-surface-variant)]">
-                {job.description}
-              </p>
-              <div className={`mt-5 rounded-2xl px-4 py-3 text-sm font-semibold ${tones[job.tone].chipBg}`}>
-                {job.result}
-              </div>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {job.tags.map((tag) => (
-                  <Chip key={tag}>{tag}</Chip>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Projects (bento)                                                    */
-/* ------------------------------------------------------------------ */
-
-function Projects() {
-  return (
-    <section id="projects" className="scroll-mt-28 px-5 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeader kicker="Projects" title="Selected work" tone="tertiary" />
+    <section aria-label="Selected projects">
+      <div className="workgrid">
+        {gridItems.map((item) => (
           <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pill-shift reveal mb-14 hidden h-12 items-center gap-2 border border-[var(--outline)] bg-[var(--surface)] px-6 text-sm font-semibold text-[var(--on-surface)] md:inline-flex"
+            key={item.title}
+            href={item.link}
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
+            className={`${item.spanCols ? 'span-2' : ''} ${item.spanRows ? 'row-2' : ''}`}
           >
-            All projects on GitHub
-            <ArrowUpRight className="h-4 w-4" />
+            <div className={`tile ${item.mark ? 'tile--brand' : ''}`} data-cursor-lock>
+              <div className="tile__title">{item.title}</div>
+              <div className="tile__glyph" aria-hidden="true">
+                {item.mark === 'sakannan' ? <SAKannanMark /> : item.glyph}
+              </div>
+            </div>
           </a>
-        </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, i) => (
+/* ------------------------------------------------------------------ */
+/* Sections                                                            */
+/* ------------------------------------------------------------------ */
+
+function SectionIntro({ title, copy }: { title: string; copy: string }) {
+  return (
+    <>
+      <h1 className="section-title reveal">{title}</h1>
+      <p className="body-copy reveal mt-8">{copy}</p>
+    </>
+  );
+}
+
+function Work() {
+  return (
+    <section className="py-28 md:py-36">
+      <div className="container-ref">
+        <SectionIntro
+          title="Work"
+          copy="I build production systems where correctness and speed matter — from GPU research pipelines to models running on a watch."
+        />
+        <dl className="engagement mt-16">
+          {experience.map((job, i) => (
             <a
-              key={project.title}
-              href={project.link}
+              key={job.role}
+              href={job.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`shape-shift reveal group flex flex-col p-7 md:p-8 ${tones[project.tone].bg} ${tones[project.tone].fg} ${
-                project.big ? 'sm:col-span-2 lg:col-span-2' : ''
-              }`}
-              style={{ ['--reveal-delay' as string]: `${(i % 3) * 80}ms` }}
-            >
-              <div className="flex items-start justify-between">
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--surface)] text-[var(--on-surface)] shadow-[var(--shadow-1)] transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">
-                  {project.icon}
-                </span>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--surface)] text-[var(--on-surface)] opacity-0 transition-all duration-300 group-hover:opacity-100">
-                  <ArrowUpRight className="h-5 w-5" />
-                </span>
-              </div>
-              <h3 className="font-display mt-8 text-2xl font-semibold leading-snug md:text-[1.7rem]">
-                {project.title}
-              </h3>
-              <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed opacity-80">{project.description}</p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="inline-flex h-7 items-center rounded-full bg-[var(--surface)] px-3 text-xs font-semibold text-[var(--on-surface)]"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <a
-          href={personalInfo.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="pill-shift mt-6 flex h-12 items-center justify-center gap-2 border border-[var(--outline)] bg-[var(--surface)] text-sm font-semibold text-[var(--on-surface)] md:hidden"
-        >
-          All projects on GitHub
-          <ArrowUpRight className="h-4 w-4" />
-        </a>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Education                                                           */
-/* ------------------------------------------------------------------ */
-
-function Education() {
-  return (
-    <section id="education" className="scroll-mt-28 px-5 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader kicker="Education" title="Foundations" tone="yellow" />
-        <div className="grid gap-4 lg:grid-cols-3">
-          {education.map((edu, i) => (
-            <article
-              key={edu.school}
-              className="shape-shift reveal border border-[var(--outline-variant)] bg-[var(--surface)] p-7 md:p-8"
-              style={{ ['--reveal-delay' as string]: `${i * 90}ms` }}
-            >
-              <div className="flex items-center justify-between">
-                <span
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${tones[edu.tone].bg} ${tones[edu.tone].fg}`}
-                >
-                  <GraduationCap className="h-5 w-5" />
-                </span>
-                <span className="text-sm font-semibold text-[var(--on-surface-muted)]">{edu.year}</span>
-              </div>
-              <h3 className="font-display mt-6 text-xl font-semibold text-[var(--on-surface)]">{edu.school}</h3>
-              <p className="mt-1 text-sm font-semibold text-[var(--primary)]">{edu.degree}</p>
-              <p className="mt-4 text-sm leading-relaxed text-[var(--on-surface-variant)]">{edu.details}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Skills                                                              */
-/* ------------------------------------------------------------------ */
-
-function Skills() {
-  return (
-    <section id="skills" className="scroll-mt-28 px-5 py-20 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <SectionHeader kicker="Skills" title="Tools of the trade" tone="error" />
-        <div className="grid gap-4 md:grid-cols-2">
-          {skills.map((group, i) => (
-            <article
-              key={group.title}
-              className="shape-shift reveal border border-[var(--outline-variant)] bg-[var(--surface)] p-7 md:p-8"
+              className="engagement__item reveal link-plain"
               style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
             >
-              <div className="flex items-center gap-4">
-                <span
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl ${tones[group.tone].bg} ${tones[group.tone].fg}`}
-                >
-                  {group.icon}
-                </span>
-                <h3 className="font-display text-xl font-semibold text-[var(--on-surface)]">{group.title}</h3>
+              <span className="engagement__tile" aria-hidden="true" data-cursor-lock>
+                {job.glyph}
+              </span>
+              <div>
+                <dt>{job.role}</dt>
+                <dd>{job.detail}</dd>
               </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="inline-flex h-9 items-center rounded-full border border-[var(--outline-variant)] bg-[var(--surface-container-low)] px-4 text-sm font-medium text-[var(--on-surface-variant)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </article>
+            </a>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Contact                                                             */
-/* ------------------------------------------------------------------ */
-
-function Contact() {
+function Study() {
   return (
-    <section id="contact" className="scroll-mt-28 px-5 py-20 md:py-28">
-      <div className="reveal relative mx-auto max-w-6xl overflow-hidden rounded-[36px] bg-[var(--primary-container)] px-7 py-16 text-center md:rounded-[48px] md:px-16 md:py-24">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="blob absolute -left-20 -top-24 h-72 w-72 bg-[var(--tertiary-container)] opacity-60" />
-          <div className="blob absolute -bottom-28 -right-16 h-80 w-80 bg-[var(--yellow-container)] opacity-50 [animation-delay:-7s]" />
-        </div>
-        <div className="relative">
-          <div className="mx-auto flex w-fit gap-1.5" aria-hidden="true">
-            <span className="h-2 w-10 rounded-full bg-[var(--g-blue)]" />
-            <span className="h-2 w-10 rounded-full bg-[var(--g-red)]" />
-            <span className="h-2 w-10 rounded-full bg-[var(--g-yellow)]" />
-            <span className="h-2 w-10 rounded-full bg-[var(--g-green)]" />
-          </div>
-          <h2 className="font-display mt-8 text-4xl font-semibold leading-[1.04] text-[var(--on-primary-container)] sm:text-5xl md:text-7xl">
-            Let&apos;s build something
-            <br />
-            precise together.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[var(--on-primary-container)] opacity-80 md:text-lg">
-            Open to AI engineering, high-performance computing, and research roles where correctness,
-            speed, and clarity matter.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+    <section className="py-28 md:py-36">
+      <div className="container-ref">
+        <SectionIntro
+          title="Study"
+          copy="Physics for the models, computer science for the systems. I like working where the two overlap."
+        />
+        <dl className="engagement mt-16">
+          {education.map((edu, i) => (
             <a
-              href={`mailto:${personalInfo.email}`}
-              className="pill-shift inline-flex h-14 items-center gap-2.5 bg-[var(--on-primary-container)] px-8 text-base font-semibold text-[var(--primary-container)]"
-            >
-              <Mail className="h-5 w-5" />
-              {personalInfo.email}
-            </a>
-            <a
-              href={personalInfo.linkedin}
+              key={edu.school}
+              href={edu.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="pill-shift inline-flex h-14 items-center gap-2.5 border-2 border-[var(--on-primary-container)] px-8 text-base font-semibold text-[var(--on-primary-container)]"
+              className="engagement__item reveal link-plain"
+              style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
             >
-              LinkedIn
-              <ArrowUpRight className="h-5 w-5" />
+              <span className="engagement__tile" aria-hidden="true" data-cursor-lock>
+                {edu.glyph}
+              </span>
+              <div>
+                <dt>{edu.school}</dt>
+                <dd>{edu.detail}</dd>
+              </div>
             </a>
-          </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+function Stack() {
+  return (
+    <section className="py-28 md:py-36">
+      <div className="container-ref">
+        <SectionIntro
+          title="Stack"
+          copy="Tools I reach for. The common thread is making things fast and keeping them measurable."
+        />
+        <dl className="stack-list mt-16 reveal">
+          {stack.map((row) => (
+            <React.Fragment key={row.label}>
+              <dt>{row.label}</dt>
+              <dd>{row.items}</dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+function Reach() {
+  return (
+    <section className="py-28 md:py-36">
+      <div className="container-ref">
+        <SectionIntro
+          title="Reach"
+          copy="Open to AI engineering, high-performance computing, and research roles. The fastest way to reach me is email."
+        />
+        <div className="mt-12 reveal">
+          <a className="btn-ref" href={`mailto:${personalInfo.email}`} data-cursor-lock>
+            <span className="btn-icon">→</span>
+            <span className="btn-label">{personalInfo.email}</span>
+          </a>
         </div>
       </div>
     </section>
@@ -1002,26 +652,32 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[var(--outline-variant)] px-5 py-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-[var(--on-surface-muted)] md:flex-row">
-        <div className="flex items-center gap-3">
-          <BrandMark />
-          <span>© {new Date().getFullYear()} {personalInfo.name}</span>
+    <footer className="py-14">
+      <div className="container-ref flex flex-wrap items-baseline justify-between gap-6 small-copy">
+        <div className="flex items-baseline gap-6">
+          <a className="link-plain" href="#top" aria-label="Back to top" data-cursor-lock>
+            ⌂
+          </a>
+          <a
+            className="link-plain"
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor-lock
+          >
+            github
+          </a>
+          <a
+            className="link-plain"
+            href={personalInfo.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor-lock
+          >
+            linkedIn
+          </a>
         </div>
-        <div className="flex items-center gap-5">
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--on-surface)]">
-            GitHub
-          </a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--on-surface)]">
-            LinkedIn
-          </a>
-          <a href={personalInfo.website} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[var(--on-surface)]">
-            sakannan.com
-          </a>
-          <a href="#home" className="transition-colors hover:text-[var(--on-surface)]">
-            Back to top ↑
-          </a>
-        </div>
+        <p style={{ color: 'var(--faint)' }}>made in London</p>
       </div>
     </footer>
   );
@@ -1035,16 +691,14 @@ export default function Portfolio() {
   useReveal();
 
   return (
-    <main className="min-h-screen text-[var(--on-surface)]">
-      <DynamicBackground />
-      <Nav />
-      <Hero />
-      <Marquee />
-      <Experience />
-      <Projects />
-      <Education />
-      <Skills />
-      <Contact />
+    <main id="top">
+      <CustomCursor />
+      <Intro />
+      <WorkGrid />
+      <Work />
+      <Study />
+      <Stack />
+      <Reach />
       <Footer />
     </main>
   );

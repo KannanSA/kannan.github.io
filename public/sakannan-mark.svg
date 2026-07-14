@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="SAKannan">
+  <defs>
+    <linearGradient id="bg" x1="18" y1="8" x2="110" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1d1d2b"/>
+      <stop offset="1" stop-color="#050509"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="65" y1="38" x2="105" y2="93" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7ad0ff"/>
+      <stop offset="1" stop-color="#008fff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#000"/>
+  <rect x="10" y="10" width="108" height="108" rx="23" fill="url(#bg)" stroke="#ffffff" stroke-opacity=".18"/>
+  <path d="M59 41c-4-4-10-6-16-6-10 0-17 5-17 13 0 18 31 10 31 27 0 9-8 16-21 16-7 0-14-2-19-7" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+  <path d="M61 91 79 36l22 55M68 72h26" fill="none" stroke="url(#blue)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+</svg>
