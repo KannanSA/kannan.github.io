@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const personalInfo = {
   name: 'Kannan Sekar Annu Radha',
-  bio: "I'm a software engineer and physics researcher at King's College London. My passion is building AI systems at the intersection of physics and computer science — probabilistic modeling, GPU acceleration, and edge AI.",
+  bio: "I'm a software engineer and physics researcher at King's College London. My passion is building AI systems at the intersection of physics and computer science — probabilistic modelling, GPU acceleration, and edge AI.",
   email: 'kannansekara@gmail.com',
   linkedin: 'https://linkedin.com/in/kannan-sekar',
   github: 'https://github.com/kannansa',
