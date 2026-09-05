@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kannan S. · Software Engineer & Physics Researcher",
+  title: "Kannan Sekar · Software Engineer & Physics Researcher",
   description:
-    "Portfolio for Kannan Sekar Annu Radha, a software engineer and physics researcher building GPU-accelerated AI systems, scientific tooling, and polished products.",
+    "Portfolio for Kannan Sekar Annu Radha, a software engineer and physics student at King's College London, building healthcare technology, GPU-accelerated research, and intelligent iOS apps.",
   icons: {
     icon: "/sakannan-mark.svg",
   },

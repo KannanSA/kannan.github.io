@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const personalInfo = {
   name: 'Kannan Sekar Annu Radha',
-  bio: "I'm a software engineer and physics researcher at King's College London. My passion is building AI systems at the intersection of physics and computer science — probabilistic modelling, GPU acceleration, and edge AI.",
+  bio: "I'm a software engineer and physics student at King's College London. I lead healthcare technology projects and develop independent iOS apps. My research background spans carbon nanoclusters, GPU acceleration, and edge AI.",
   email: 'kannansekara@gmail.com',
   linkedin: 'https://linkedin.com/in/kannan-sekar',
   github: 'https://github.com/kannansa',
@@ -17,137 +17,196 @@ const personalInfo = {
 
 type GridItem = {
   title: string;
+  context: string;
   glyph?: string;
   mark?: 'sakannan';
   link: string;
   external?: boolean;
-  spanCols?: boolean;
-  spanRows?: boolean;
 };
 
 const gridItems: GridItem[] = [
   {
-    title: 'hpc molecular simulation',
+    title: 'HPC simulations',
+    context: 'Carbon nanocluster research',
     glyph: '∇²ψ',
-    link: 'https://github.com/KannanSA/New-C240-only-searches-Feb2024',
-    external: true,
-    spanCols: true,
+    link: '#research',
   },
   {
-    title: 'tetris ai',
-    glyph: '▛▟',
-    link: 'https://github.com/KannanSA/TetrisAI',
-    external: true,
-  },
-  {
-    title: 'ipong watch agent',
-    glyph: '│●',
-    link: 'https://github.com/KannanSA/iPong',
-    external: true,
-  },
-  {
-    title: 'ar lens · 2.88m views',
-    glyph: '◉',
-    link: 'https://github.com/KannanSA/Argumented-Reality-SC',
-    external: true,
-    spanRows: true,
-  },
-  {
-    title: 'nlp nhs system',
+    title: 'Clinical NLP',
+    context: 'NHS Digital',
     glyph: '✚',
     link: 'https://github.com/KannanSA/NLPK',
     external: true,
   },
   {
-    title: 'yotecoin smart contract',
+    title: 'Healthcare platforms',
+    context: 'Websites & chatbots',
+    glyph: '⌁',
+    link: 'https://globaltravelvaccinations.com',
+    external: true,
+  },
+  {
+    title: 'iPong',
+    context: 'Apple Watch app',
+    glyph: '│●',
+    link: 'https://github.com/KannanSA/iPong',
+    external: true,
+  },
+  {
+    title: 'AR lenses',
+    context: 'Snap AR · 2.5M+ views',
+    glyph: '◉',
+    link: 'https://github.com/KannanSA/Argumented-Reality-SC',
+    external: true,
+  },
+  {
+    title: 'Tetris AI',
+    context: 'Machine learning',
+    glyph: '▛▟',
+    link: 'https://github.com/KannanSA/TetrisAI',
+    external: true,
+  },
+  {
+    title: 'YoteCoin',
+    context: 'Smart contract',
     glyph: 'Ξ',
     link: 'https://github.com/KannanSA/YoteCoin',
     external: true,
-    spanCols: true,
   },
   {
-    title: 'SAKannan · startup studio',
+    title: 'SAKannan',
+    context: 'Startup studio',
     mark: 'sakannan',
     link: '#top',
-    spanCols: true,
-  },
-  {
-    title: 'more on github',
-    glyph: '↗',
-    link: 'https://github.com/kannansa',
-    external: true,
-    spanCols: true,
   },
 ];
 
-const experience = [
+type EngagementItem = {
+  id?: string;
+  glyph: string;
+  title: string;
+  organisation: string;
+  dates?: string;
+  detail: string;
+  link: string;
+};
+
+const experience: EngagementItem[] = [
   {
+    glyph: '✚',
+    title: 'PCN Tech Lead',
+    organisation: 'NHS England / Galleries Medical Practice',
+    dates: 'Nov 2025 – Present',
+    detail: 'Developing healthcare websites, chatbots, and iOS products, including Global Travel Vaccinations. Responsible for interfaces, backend services, deployment, and reliability.',
+    link: 'https://globaltravelvaccinations.com',
+  },
+  {
+    id: 'research',
     glyph: 'ψ',
-    role: "Summer Researcher & KURF Fellow · King's College London",
-    detail:
-      'Physics-informed neural networks for carbon nanoclusters. +80% prediction accuracy, −60% simulation time. Jun 2025 — present.',
+    title: 'Research Fellow (KURF)',
+    organisation: "King's College London",
+    dates: 'May – Nov 2025',
+    detail: 'Applied physics-informed machine learning to carbon nanoclusters. Ran LAMMPS simulations on HPC clusters and analysed 5,000+ structures using OVITO, TensorFlow, and CUDA, in collaboration with Penn State researchers.',
     link: 'https://www.kcl.ac.uk/physics',
   },
   {
     glyph: '⌘',
-    role: 'Software Engineer & CEO · Kannan Industrials',
-    detail:
-      'Shipped iOS apps — 1minute DOEShelp, iPong, DabCounter. CoreML tuned for Apple Watch, 70% faster inference. 2021 — present.',
-    link: 'https://github.com/kannansa',
+    title: 'iOS Developer & Founder',
+    organisation: 'Kannan Industrials',
+    dates: 'Feb 2021 – Present',
+    detail: 'Developed 1minuteDOEShelp, iPong, DabCounter, and OK Gym. Technical work includes Core ML and Apple Watch motion classification. Other projects include Face Rift AR, IceFiSh Browser, and GrokTube.',
+    link: 'https://github.com/KannanSA',
   },
   {
     glyph: '◔',
-    role: 'Research Intern · Kennedy Institute, Oxford',
-    detail:
-      'CNN workflows for biomedical imaging with mixed-precision GPU training. 40% over baselines. Nov 2019.',
+    title: 'Research Intern',
+    organisation: 'Kennedy Institute of Rheumatology, Oxford',
+    dates: 'Nov 2019',
+    detail: 'Conducted CNN experiments for biomedical imaging, alongside reinforcement learning and GPU training.',
     link: 'https://www.kennedy.ox.ac.uk/',
   },
   {
     glyph: '✚',
-    role: 'Data Science Intern · NHS Digital',
-    detail:
-      'LSTM + Word2Vec clinical-note classification. ICD-9 coding accuracy 42% → 71%. Nov 2019.',
+    title: 'Data Science Intern',
+    organisation: 'NHS Digital',
+    dates: 'Nov – Dec 2019',
+    detail: 'Developed LSTM and word2vec models for clinical-note classification. Improved ICD-9 coding accuracy from 42% to 71%, with anomaly detection for rare diagnoses.',
     link: 'https://digital.nhs.uk/',
+  },
+  {
+    glyph: '◉',
+    title: 'Independent AR Lens Developer',
+    organisation: 'Snap',
+    dates: 'Sep 2018 – Aug 2019',
+    detail: 'Created AR lenses reaching 2.5M+ views and 150K downloads, optimised for mobile performance and memory use.',
+    link: 'https://github.com/KannanSA/Argumented-Reality-SC',
   },
 ];
 
-const education = [
+const education: EngagementItem[] = [
   {
     glyph: 'φ',
-    school: "BSc Physics · King's College London",
-    detail:
-      'Alessandro de Vita Computational Physics Prize 2024–25. Computational physics, quantum mechanics, statistical mechanics. 2024 — 2027.',
+    title: 'BSc Physics',
+    organisation: "King's College London",
+    dates: '2024 – 2027',
+    detail: 'Alessandro de Vita Computational Physics Prize, 2024–25. King’s Research Award, November 2025.',
     link: 'https://www.kcl.ac.uk/physics',
   },
   {
     glyph: 'λ',
-    school: 'MEng Computer Science · UCL',
-    detail:
-      'Algorithms, machine learning, theory of computation, distributed systems. 2021 — 2023.',
+    title: 'MEng Computer Science',
+    organisation: 'University College London',
+    dates: '2021 – 2023',
+    detail: 'Studied on the MEng Computer Science programme.',
     link: 'https://www.ucl.ac.uk/',
   },
   {
     glyph: '∑',
-    school: 'A Levels · Royal Grammar School, Newcastle',
-    detail:
-      'A*A*A* in Mathematics, Further Mathematics, and Physics. 2012 — 2019.',
+    title: 'A levels',
+    organisation: 'Royal Grammar School, Newcastle',
+    dates: '2017 – 2020',
+    detail: 'A*, A*, A* in Mathematics, Further Mathematics, and Physics.',
     link: 'https://www.rgs.newcastle.sch.uk/',
+  },
+  {
+    glyph: '⌘',
+    title: 'iOS and interface design',
+    organisation: 'Meta',
+    dates: 'Sep – Nov 2025',
+    detail: 'Certificates in SwiftUI, iOS development, UX/UI principles, Swift fundamentals, and version control.',
+    link: 'https://www.linkedin.com/in/kannan-sekar/',
+  },
+  {
+    glyph: '∇',
+    title: 'Machine learning and deep learning',
+    organisation: 'Stanford University / DeepLearning.AI',
+    dates: 'Mar 2021',
+    detail: 'Machine Learning from Stanford University and Deep Learning from DeepLearning.AI.',
+    link: 'https://www.linkedin.com/in/kannan-sekar/',
+  },
+  {
+    glyph: '{ }',
+    title: 'CS50 certification',
+    organisation: 'Harvard University',
+    detail: 'Certificate of completion for CS50.',
+    link: 'https://www.linkedin.com/in/kannan-sekar/',
   },
 ];
 
 const stack = [
-  { label: 'languages', items: 'python · c/c++ · swift · java · haskell · bash' },
-  { label: 'ai / ml', items: 'tensorflow · pytorch · jax · coreml · scikit-learn' },
-  { label: 'systems', items: 'gcp · aws · docker · kubernetes · cuda · ci/cd' },
-  { label: 'research', items: 'openmp · lammps · slurm · airss · graphql' },
+  { label: 'Languages', items: 'Python · C/C++ · Swift · Java · Haskell · Bash' },
+  { label: 'AI / ML', items: 'TensorFlow · PyTorch · Core ML · scikit-learn · Keras' },
+  { label: 'Systems', items: 'GCP · Docker · Kubernetes · CUDA · HPC · CI/CD' },
+  { label: 'Research', items: 'LAMMPS · OVITO · AIRSS · NumPy · pandas' },
+  { label: 'App development', items: 'SwiftUI · UIKit · REST · GraphQL · Git' },
 ];
 
 /* ------------------------------------------------------------------ */
 /* Hooks                                                               */
 /* ------------------------------------------------------------------ */
 
-const GREETINGS = ['hi.', 'வணக்கம்.', 'hola.'];
-const REST_LINES = ["i'm", 'kannan.'];
+const GREETINGS = ['Hi.', 'வணக்கம்.', 'Hola.'];
+const REST_LINES = ["I'm", 'Kannan.'];
 
 // Split into grapheme clusters so Tamil combining marks type as whole letters.
 function graphemes(text: string): string[] {
@@ -189,14 +248,7 @@ function useTypewriter() {
       cur.greeting = GREETINGS[0];
       cur.rest = [...REST_LINES];
       render();
-      const swap = () => {
-        greetIdx = (greetIdx + 1) % GREETINGS.length;
-        cur.greeting = GREETINGS[greetIdx];
-        render();
-        timer = setTimeout(swap, HOLD);
-      };
-      timer = setTimeout(swap, HOLD);
-      return () => clearTimeout(timer);
+      return;
     }
 
     const typeGreeting = (onDone: () => void) => {
@@ -413,7 +465,7 @@ function Intro() {
   }, [composing]);
 
   const send = () => {
-    const subject = encodeURIComponent('hi kannan');
+    const subject = encodeURIComponent('Hello Kannan');
     const body = encodeURIComponent(message);
     window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
   };
@@ -439,7 +491,7 @@ function Intro() {
                 data-cursor-lock
               >
                 <span className="btn-icon">←</span>
-                <span className="btn-label">go back</span>
+                <span className="btn-label">Go back</span>
               </button>
               <button
                 type="button"
@@ -448,24 +500,25 @@ function Intro() {
                 disabled={!message.trim()}
                 data-cursor-lock
               >
-                <span className="btn-label">send</span>
+                <span className="btn-label">Open email draft</span>
               </button>
             </div>
+            <p className="composer-note">Opens your email app with your message ready to send.</p>
           </div>
         ) : (
           <div>
             <h1
-              className="text-[1.76rem] font-normal leading-[1.35]"
-              aria-label={`hi. i'm kannan.`}
+              className="intro-title"
+              aria-label="Hi. I'm Kannan."
             >
               {[typed.greeting, ...typed.rest].map((text, i) => (
-                <span key={i} aria-hidden="true" className="block">
+                <span key={i} aria-hidden="true" className="typed-line">
                   {text}
                   {i === typed.cursorLine ? <span className="type-cursor" /> : null}
                 </span>
               ))}
             </h1>
-            <p className="body-copy mt-12">{personalInfo.bio}</p>
+            <p className="body-copy intro-bio mt-10">{personalInfo.bio}</p>
             <div className="mt-12">
               <button
                 type="button"
@@ -474,9 +527,15 @@ function Intro() {
                 data-cursor-lock
               >
                 <span className="btn-icon">→</span>
-                <span className="btn-label">say hi</span>
+                <span className="btn-label">Get in touch</span>
               </button>
             </div>
+            <nav className="section-nav" aria-label="Portfolio sections">
+              <a href="#projects">Projects</a>
+              <a href="#experience">Experience</a>
+              <a href="#education">Education</a>
+              <a href="#contact">Contact</a>
+            </nav>
           </div>
         )}
       </div>
@@ -504,24 +563,34 @@ function SAKannanMark() {
 
 function WorkGrid() {
   return (
-    <section aria-label="Selected projects">
-      <div className="workgrid">
+    <section id="projects" className="container-ref" aria-labelledby="projects-heading">
+      <div className="project-heading"><h2 id="projects-heading" className="section-title">Selected projects</h2></div>
+      <ul className="workgrid">
         {gridItems.map((item) => (
-          <a
-            key={item.title}
-            href={item.link}
-            target={item.external ? '_blank' : undefined}
-            rel={item.external ? 'noopener noreferrer' : undefined}
-            className={`${item.spanCols ? 'span-2' : ''} ${item.spanRows ? 'row-2' : ''}`}
-          >
-            <div className={`tile ${item.mark ? 'tile--brand' : ''}`} data-cursor-lock>
-              <div className="tile__title">{item.title}</div>
+          <li key={item.title}>
+            <a
+              href={item.link}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              className="tile"
+            >
+              <span className="tile__arrow" aria-hidden="true">{item.external ? '↗' : item.link === '#top' ? '↑' : '↓'}</span>
               <div className="tile__glyph" aria-hidden="true">
                 {item.mark === 'sakannan' ? <SAKannanMark /> : item.glyph}
               </div>
-            </div>
-          </a>
+              <div className="tile__copy">
+                <h3 className="tile__title">{item.title}</h3>
+                <p className="tile__context">{item.context}</p>
+              </div>
+            </a>
+          </li>
         ))}
+      </ul>
+      <div className="project-footer">
+        <a className="btn-ref" href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+          <span className="btn-label">More on GitHub</span>
+          <span className="btn-icon" aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
   );
@@ -534,40 +603,53 @@ function WorkGrid() {
 function SectionIntro({ title, copy }: { title: string; copy: string }) {
   return (
     <>
-      <h1 className="section-title reveal">{title}</h1>
+      <h2 className="section-title reveal">{title}</h2>
       <p className="body-copy reveal mt-8">{copy}</p>
     </>
   );
 }
 
+function EngagementList({ items }: { items: EngagementItem[] }) {
+  return (
+    <ul className="engagement mt-12">
+      {items.map((item, i) => (
+        <li
+          key={`${item.title}-${item.organisation}`}
+          className="reveal"
+          style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
+        >
+          <a
+            id={item.id}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="engagement__item"
+          >
+            <span className="engagement__tile" aria-hidden="true" data-cursor-lock>
+              {item.glyph}
+            </span>
+            <div className="engagement__copy">
+              <h3>{item.title}</h3>
+              <p className="engagement__organisation">{item.organisation}</p>
+              {item.dates && <p className="engagement__dates">{item.dates}</p>}
+              <p className="engagement__description">{item.detail}</p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function Work() {
   return (
-    <section className="py-28 md:py-36">
+    <section className="section-block" id="experience" aria-label="Experience">
       <div className="container-ref">
         <SectionIntro
-          title="Work"
-          copy="I build production systems where correctness and speed matter — from GPU research pipelines to models running on a watch."
+          title="Experience"
+          copy="Software engineering, healthcare technology, and computational research."
         />
-        <dl className="engagement mt-16">
-          {experience.map((job, i) => (
-            <a
-              key={job.role}
-              href={job.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="engagement__item reveal link-plain"
-              style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
-            >
-              <span className="engagement__tile" aria-hidden="true" data-cursor-lock>
-                {job.glyph}
-              </span>
-              <div>
-                <dt>{job.role}</dt>
-                <dd>{job.detail}</dd>
-              </div>
-            </a>
-          ))}
-        </dl>
+        <EngagementList items={experience} />
       </div>
     </section>
   );
@@ -575,32 +657,13 @@ function Work() {
 
 function Study() {
   return (
-    <section className="py-28 md:py-36">
+    <section className="section-block" id="education" aria-label="Education and training">
       <div className="container-ref">
         <SectionIntro
-          title="Study"
-          copy="Physics for the models, computer science for the systems. I like working where the two overlap."
+          title="Education & training"
+          copy="A background in physics and computer science, supported by continued professional development."
         />
-        <dl className="engagement mt-16">
-          {education.map((edu, i) => (
-            <a
-              key={edu.school}
-              href={edu.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="engagement__item reveal link-plain"
-              style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
-            >
-              <span className="engagement__tile" aria-hidden="true" data-cursor-lock>
-                {edu.glyph}
-              </span>
-              <div>
-                <dt>{edu.school}</dt>
-                <dd>{edu.detail}</dd>
-              </div>
-            </a>
-          ))}
-        </dl>
+        <EngagementList items={education} />
       </div>
     </section>
   );
@@ -608,11 +671,11 @@ function Study() {
 
 function Stack() {
   return (
-    <section className="py-28 md:py-36">
+    <section className="section-block">
       <div className="container-ref">
         <SectionIntro
-          title="Stack"
-          copy="Tools I reach for. The common thread is making things fast and keeping them measurable."
+          title="Technical skills"
+          copy="Languages, frameworks, and tools I use across research and product development."
         />
         <dl className="stack-list mt-16 reveal">
           {stack.map((row) => (
@@ -629,11 +692,11 @@ function Stack() {
 
 function Reach() {
   return (
-    <section className="py-28 md:py-36">
+    <section className="section-block" id="contact">
       <div className="container-ref">
         <SectionIntro
-          title="Reach"
-          copy="Open to AI engineering, high-performance computing, and research roles. The fastest way to reach me is email."
+          title="Contact"
+          copy="For opportunities in AI engineering, scientific computing, and software development, please get in touch by email."
         />
         <div className="mt-12 reveal">
           <a className="btn-ref" href={`mailto:${personalInfo.email}`} data-cursor-lock>
@@ -665,7 +728,7 @@ function Footer() {
             rel="noopener noreferrer"
             data-cursor-lock
           >
-            github
+            GitHub
           </a>
           <a
             className="link-plain"
@@ -674,10 +737,10 @@ function Footer() {
             rel="noopener noreferrer"
             data-cursor-lock
           >
-            linkedIn
+            LinkedIn
           </a>
         </div>
-        <p style={{ color: 'var(--faint)' }}>made in London</p>
+        <p style={{ color: 'var(--faint)' }}>Based in London</p>
       </div>
     </footer>
   );
@@ -687,11 +750,41 @@ function Footer() {
 /* Page                                                                */
 /* ------------------------------------------------------------------ */
 
+function BootIntro() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const dismiss = () => setVisible(false);
+    const timeout = window.setTimeout(dismiss, 1300);
+    window.addEventListener('pointerdown', dismiss, { capture: true, once: true });
+    window.addEventListener('keydown', dismiss, { capture: true, once: true });
+    window.addEventListener('wheel', dismiss, { passive: true, once: true });
+    return () => {
+      window.clearTimeout(timeout);
+      window.removeEventListener('pointerdown', dismiss, true);
+      window.removeEventListener('keydown', dismiss, true);
+      window.removeEventListener('wheel', dismiss);
+    };
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className="boot-intro" aria-hidden="true">
+      <div className="boot-intro__brand">
+        <span className="boot-intro__word"><span>SA</span>Kannan</span>
+        <span className="boot-intro__rule" />
+      </div>
+    </div>
+  );
+}
+
 export default function Portfolio() {
   useReveal();
 
   return (
     <main id="top">
+      <BootIntro />
       <CustomCursor />
       <Intro />
       <WorkGrid />
