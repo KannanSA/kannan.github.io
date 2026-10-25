@@ -519,7 +519,7 @@ function Intro() {
               ))}
             </h1>
             <p className="body-copy intro-bio mt-10">{personalInfo.bio}</p>
-            <div className="mt-12">
+            <div className="mt-12 flex flex-wrap items-baseline gap-x-10 gap-y-6">
               <button
                 type="button"
                 className="btn-ref"
@@ -529,6 +529,15 @@ function Intro() {
                 <span className="btn-icon">→</span>
                 <span className="btn-label">Get in touch</span>
               </button>
+              <a
+                className="btn-ref"
+                href="/KSCV7R.pdf"
+                download="Kannan-Sekar-CV.pdf"
+                data-cursor-lock
+              >
+                <span className="btn-icon" aria-hidden="true">↓</span>
+                <span className="btn-label">Download CV</span>
+              </a>
             </div>
             <nav className="section-nav" aria-label="Portfolio sections">
               <a href="#projects">Projects</a>
