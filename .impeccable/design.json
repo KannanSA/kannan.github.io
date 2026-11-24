@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T11:01:14+00:00",
+  "title": "Design System: Kannan",
+  "extensions": {
+    "colorMeta": {
+      "sunset": {
+        "role": "primary",
+        "displayName": "Sunset",
+        "canonical": "oklch(69.2% 0.206 42.2)",
+        "tonalRamp": ["#1a0400", "#431300", "#712700", "#a33b00", "#d75100", "#ff773c", "#ffb598", "#ffe9e1"]
+      },
+      "sunset-wash": {
+        "role": "primary",
+        "displayName": "Sunset Wash",
+        "canonical": "rgba(255, 99, 8, 0.14)",
+        "tonalRamp": ["#180500", "#351f12", "#543b2e", "#755a4d", "#987b6d", "#bc9e8f", "#e1c2b2", "#ffeadf"]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field",
+        "canonical": "oklch(14.5% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "stone": {
+        "role": "neutral",
+        "displayName": "Warm Stone",
+        "canonical": "oklch(76.3% 0.014 78.2)",
+        "tonalRamp": ["#0e0a05", "#29241d", "#46413a", "#666058", "#878179", "#aaa49b", "#cec8bf", "#f4eee4"]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "oklch(21.8% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "panel-hover": {
+        "role": "neutral",
+        "displayName": "Panel Hover",
+        "canonical": "oklch(25.2% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "recess": {
+        "role": "neutral",
+        "displayName": "Recess",
+        "canonical": "oklch(19.1% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "chip": {
+        "role": "neutral",
+        "displayName": "Chip",
+        "canonical": "oklch(24.4% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "chip-hover": {
+        "role": "neutral",
+        "displayName": "Chip Hover",
+        "canonical": "oklch(29.3% 0 0)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      },
+      "pill-hover": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(91.1% 0.013 82.4)",
+        "tonalRamp": ["#0e0b05", "#28251e", "#45413a", "#656159", "#86827a", "#a9a49c", "#cdc8c0", "#f3eee5"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(255, 255, 255, 0.08)",
+        "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero claim only. Weight 450, tracking -0.03em, max 16ch, centered."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles. Weight 500, tracking -0.03em, line-height 1."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Record titles at 20px. Card foot titles are 16px at the same weight and -0.02em tracking."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Bio, section copy, and record detail at 16px, weight 400, line-height 1.65."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, announcement, kickers, small pills, and footer column headings at 13px, weight 500."
+      },
+      "mono": {
+        "displayName": "Mono plate",
+        "purpose": "Key/value plates inside work panels. Geist Mono at 12.5px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "header-hairline",
+        "value": "inset 0 -1px 0 rgba(255, 255, 255, 0.08)",
+        "purpose": "Scrolled header divider. The only box-shadow in the system. It is a 1px hairline, not a lift."
+      }
+    ],
+    "motion": [
+      {
+        "name": "color",
+        "value": "background-color 160ms ease",
+        "purpose": "Hover on pills, the menu button, the announcement, and work panels."
+      },
+      {
+        "name": "enter",
+        "value": "700ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Hero word entrance: opacity, a 10px blur, and a 16% rise."
+      },
+      {
+        "name": "nudge",
+        "value": "transform 180ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The work-panel arrow moves 3px on hover and focus."
+      }
+    ],
+    "breakpoints": [
+      { "name": "panel-stack", "value": "900px" },
+      { "name": "record-stack", "value": "720px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid pill",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action. White 44px pill, field text, warm-paper hover. Get in touch, Open email draft, and Email Kannan.",
+      "html": "<button class=\"ds-btn-solid\" type=\"button\">Get in touch</button>",
+      "css": ".ds-btn-solid { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--fg, #ffffff); color: var(--bg, #0a0a0a); font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); font-size: 14px; font-weight: 500; line-height: 1; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; } .ds-btn-solid:hover { background: #e6e1d8; } .ds-btn-solid:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } .ds-btn-solid:disabled { opacity: 0.4; cursor: not-allowed; } @media (prefers-reduced-motion: reduce) { .ds-btn-solid { transition: none; } }"
+    },
+    {
+      "name": "Ghost pill",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action. Chip-colored 44px pill, ink text. Download CV and Go back.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Download CV</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--chip, #202020); color: var(--fg, #ffffff); font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); font-size: 14px; font-weight: 500; line-height: 1; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; } .ds-btn-ghost:hover { background: var(--chip-hover, #2c2c2c); } .ds-btn-ghost:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } .ds-btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; } @media (prefers-reduced-motion: reduce) { .ds-btn-ghost { transition: none; } }"
+    },
+    {
+      "name": "Header",
+      "kind": "nav",
+      "refersTo": "button-primary-sm",
+      "description": "Fixed 64px field bar, shown with the scrolled hairline. Wordmark, 13px text links, a 36px ghost pill, and a 36px white pill. At rest the bar matches the field and has no line. Below 900px the text links and GitHub pill hide and the 40px menu button shows; this specimen keeps the button visible.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-wordmark\" href=\"#top\">Kannan</a><nav class=\"ds-nav\" aria-label=\"Portfolio\"><a href=\"#work\">Work</a><a href=\"#experience\">Experience</a><a href=\"#education\">Education</a><a href=\"#skills\">Skills</a></nav><div class=\"ds-header-actions\"><a class=\"ds-header-ghost\" href=\"#github\">GitHub</a><a class=\"ds-header-solid\" href=\"#contact\">Contact</a><button class=\"ds-header-menu\" type=\"button\" aria-label=\"Open menu\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M2.5 4.5h11M2.5 8h11M2.5 11.5h11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></button></div></header>",
+      "css": ".ds-header { display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 22px 0 28px; background: var(--bg, #0a0a0a); color: var(--fg, #ffffff); font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); box-shadow: inset 0 -1px 0 var(--line, rgba(255, 255, 255, 0.08)); } .ds-wordmark { margin-right: 12px; color: inherit; font-size: 15px; font-weight: 500; letter-spacing: -0.03em; text-decoration: none; } .ds-nav { display: flex; align-items: center; gap: 2px; } .ds-nav a { padding: 6px 12px; border-radius: 999px; color: inherit; font-size: 13px; font-weight: 500; text-decoration: none; } .ds-nav a:hover { background: var(--chip, #202020); } .ds-nav a:focus-visible, .ds-wordmark:focus-visible, .ds-header-ghost:focus-visible, .ds-header-solid:focus-visible, .ds-header-menu:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } .ds-header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; } .ds-header-ghost, .ds-header-solid { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 500; line-height: 1; text-decoration: none; transition: background-color 160ms ease; } .ds-header-ghost { background: var(--chip, #202020); color: var(--fg, #ffffff); } .ds-header-ghost:hover { background: var(--chip-hover, #2c2c2c); } .ds-header-solid { background: var(--fg, #ffffff); color: var(--bg, #0a0a0a); } .ds-header-solid:hover { background: #e6e1d8; } .ds-header-menu { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--chip, #202020); color: var(--fg, #ffffff); cursor: pointer; transition: background-color 160ms ease; } .ds-header-menu:hover { background: var(--chip-hover, #2c2c2c); } @media (prefers-reduced-motion: reduce) { .ds-header-ghost, .ds-header-solid, .ds-header-menu { transition: none; } }"
+    },
+    {
+      "name": "Hero claim",
+      "kind": "custom",
+      "refersTo": "chip-announce",
+      "description": "Centered claim at weight 450, with the recess announcement and the sunset Physics tag. On the page the second line cycles every 2600ms; reduced motion shows the full sentence.",
+      "html": "<div class=\"ds-hero\"><a class=\"ds-announce\" href=\"#education\"><span class=\"ds-tag\">Physics</span><span>King's College London</span><svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" aria-hidden=\"true\"><path d=\"M5 3.2 8.8 7 5 10.8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a><h1 class=\"ds-display\"><span class=\"ds-line\">Software for</span><span class=\"ds-line\">clinics.</span></h1></div>",
+      "css": ".ds-hero { background: var(--bg, #0a0a0a); color: var(--fg, #ffffff); padding: 36px 20px 28px; text-align: center; font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); } .ds-announce { display: inline-flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px 0 6px; border-radius: 999px; background: #141414; color: inherit; font-size: 13px; font-weight: 500; text-decoration: none; transition: background-color 160ms ease; } .ds-announce:hover { background: #1c1c1c; } .ds-announce svg { opacity: 0.72; } .ds-announce:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } .ds-tag { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 999px; background: rgba(255, 99, 8, 0.14); color: var(--sunset, #ff6308); font-size: 11px; font-weight: 500; } .ds-display { max-width: 16ch; margin: 28px auto 0; font-size: clamp(2.75rem, 6.2vw, 4.75rem); font-weight: 450; letter-spacing: -0.03em; line-height: 0.98; } .ds-line { display: block; } @media (prefers-reduced-motion: reduce) { .ds-announce { transition: none; } }"
+    },
+    {
+      "name": "Work panel",
+      "kind": "card",
+      "refersTo": "card-work",
+      "description": "16px panel, min-height 280px, no stroke or shadow. This specimen is the mono type plate. The glyph nudges 3px on hover.",
+      "html": "<a class=\"ds-card\" href=\"#research\"><div class=\"ds-stage\"><p class=\"ds-kicker\">LAMMPS on King's HPC</p><ul class=\"ds-plate\"><li><span>Structures</span><span>5,000+</span></li><li><span>Analysis</span><span>OVITO</span></li><li><span>Train</span><span>TensorFlow</span></li><li><span>Device</span><span>CUDA</span></li></ul></div><div class=\"ds-foot\"><div><h3>HPC simulations</h3><p>Carbon nanocluster research</p></div><span class=\"ds-go\">View <span aria-hidden=\"true\">↓</span></span></div></a>",
+      "css": ".ds-card { display: flex; flex-direction: column; width: 100%; min-height: 280px; overflow: hidden; border-radius: 16px; background: var(--card, #1a1a1a); color: var(--fg, #ffffff); font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); text-decoration: none; transition: background-color 160ms ease; } .ds-card:hover { background: #222; } .ds-card:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } .ds-stage { flex: 1; padding: 22px 22px 8px; } .ds-kicker { margin: 0; color: var(--stone, #b7b1a8); font-size: 13px; font-weight: 500; } .ds-plate { display: grid; margin: 18px 0 0; padding: 0; list-style: none; font-family: var(--mono, \"Geist Mono\", ui-monospace, \"Segoe UI Mono\", monospace); font-size: 12.5px; } .ds-plate li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line, rgba(255, 255, 255, 0.08)); } .ds-plate li span:first-child { color: var(--stone, #b7b1a8); } .ds-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 8px 22px 18px; } .ds-foot h3 { margin: 0; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; } .ds-foot p { margin: 4px 0 0; color: var(--stone, #b7b1a8); font-size: 13px; } .ds-go { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; white-space: nowrap; } .ds-go span { display: inline-block; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover .ds-go span, .ds-card:focus-visible .ds-go span { transform: translateX(3px); } @media (prefers-reduced-motion: reduce) { .ds-card, .ds-go span { transition: none; } }"
+    },
+    {
+      "name": "Composer",
+      "kind": "input",
+      "refersTo": "input-composer",
+      "description": "Message field that replaces the hero pills. Recess fill, 12px radius, hairline stroke, 40% white border on focus.",
+      "html": "<div class=\"ds-compose\"><label class=\"ds-compose-label\" for=\"ds-message\">Your message</label><textarea id=\"ds-message\" class=\"ds-compose-field\" placeholder=\"Type your message…\"></textarea><div class=\"ds-compose-actions\"><button class=\"ds-compose-ghost\" type=\"button\">Go back</button><button class=\"ds-compose-solid\" type=\"button\">Open email draft</button></div><p class=\"ds-compose-note\">Opens your email app with your message ready to send.</p></div>",
+      "css": ".ds-compose { max-width: 560px; background: var(--bg, #0a0a0a); font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); color: var(--fg, #ffffff); } .ds-compose-label { display: block; margin-bottom: 8px; color: var(--stone, #b7b1a8); font-size: 13px; font-weight: 500; } .ds-compose-field { width: 100%; min-height: 140px; padding: 14px 16px; border: 1px solid var(--line, rgba(255, 255, 255, 0.08)); border-radius: 12px; background: #141414; color: inherit; font: inherit; resize: vertical; outline: none; caret-color: #fff; } .ds-compose-field::placeholder { color: var(--stone, #b7b1a8); } .ds-compose-field:focus { border-color: rgba(255, 255, 255, 0.4); } .ds-compose-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; } .ds-compose-ghost, .ds-compose-solid { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 0; border-radius: 999px; font-size: 14px; font-weight: 500; line-height: 1; cursor: pointer; transition: background-color 160ms ease; } .ds-compose-ghost { background: var(--chip, #202020); color: var(--fg, #ffffff); } .ds-compose-ghost:hover { background: var(--chip-hover, #2c2c2c); } .ds-compose-solid { background: var(--fg, #ffffff); color: var(--bg, #0a0a0a); } .ds-compose-solid:hover { background: #e6e1d8; } .ds-compose-ghost:focus-visible, .ds-compose-solid:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } .ds-compose-note { margin: 12px 0 0; color: var(--stone, #b7b1a8); font-size: 13px; line-height: 1.5; } @media (prefers-reduced-motion: reduce) { .ds-compose-ghost, .ds-compose-solid { transition: none; } }"
+    },
+    {
+      "name": "Record row",
+      "kind": "custom",
+      "description": "Hairline record link. 180px date rail, 20px title, warm-stone organisation, 16px detail. Hover underlines the title.",
+      "html": "<div class=\"ds-record-wrap\"><a class=\"ds-record\" href=\"#research\"><p class=\"ds-record-date\">May – Nov 2025</p><div><h3>Research Fellow (KURF) <span class=\"ds-record-go\" aria-hidden=\"true\">↗</span></h3><p class=\"ds-record-org\">King's College London</p><p class=\"ds-record-detail\">Applied physics-informed machine learning to carbon nanoclusters.</p></div></a></div>",
+      "css": ".ds-record-wrap { background: var(--bg, #0a0a0a); color: var(--fg, #ffffff); padding: 0 4px; font-family: var(--font, \"Geist\", \"Noto Sans Tamil\", \"Segoe UI\", sans-serif); } .ds-record { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px 32px; padding: 26px 0; border-top: 1px solid var(--line, rgba(255, 255, 255, 0.08)); color: inherit; text-decoration: none; } .ds-record-date { margin: 4px 0 0; color: var(--stone, #b7b1a8); font-size: 13px; line-height: 1.45; } .ds-record h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; } .ds-record-go { color: var(--stone, #b7b1a8); font-size: 14px; font-weight: 400; } .ds-record-org { margin: 6px 0 0; color: var(--stone, #b7b1a8); font-size: 14px; } .ds-record-detail { max-width: 62ch; margin: 12px 0 0; font-size: 16px; line-height: 1.65; } .ds-record:hover h3, .ds-record:focus-visible h3 { text-decoration: underline; text-underline-offset: 4px; } .ds-record:focus-visible { outline: 2px solid #fff; outline-offset: 3px; } @media (max-width: 720px) { .ds-record { grid-template-columns: 1fr; gap: 6px; } .ds-record-date { margin-top: 0; } }"
+    },
+    {
+      "name": "K mark",
+      "kind": "custom",
+      "description": "Favicon at public/mark.svg. White K on a field square with an 8px corner. The page layout does not reuse that 8px radius.",
+      "html": "<svg class=\"ds-mark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\" role=\"img\" aria-label=\"Kannan\"><rect width=\"32\" height=\"32\" rx=\"8\" fill=\"#0a0a0a\"/><path fill=\"#fff\" d=\"M8.5 6.5h4.2v7.1l6.3-7.1h5.1l-7.6 8.4 8 10.6h-5.2l-5.7-7.8-1 1.2v6.6H8.5V6.5z\"/></svg>",
+      "css": ".ds-mark { display: block; width: 32px; height: 32px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Product Record",
+    "overview": "Kannan's site is a personal record set in product-site grammar. A fixed wordmark and text navigation sit on a near-black field. The opening view is a centered claim, the bio, and two pills. Under that, the work is a set of large panels, then hairline bands for figures, experience, education, skills, and contact.\n\nThe material is flat and tonal. Field, recess, panel, and chip are steps of the same black. Ink carries the claim and the primary pill. Warm stone carries dates, contexts, and footer links. Sunset colors a single announcement chip and the text selection. Geist carries the voice: weight 450 for the claim, weight 500 for structure, and weight 400 for prose. Geist Mono is for the spec plates inside work panels.\n\nThe layout grammar follows the live x.ai homepage as of 24 Nov 2026. The identity stays Kannan's. The favicon is the white K at `public/mark.svg`, drawn on a field square with an 8px corner.",
+    "keyCharacteristics": [
+      "Near-black tonal field, panels stepped lighter, no drop shadows",
+      "Centered claim, then a left-aligned record in a 1120px column",
+      "Geist 450 for the claim and 500 for titles, pills, and labels",
+      "Fully round pills and 16px work panels",
+      "Sunset on one chip, warm stone for meta",
+      "Hairline dividers at 8% white",
+      "Six-column work grid with a four-span lead panel"
+    ],
+    "rules": [
+      {
+        "name": "The One Sunset Rule",
+        "body": "Sunset and its wash are the announcement tag and the text-selection highlight. Buttons, panels, links, and figures stay in the neutral stack.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tonal Step Rule",
+        "body": "Surfaces step field, then recess, then panel, then chip. Hover advances one step: warm paper on the white pill, panel hover on a work panel, chip hover on a ghost pill.",
+        "section": "colors"
+      },
+      {
+        "name": "The 450 Claim Rule",
+        "body": "Weight 450 is the hero claim. Titles, navigation, pills, kickers, and the footer name are 500. Prose and meta are 400.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plate Rule",
+        "body": "Geist Mono sets the key/value plate inside a work panel. Prose, titles, and pills stay in Geist.",
+        "section": "typography"
+      },
+      {
+        "name": "The Single Column Rule",
+        "body": "Readable content sits in the 1120px column with 20px gutters. The hero is centered in that column. From the work grid down, the record is left-aligned.",
+        "section": "layout"
+      },
+      {
+        "name": "The Lead Panel Rule",
+        "body": "Featured work is a six-column grid. The lead panel spans four columns and the panel beside it spans two. Later featured panels span two. Below 900px each panel spans the full row.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Field Rule",
+        "body": "Surfaces do not lift. Hover changes a background step. The scrolled header’s inset hairline is the only box-shadow, and it is a divider.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Two Silhouette Rule",
+        "body": "Actions, chips, and nav links are fully round. Work panels use a 16px radius. The composer is the 12px field.",
+        "section": "shapes"
+      },
+      {
+        "name": "The White Pill Rule",
+        "body": "The main action is a white pill with field-colored text. The secondary action is a chip-colored pill with ink text. Pills have no stroke.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do keep the page on the field, with ink text and warm stone meta.",
+      "Do set the hero claim in Geist at weight 450, the display size, and `-0.03em` tracking, and set titles, navigation, and pills in Geist at weight 500.",
+      "Do use the white 44px pill for the main action and the chip-colored pill for the secondary action. Header actions are the 36px size.",
+      "Do draw featured work as 16px panels on the six-column grid, with the lead panel spanning four.",
+      "Do divide records, plates, the figure band, and the footer with the 8% white hairline.",
+      "Do set key/value plates in Geist Mono at 12.5px.",
+      "Do show focus as a 2px ink outline, 3px outside the control. The composer is the exception: it thickens its border to 40% white.",
+      "Do use the K favicon at `public/mark.svg`.",
+      "Do honor reduced motion with instant scroll, the still claim, and no pill, panel, arrow, or word transition."
+    ],
+    "donts": [
+      "Don't lay the work out as equal glyph tiles.",
+      "Don't fill buttons, panels, links, or large areas with sunset. Sunset stays on the announcement tag and on text selection.",
+      "Don't add drop shadows or glows. The scrolled header’s inset hairline is the only box-shadow.",
+      "Don't switch the page to a light background. Light color belongs to the solid pill and its warm-paper hover.",
+      "Don't use the X or xAI marks, or the unused gradient file at `public/sakannan-mark.svg`.",
+      "Don't set prose, titles, or pills in Geist Mono.",
+      "Don't put a stroke on pills or work panels."
+    ]
+  }
+}

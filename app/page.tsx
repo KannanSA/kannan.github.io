@@ -1,10 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-
-/* ------------------------------------------------------------------ */
-/* Content                                                             */
-/* ------------------------------------------------------------------ */
+import { useEffect, useRef, useState } from 'react';
+import { OrgMarks, type OrgLogoName } from './org-logos';
 
 const personalInfo = {
   name: 'Kannan Sekar Annu Radha',
@@ -12,181 +9,206 @@ const personalInfo = {
   email: 'kannansekara@gmail.com',
   linkedin: 'https://linkedin.com/in/kannan-sekar',
   github: 'https://github.com/kannansa',
-  website: 'https://sakannan.com',
 };
 
-type GridItem = {
+const DOMAINS = ['clinics', 'clusters', 'watches', 'lenses'] as const;
+
+const nav = [
+  { href: '#work', label: 'Work' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#education', label: 'Education' },
+  { href: '#skills', label: 'Skills' },
+];
+
+type WorkCard = {
   title: string;
   context: string;
-  glyph?: string;
-  mark?: 'sakannan';
-  link: string;
+  href: string;
   external?: boolean;
+  span: 'span-4' | 'span-2';
+  scene: 'nlp' | 'hpc' | 'health' | 'watch' | 'ar';
+  glyph: string;
 };
 
-const gridItems: GridItem[] = [
-  {
-    title: 'HPC simulations',
-    context: 'Carbon nanocluster research',
-    glyph: '∇²ψ',
-    link: '#research',
-  },
+const featured: WorkCard[] = [
   {
     title: 'Clinical NLP',
     context: 'NHS Digital',
-    glyph: '✚',
-    link: 'https://github.com/KannanSA/NLPK',
+    href: 'https://github.com/KannanSA/NLPK',
     external: true,
+    span: 'span-4',
+    scene: 'nlp',
+    glyph: '✚',
+  },
+  {
+    title: 'HPC simulations',
+    context: 'Carbon nanocluster research',
+    href: '#research',
+    span: 'span-2',
+    scene: 'hpc',
+    glyph: '∇²ψ',
   },
   {
     title: 'Healthcare platforms',
     context: 'Websites & chatbots',
-    glyph: '⌁',
-    link: 'https://globaltravelvaccinations.com',
+    href: 'https://globaltravelvaccinations.com',
     external: true,
+    span: 'span-2',
+    scene: 'health',
+    glyph: '⌁',
   },
   {
     title: 'iPong',
     context: 'Apple Watch app',
-    glyph: '│●',
-    link: 'https://github.com/KannanSA/iPong',
+    href: 'https://github.com/KannanSA/iPong',
     external: true,
+    span: 'span-2',
+    scene: 'watch',
+    glyph: '│●',
   },
   {
     title: 'AR lenses',
-    context: 'Snap AR · 2.5M+ views',
-    glyph: '◉',
-    link: 'https://github.com/KannanSA/Argumented-Reality-SC',
+    context: 'Snap AR',
+    href: 'https://github.com/KannanSA/Argumented-Reality-SC',
     external: true,
+    span: 'span-2',
+    scene: 'ar',
+    glyph: '◉',
   },
+];
+
+const indexItems = [
   {
     title: 'Tetris AI',
     context: 'Machine learning',
-    glyph: '▛▟',
-    link: 'https://github.com/KannanSA/TetrisAI',
-    external: true,
+    href: 'https://github.com/KannanSA/TetrisAI',
   },
   {
     title: 'YoteCoin',
     context: 'Smart contract',
-    glyph: 'Ξ',
-    link: 'https://github.com/KannanSA/YoteCoin',
-    external: true,
+    href: 'https://github.com/KannanSA/YoteCoin',
   },
   {
     title: 'SAKannan',
     context: 'Startup studio',
-    mark: 'sakannan',
-    link: '#top',
+    href: '#top',
   },
 ];
 
 type EngagementItem = {
   id?: string;
-  glyph: string;
   title: string;
   organisation: string;
   dates?: string;
   detail: string;
   link: string;
+  logo: OrgLogoName | OrgLogoName[];
 };
 
 const experience: EngagementItem[] = [
   {
-    glyph: '✚',
     title: 'PCN Tech Lead',
+    logo: 'nhs',
     organisation: 'NHS England / Galleries Medical Practice',
     dates: 'Nov 2025 – Present',
-    detail: 'Developing healthcare websites, chatbots, and iOS products, including Global Travel Vaccinations. Responsible for interfaces, backend services, deployment, and reliability.',
+    detail:
+      'Developing healthcare websites, chatbots, and iOS products, including Global Travel Vaccinations. Responsible for interfaces, backend services, deployment, and reliability.',
     link: 'https://globaltravelvaccinations.com',
   },
   {
     id: 'research',
-    glyph: 'ψ',
     title: 'Research Fellow (KURF)',
+    logo: 'kcl',
     organisation: "King's College London",
     dates: 'May – Nov 2025',
-    detail: 'Applied physics-informed machine learning to carbon nanoclusters. Ran LAMMPS simulations on HPC clusters and analysed 5,000+ structures using OVITO, TensorFlow, and CUDA, in collaboration with Penn State researchers.',
+    detail:
+      'Applied physics-informed machine learning to carbon nanoclusters. Ran LAMMPS simulations on HPC clusters and analysed 5,000+ structures using OVITO, TensorFlow, and CUDA, in collaboration with Penn State researchers.',
     link: 'https://www.kcl.ac.uk/physics',
   },
   {
-    glyph: '⌘',
     title: 'iOS Developer & Founder',
+    logo: 'kannan',
     organisation: 'Kannan Industrials',
     dates: 'Feb 2021 – Present',
-    detail: 'Developed 1minuteDOEShelp, iPong, DabCounter, and OK Gym. Technical work includes Core ML and Apple Watch motion classification. Other projects include Face Rift AR, IceFiSh Browser, and GrokTube.',
-    link: 'https://github.com/KannanSA',
+    detail:
+      'Developed 1minuteDOEShelp, iPong, DabCounter, and OK Gym. Technical work includes Core ML and Apple Watch motion classification. Other projects include Face Rift AR, IceFiSh Browser, and GrokTube.',
+    link: 'https://www.kannanindustrials.com',
   },
   {
-    glyph: '◔',
     title: 'Research Intern',
+    logo: 'oxford',
     organisation: 'Kennedy Institute of Rheumatology, Oxford',
     dates: 'Nov 2019',
-    detail: 'Conducted CNN experiments for biomedical imaging, alongside reinforcement learning and GPU training.',
+    detail:
+      'Conducted CNN experiments for biomedical imaging, alongside reinforcement learning and GPU training.',
     link: 'https://www.kennedy.ox.ac.uk/',
   },
   {
-    glyph: '✚',
     title: 'Data Science Intern',
+    logo: 'nhs',
     organisation: 'NHS Digital',
     dates: 'Nov – Dec 2019',
-    detail: 'Developed LSTM and word2vec models for clinical-note classification. Improved ICD-9 coding accuracy from 42% to 71%, with anomaly detection for rare diagnoses.',
+    detail:
+      'Developed LSTM and word2vec models for clinical-note classification. Improved ICD-9 coding accuracy from 42% to 71%, with anomaly detection for rare diagnoses.',
     link: 'https://digital.nhs.uk/',
   },
   {
-    glyph: '◉',
     title: 'Independent AR Lens Developer',
+    logo: 'snap',
     organisation: 'Snap',
     dates: 'Sep 2018 – Aug 2019',
-    detail: 'Created AR lenses reaching 2.5M+ views and 150K downloads, optimised for mobile performance and memory use.',
+    detail:
+      'Created AR lenses reaching 2.5M+ views and 150K downloads, optimised for mobile performance and memory use.',
     link: 'https://github.com/KannanSA/Argumented-Reality-SC',
   },
 ];
 
 const education: EngagementItem[] = [
   {
-    glyph: 'φ',
     title: 'BSc Physics',
+    logo: 'kcl',
     organisation: "King's College London",
     dates: '2024 – 2027',
-    detail: 'Alessandro de Vita Computational Physics Prize, 2024–25. King’s Research Award, November 2025.',
+    detail:
+      'Alessandro de Vita Computational Physics Prize, 2024–25. King’s Research Award, November 2025.',
     link: 'https://www.kcl.ac.uk/physics',
   },
   {
-    glyph: 'λ',
     title: 'MEng Computer Science',
+    logo: 'ucl',
     organisation: 'University College London',
     dates: '2021 – 2023',
     detail: 'Studied on the MEng Computer Science programme.',
     link: 'https://www.ucl.ac.uk/',
   },
   {
-    glyph: '∑',
     title: 'A levels',
+    logo: 'rgs',
     organisation: 'Royal Grammar School, Newcastle',
     dates: '2017 – 2020',
     detail: 'A*, A*, A* in Mathematics, Further Mathematics, and Physics.',
     link: 'https://www.rgs.newcastle.sch.uk/',
   },
   {
-    glyph: '⌘',
     title: 'iOS and interface design',
+    logo: 'meta',
     organisation: 'Meta',
     dates: 'Sep – Nov 2025',
-    detail: 'Certificates in SwiftUI, iOS development, UX/UI principles, Swift fundamentals, and version control.',
+    detail:
+      'Certificates in SwiftUI, iOS development, UX/UI principles, Swift fundamentals, and version control.',
     link: 'https://www.linkedin.com/in/kannan-sekar/',
   },
   {
-    glyph: '∇',
     title: 'Machine learning and deep learning',
+    logo: ['stanford', 'dlai'],
     organisation: 'Stanford University / DeepLearning.AI',
     dates: 'Mar 2021',
     detail: 'Machine Learning from Stanford University and Deep Learning from DeepLearning.AI.',
     link: 'https://www.linkedin.com/in/kannan-sekar/',
   },
   {
-    glyph: '{ }',
     title: 'CS50 certification',
+    logo: 'harvard',
     organisation: 'Harvard University',
     detail: 'Certificate of completion for CS50.',
     link: 'https://www.linkedin.com/in/kannan-sekar/',
@@ -201,145 +223,115 @@ const stack = [
   { label: 'App development', items: 'SwiftUI · UIKit · REST · GraphQL · Git' },
 ];
 
-/* ------------------------------------------------------------------ */
-/* Hooks                                                               */
-/* ------------------------------------------------------------------ */
+const figures = [
+  { value: '2.5M+', label: 'AR lens views' },
+  { value: '71%', label: 'ICD-9 accuracy, from 42%' },
+  { value: '5,000+', label: 'Carbon structures analysed' },
+  { value: 'A* A* A*', label: 'Maths, Further Maths, Physics' },
+];
+
+function externalProps(external?: boolean) {
+  return external ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {};
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      {open ? (
+        <path d="M3.2 3.2 12.8 12.8M12.8 3.2 3.2 12.8" stroke="currentColor" strokeWidth="1.5" />
+      ) : (
+        <path
+          d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      )}
+    </svg>
+  );
+}
+
+function useDomainCycle() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (media.matches) return;
+    const id = window.setInterval(() => {
+      setIndex((current) => (current + 1) % DOMAINS.length);
+    }, 2600);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return DOMAINS[index];
+}
 
 const GREETINGS = ['Hi.', 'வணக்கம்.', 'Hola.'];
-const REST_LINES = ["I'm", 'Kannan.'];
 
-// Split into grapheme clusters so Tamil combining marks type as whole letters.
 function graphemes(text: string): string[] {
   if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
     const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-    return Array.from(segmenter.segment(text), (s) => s.segment);
+    return Array.from(segmenter.segment(text), (part) => part.segment);
   }
   return Array.from(text);
 }
 
-type TypedState = {
-  greeting: string;
-  rest: string[];
-  cursorLine: number;
-};
-
-function useTypewriter() {
-  const [state, setState] = useState<TypedState>({
-    greeting: '',
-    rest: REST_LINES.map(() => ''),
-    cursorLine: 0,
-  });
+function useGreeting() {
+  const [greeting, setGreeting] = useState(GREETINGS[0]);
+  const [count, setCount] = useState(GREETINGS[0].length);
+  const [cursorOn, setCursorOn] = useState(true);
 
   useEffect(() => {
-    const TYPE = 95;
-    const DELETE = 50;
-    const LINE_PAUSE = 420;
-    const HOLD = 2400;
-    const START = 500;
-
-    let timer: ReturnType<typeof setTimeout>;
-    let greetIdx = 0;
-
-    const cur: TypedState = { greeting: '', rest: REST_LINES.map(() => ''), cursorLine: 0 };
-    const render = () =>
-      setState({ greeting: cur.greeting, rest: [...cur.rest], cursorLine: cur.cursorLine });
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      cur.greeting = GREETINGS[0];
-      cur.rest = [...REST_LINES];
-      render();
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (media.matches) {
+      setGreeting(GREETINGS[0]);
+      setCount(GREETINGS[0].length);
+      setCursorOn(false);
       return;
     }
 
-    const typeGreeting = (onDone: () => void) => {
+    let greetIdx = 0;
+    let n = graphemes(GREETINGS[0]).length;
+    let deleting = false;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
       const chars = graphemes(GREETINGS[greetIdx]);
-      let n = 0;
-      cur.cursorLine = 0;
-      const step = () => {
+      if (!deleting) {
         n += 1;
-        cur.greeting = chars.slice(0, n).join('');
-        render();
-        if (n < chars.length) timer = setTimeout(step, TYPE);
-        else onDone();
-      };
-      timer = setTimeout(step, TYPE);
-    };
-
-    const deleteGreeting = (onDone: () => void) => {
-      const chars = graphemes(cur.greeting);
-      let n = chars.length;
-      cur.cursorLine = 0;
-      const step = () => {
-        n -= 1;
-        cur.greeting = chars.slice(0, Math.max(0, n)).join('');
-        render();
-        if (n > 0) timer = setTimeout(step, DELETE);
-        else onDone();
-      };
-      timer = setTimeout(step, DELETE);
-    };
-
-    const typeRest = (lineIdx: number, onDone: () => void) => {
-      if (lineIdx >= REST_LINES.length) {
-        onDone();
+        setGreeting(GREETINGS[greetIdx]);
+        setCount(n);
+        setCursorOn(true);
+        if (n >= chars.length) {
+          deleting = true;
+          timer = setTimeout(tick, 2200);
+          return;
+        }
+        timer = setTimeout(tick, 95);
         return;
       }
-      const chars = graphemes(REST_LINES[lineIdx]);
-      let n = 0;
-      cur.cursorLine = lineIdx + 1;
-      const step = () => {
-        n += 1;
-        cur.rest[lineIdx] = chars.slice(0, n).join('');
-        render();
-        if (n < chars.length) timer = setTimeout(step, TYPE);
-        else timer = setTimeout(() => typeRest(lineIdx + 1, onDone), LINE_PAUSE);
-      };
-      timer = setTimeout(step, TYPE);
-    };
-
-    const cycle = () => {
-      timer = setTimeout(() => {
-        deleteGreeting(() => {
-          greetIdx = (greetIdx + 1) % GREETINGS.length;
-          timer = setTimeout(() => typeGreeting(cycle), 350);
-        });
-      }, HOLD);
+      n -= 1;
+      setCount(Math.max(0, n));
+      if (n > 0) {
+        timer = setTimeout(tick, 50);
+        return;
+      }
+      deleting = false;
+      greetIdx = (greetIdx + 1) % GREETINGS.length;
+      setGreeting(GREETINGS[greetIdx]);
+      timer = setTimeout(tick, 350);
     };
 
     timer = setTimeout(() => {
-      typeGreeting(() => {
-        timer = setTimeout(() => typeRest(0, cycle), LINE_PAUSE);
-      });
-    }, START);
-
+      deleting = true;
+      tick();
+    }, 1600);
     return () => clearTimeout(timer);
   }, []);
 
-  return state;
+  return { text: graphemes(greeting).slice(0, count).join(''), cursorOn };
 }
-
-function useReveal() {
-  useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
-
-/* ------------------------------------------------------------------ */
-/* Custom cursor                                                       */
-/* ------------------------------------------------------------------ */
 
 function CustomCursor() {
   const ref = useRef<HTMLDivElement>(null);
@@ -347,12 +339,11 @@ function CustomCursor() {
   useEffect(() => {
     const cursor = ref.current;
     if (!cursor) return;
-    // Touch / coarse-pointer devices keep the native cursor.
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
     document.documentElement.classList.add('has-custom-cursor');
 
-    const DEFAULT_SIZE = 36;
+    const defaultSize = 36;
     let lockedTarget: HTMLElement | null = null;
     let pointerX = -999;
     let pointerY = 0;
@@ -384,16 +375,15 @@ function CustomCursor() {
       cursor.style.left = `${rect.left + halfWidth}px`;
       cursor.style.top = `${rect.top + halfHeight}px`;
       cursor.style.transform = `translate(calc(-50% + ${xRatio}px), calc(-50% + ${yRatio}px))`;
-
       target.style.setProperty('--magnetic-x', `${xRatio * 6}px`);
       target.style.setProperty('--magnetic-y', `${yRatio * 6}px`);
     };
 
-    const onMove = (e: MouseEvent) => {
-      pointerX = e.clientX;
-      pointerY = e.clientY;
+    const onMove = (event: MouseEvent) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
       cursor.classList.add('is-visible');
-      const target = e.target instanceof Element ? e.target : null;
+      const target = event.target instanceof Element ? event.target : null;
       const nextLockedTarget = target?.closest<HTMLElement>('[data-cursor-lock]') ?? null;
 
       if (nextLockedTarget) {
@@ -408,19 +398,18 @@ function CustomCursor() {
       const text = target?.closest<HTMLElement>(
         'h1, h2, h3, h4, h5, h6, p, dd, dt, figcaption, blockquote, label, textarea',
       );
-
       cursor.style.left = `${pointerX}px`;
       cursor.style.top = `${pointerY}px`;
 
       if (text) {
-        const fontSize = parseFloat(getComputedStyle(text).fontSize) || 17.6;
+        const fontSize = parseFloat(getComputedStyle(text).fontSize) || 16;
         cursor.classList.add('is-text');
         cursor.style.width = '3px';
         cursor.style.height = `${Math.round(fontSize * 1.4)}px`;
       } else {
         cursor.classList.remove('is-text');
-        cursor.style.width = `${DEFAULT_SIZE}px`;
-        cursor.style.height = `${DEFAULT_SIZE}px`;
+        cursor.style.width = `${defaultSize}px`;
+        cursor.style.height = `${defaultSize}px`;
       }
     };
 
@@ -450,315 +439,6 @@ function CustomCursor() {
   return <div ref={ref} className="cursor-dot" aria-hidden="true" />;
 }
 
-/* ------------------------------------------------------------------ */
-/* Intro                                                               */
-/* ------------------------------------------------------------------ */
-
-function Intro() {
-  const typed = useTypewriter();
-  const [composing, setComposing] = useState(false);
-  const [message, setMessage] = useState('');
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    if (composing) textareaRef.current?.focus();
-  }, [composing]);
-
-  const send = () => {
-    const subject = encodeURIComponent('Hello Kannan');
-    const body = encodeURIComponent(message);
-    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
-  };
-
-  return (
-    <section className="flex min-h-screen items-center">
-      <div className="container-ref py-24">
-        {composing ? (
-          <div>
-            <textarea
-              ref={textareaRef}
-              className="composer"
-              placeholder="Type your message…"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              aria-label="Your message"
-            />
-            <div className="mt-10 flex items-baseline gap-10">
-              <button
-                type="button"
-                className="btn-ref"
-                onClick={() => setComposing(false)}
-                data-cursor-lock
-              >
-                <span className="btn-icon">←</span>
-                <span className="btn-label">Go back</span>
-              </button>
-              <button
-                type="button"
-                className="btn-ref"
-                onClick={send}
-                disabled={!message.trim()}
-                data-cursor-lock
-              >
-                <span className="btn-label">Open email draft</span>
-              </button>
-            </div>
-            <p className="composer-note">Opens your email app with your message ready to send.</p>
-          </div>
-        ) : (
-          <div>
-            <h1
-              className="intro-title"
-              aria-label="Hi. I'm Kannan."
-            >
-              {[typed.greeting, ...typed.rest].map((text, i) => (
-                <span key={i} aria-hidden="true" className="typed-line">
-                  {text}
-                  {i === typed.cursorLine ? <span className="type-cursor" /> : null}
-                </span>
-              ))}
-            </h1>
-            <p className="body-copy intro-bio mt-10">{personalInfo.bio}</p>
-            <div className="mt-12 flex flex-wrap items-baseline gap-x-10 gap-y-6">
-              <button
-                type="button"
-                className="btn-ref"
-                onClick={() => setComposing(true)}
-                data-cursor-lock
-              >
-                <span className="btn-icon">→</span>
-                <span className="btn-label">Get in touch</span>
-              </button>
-              <a
-                className="btn-ref"
-                href="/KSCV7R.pdf"
-                download="Kannan-Sekar-CV.pdf"
-                data-cursor-lock
-              >
-                <span className="btn-icon" aria-hidden="true">↓</span>
-                <span className="btn-label">Download CV</span>
-              </a>
-            </div>
-            <nav className="section-nav" aria-label="Portfolio sections">
-              <a href="#projects">Projects</a>
-              <a href="#experience">Experience</a>
-              <a href="#education">Education</a>
-              <a href="#contact">Contact</a>
-            </nav>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Work grid                                                           */
-/* ------------------------------------------------------------------ */
-
-function SAKannanMark() {
-  return (
-    <div className="startup-mark" aria-label="SAKannan">
-      <span className="startup-mark__sigil" aria-hidden="true">
-        <span>S</span>
-        <span>A</span>
-      </span>
-      <span className="startup-mark__word" aria-hidden="true">
-        <span>SA</span>Kannan
-      </span>
-    </div>
-  );
-}
-
-function WorkGrid() {
-  return (
-    <section id="projects" className="container-ref" aria-labelledby="projects-heading">
-      <div className="project-heading"><h2 id="projects-heading" className="section-title">Selected projects</h2></div>
-      <ul className="workgrid">
-        {gridItems.map((item) => (
-          <li key={item.title}>
-            <a
-              href={item.link}
-              target={item.external ? '_blank' : undefined}
-              rel={item.external ? 'noopener noreferrer' : undefined}
-              className="tile"
-            >
-              <span className="tile__arrow" aria-hidden="true">{item.external ? '↗' : item.link === '#top' ? '↑' : '↓'}</span>
-              <div className="tile__glyph" aria-hidden="true">
-                {item.mark === 'sakannan' ? <SAKannanMark /> : item.glyph}
-              </div>
-              <div className="tile__copy">
-                <h3 className="tile__title">{item.title}</h3>
-                <p className="tile__context">{item.context}</p>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <div className="project-footer">
-        <a className="btn-ref" href={personalInfo.github} target="_blank" rel="noopener noreferrer">
-          <span className="btn-label">More on GitHub</span>
-          <span className="btn-icon" aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Sections                                                            */
-/* ------------------------------------------------------------------ */
-
-function SectionIntro({ title, copy }: { title: string; copy: string }) {
-  return (
-    <>
-      <h2 className="section-title reveal">{title}</h2>
-      <p className="body-copy reveal mt-8">{copy}</p>
-    </>
-  );
-}
-
-function EngagementList({ items }: { items: EngagementItem[] }) {
-  return (
-    <ul className="engagement mt-12">
-      {items.map((item, i) => (
-        <li
-          key={`${item.title}-${item.organisation}`}
-          className="reveal"
-          style={{ ['--reveal-delay' as string]: `${(i % 2) * 90}ms` }}
-        >
-          <a
-            id={item.id}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="engagement__item"
-          >
-            <span className="engagement__tile" aria-hidden="true" data-cursor-lock>
-              {item.glyph}
-            </span>
-            <div className="engagement__copy">
-              <h3>{item.title}</h3>
-              <p className="engagement__organisation">{item.organisation}</p>
-              {item.dates && <p className="engagement__dates">{item.dates}</p>}
-              <p className="engagement__description">{item.detail}</p>
-            </div>
-          </a>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Work() {
-  return (
-    <section className="section-block" id="experience" aria-label="Experience">
-      <div className="container-ref">
-        <SectionIntro
-          title="Experience"
-          copy="Software engineering, healthcare technology, and computational research."
-        />
-        <EngagementList items={experience} />
-      </div>
-    </section>
-  );
-}
-
-function Study() {
-  return (
-    <section className="section-block" id="education" aria-label="Education and training">
-      <div className="container-ref">
-        <SectionIntro
-          title="Education & training"
-          copy="A background in physics and computer science, supported by continued professional development."
-        />
-        <EngagementList items={education} />
-      </div>
-    </section>
-  );
-}
-
-function Stack() {
-  return (
-    <section className="section-block">
-      <div className="container-ref">
-        <SectionIntro
-          title="Technical skills"
-          copy="Languages, frameworks, and tools I use across research and product development."
-        />
-        <dl className="stack-list mt-16 reveal">
-          {stack.map((row) => (
-            <React.Fragment key={row.label}>
-              <dt>{row.label}</dt>
-              <dd>{row.items}</dd>
-            </React.Fragment>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
-
-function Reach() {
-  return (
-    <section className="section-block" id="contact">
-      <div className="container-ref">
-        <SectionIntro
-          title="Contact"
-          copy="For opportunities in AI engineering, scientific computing, and software development, please get in touch by email."
-        />
-        <div className="mt-12 reveal">
-          <a className="btn-ref" href={`mailto:${personalInfo.email}`} data-cursor-lock>
-            <span className="btn-icon">→</span>
-            <span className="btn-label">{personalInfo.email}</span>
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Footer                                                              */
-/* ------------------------------------------------------------------ */
-
-function Footer() {
-  return (
-    <footer className="py-14">
-      <div className="container-ref flex flex-wrap items-baseline justify-between gap-6 small-copy">
-        <div className="flex items-baseline gap-6">
-          <a className="link-plain" href="#top" aria-label="Back to top" data-cursor-lock>
-            ⌂
-          </a>
-          <a
-            className="link-plain"
-            href={personalInfo.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor-lock
-          >
-            GitHub
-          </a>
-          <a
-            className="link-plain"
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor-lock
-          >
-            LinkedIn
-          </a>
-        </div>
-        <p style={{ color: 'var(--faint)' }}>Based in London</p>
-      </div>
-    </footer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Page                                                                */
-/* ------------------------------------------------------------------ */
-
 function BootIntro() {
   const [visible, setVisible] = useState(true);
 
@@ -780,28 +460,548 @@ function BootIntro() {
 
   return (
     <div className="boot-intro" aria-hidden="true">
-      <div className="boot-intro__brand">
-        <span className="boot-intro__word"><span>SA</span>Kannan</span>
+      <div>
+        <span className="boot-intro__word">
+          <span>SA</span>Kannan
+        </span>
         <span className="boot-intro__rule" />
       </div>
     </div>
   );
 }
 
-export default function Portfolio() {
-  useReveal();
+function Header() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   return (
-    <main id="top">
+    <header className={scrolled ? 'site-header is-scrolled' : 'site-header'}>
+      <a className="wordmark" href="#top" data-cursor-lock>
+        <span>SA</span>Kannan
+      </a>
+      <nav className="site-nav" aria-label="Portfolio">
+        {nav.map((item) => (
+          <a key={item.href} href={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <div className="header-actions">
+        <a
+          className="pill pill--ghost pill--sm header-github"
+          data-cursor-lock
+          href={personalInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+        <a className="pill pill--solid pill--sm" href="#contact" data-cursor-lock>
+          Contact
+        </a>
+        <button
+          ref={toggleRef}
+          type="button"
+          className="menu-toggle"
+          data-cursor-lock
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          onClick={() => setOpen((value) => !value)}
+        >
+          <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+          <MenuIcon open={open} />
+        </button>
+      </div>
+      {open ? (
+        <nav id="mobile-nav" className="nav-panel" aria-label="Portfolio">
+          {nav.map((item) => (
+            <a key={item.href} href={item.href} onClick={close}>
+              {item.label}
+            </a>
+          ))}
+          <a href="#contact" onClick={close}>
+            Contact
+          </a>
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" onClick={close}>
+            GitHub
+          </a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" onClick={close}>
+            LinkedIn
+          </a>
+        </nav>
+      ) : null}
+    </header>
+  );
+}
+
+function Scene({ kind }: { kind: WorkCard['scene'] }) {
+  if (kind === 'nlp') {
+    return (
+      <div className="stage stage--nlp">
+        <div>
+          <p className="stage-kicker">NHS Digital · LSTM and word2vec</p>
+          <p className="big-num">
+            71<span>%</span>
+          </p>
+          <p className="delta">ICD-9 coding accuracy, from 42%</p>
+        </div>
+        <ul className="nlp-steps" aria-hidden="true">
+          <li>Clinical note</li>
+          <li>word2vec</li>
+          <li>LSTM</li>
+          <li>ICD-9 label</li>
+        </ul>
+      </div>
+    );
+  }
+
+  if (kind === 'hpc') {
+    return (
+      <div className="stage">
+        <p className="stage-kicker">LAMMPS on King’s HPC</p>
+        <ul className="plate">
+          <li>
+            <span>Structures</span>
+            <span>5,000+</span>
+          </li>
+          <li>
+            <span>Analysis</span>
+            <span>OVITO</span>
+          </li>
+          <li>
+            <span>Train</span>
+            <span>TensorFlow</span>
+          </li>
+          <li>
+            <span>Device</span>
+            <span>CUDA</span>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
+  if (kind === 'health') {
+    return (
+      <div className="stage">
+        <p className="stage-kicker">NHS England</p>
+        <p className="plate-title">Global Travel Vaccinations</p>
+        <p className="delta">Clinic sites and patient chat</p>
+      </div>
+    );
+  }
+
+  if (kind === 'watch') {
+    return (
+      <div className="stage">
+        <p className="stage-kicker">Apple Watch · Core ML</p>
+        <p className="big-num big-num--sm">iPong</p>
+        <p className="delta">Motion classification</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="stage">
+      <p className="stage-kicker">Snap AR · 2018–2019</p>
+      <p className="big-num big-num--sm">2.5M+</p>
+      <p className="delta">views, and 150K downloads</p>
+    </div>
+  );
+}
+
+function Hero() {
+  const word = useDomainCycle();
+  const greeting = useGreeting();
+  const [composing, setComposing] = useState(false);
+  const [message, setMessage] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (composing) textareaRef.current?.focus();
+  }, [composing]);
+
+  useEffect(() => {
+    if (!composing) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setComposing(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [composing]);
+
+  const send = () => {
+    const subject = encodeURIComponent('Hello Kannan');
+    const body = encodeURIComponent(message);
+    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
+  };
+
+  return (
+    <section className="hero">
+      <div className="wrap">
+        <h1 className="hero-title" aria-label="Software for clinics, clusters, watches, and lenses.">
+          <span className="still">Software for clinics, clusters, watches, and lenses.</span>
+          <span className="motion" aria-hidden="true">
+            <span className="hero-line">Software for</span>
+            <span className="hero-line">
+              <span className="cycle-slot">
+                <span className="cycle-sizer">clusters</span>
+                <span key={word} className="cycle-word">
+                  {word}
+                  <span className="cycle-line" />
+                </span>
+              </span>
+              .
+            </span>
+          </span>
+        </h1>
+        <p className="greet" aria-label="Hi. I'm Kannan.">
+          <span className="greet-line" aria-hidden="true">
+            {greeting.text}
+            {greeting.cursorOn ? <span className="type-cursor" /> : null}
+          </span>
+          <span className="greet-line" aria-hidden="true">
+            I&apos;m Kannan.
+          </span>
+        </p>
+        <p className="hero-bio">{personalInfo.bio}</p>
+        {composing ? (
+          <div className="composer-block">
+            <label htmlFor="message">Your message</label>
+            <textarea
+              id="message"
+              ref={textareaRef}
+              className="composer"
+              placeholder="Type your message…"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+            />
+            <div className="composer-actions">
+              <button type="button" className="pill pill--ghost" data-cursor-lock onClick={() => setComposing(false)}>
+                Go back
+              </button>
+              <button type="button" className="pill pill--solid" data-cursor-lock onClick={send} disabled={!message.trim()}>
+                Open email draft
+              </button>
+            </div>
+            <p className="composer-note">Opens your email app with your message ready to send.</p>
+          </div>
+        ) : (
+          <div className="hero-actions">
+            <button type="button" className="pill pill--solid" data-cursor-lock onClick={() => setComposing(true)}>
+              <span aria-hidden="true">→ </span>Get in touch
+            </button>
+            <a className="pill pill--ghost" data-cursor-lock href="/KSCV7R.pdf" download="Kannan-Sekar-CV.pdf">
+              <span aria-hidden="true">↓ </span>Download CV
+            </a>
+          </div>
+        )}
+        <nav className="section-links" aria-label="Portfolio sections">
+          <a href="#work">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </section>
+  );
+}
+
+function Work() {
+  return (
+    <section className="work" id="work" aria-labelledby="work-heading">
+      <div className="wrap">
+        <h2 id="work-heading" className="sr-only">
+          Selected work
+        </h2>
+        <ul className="work-grid">
+          {featured.map((item) => (
+            <li key={item.title} className={item.span}>
+              <a className="work-card" href={item.href} {...externalProps(item.external)}>
+                <Scene kind={item.scene} />
+                <div className="card-foot">
+                  <div>
+                    <h3>
+                      <span className="card-glyph" aria-hidden="true">
+                        {item.glyph}
+                      </span>
+                      {item.title}
+                    </h3>
+                    <p>{item.context}</p>
+                  </div>
+                  <span className="card-go">
+                    {item.external ? 'Open' : 'View'}
+                    <span aria-hidden="true">{item.external ? '↗' : '↓'}</span>
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <ul className="index-row">
+          {indexItems.map((item) => (
+            <li key={item.title}>
+              <a
+                href={item.href}
+                {...externalProps(item.href.startsWith('http'))}
+              >
+                <h3>{item.title}</h3>
+                <p>{item.context}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="work-more">
+          <a className="pill pill--ghost pill--sm" href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+            More on GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FigureRow({ hidden = false }: { hidden?: boolean }) {
+  return (
+    <ul className="figures" aria-hidden={hidden || undefined}>
+      {figures.map((item) => (
+        <li key={item.label}>
+          <strong>{item.value}</strong>
+          <span>{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Figures() {
+  return (
+    <section className="figures-band" aria-label="Selected figures">
+      <div className="marquee">
+        <div className="marquee-track">
+          <FigureRow />
+          <FigureRow hidden />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Records({
+  id,
+  title,
+  copy,
+  items,
+}: {
+  id: string;
+  title: string;
+  copy: string;
+  items: EngagementItem[];
+}) {
+  return (
+    <section className="section" id={id} aria-labelledby={`${id}-heading`}>
+      <div className="wrap">
+        <h2 id={`${id}-heading`} className="section-title">
+          {title}
+        </h2>
+        <p className="section-copy">{copy}</p>
+        <ul className="records">
+          {items.map((item) => (
+            <li key={`${item.title}-${item.organisation}`}>
+              <a
+                id={item.id}
+                className="record"
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <p className="record-date">{item.dates ?? ''}</p>
+                <div className="record-body">
+                  <OrgMarks logo={item.logo} />
+                  <div>
+                  <h3>
+                    {item.title}
+                    <span className="record-go" aria-hidden="true">
+                      ↗
+                    </span>
+                  </h3>
+                  <p className="record-org">{item.organisation}</p>
+                  <p className="record-detail">{item.detail}</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function Skills() {
+  return (
+    <section className="section" id="skills" aria-labelledby="skills-heading">
+      <div className="wrap">
+        <h2 id="skills-heading" className="section-title">
+          Technical skills
+        </h2>
+        <p className="section-copy">
+          Languages, frameworks, and tools I use across research and product development.
+        </p>
+        <dl className="specs">
+          {stack.map((row) => (
+            <div className="spec" key={row.label}>
+              <dt>{row.label}</dt>
+              <dd>{row.items}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section className="section" id="contact" aria-labelledby="contact-heading">
+      <div className="wrap contact-split">
+        <div>
+          <h2 id="contact-heading" className="section-title">
+            Contact
+          </h2>
+          <p className="section-copy">
+            For opportunities in AI engineering, scientific computing, and software development, please get in touch by email.
+          </p>
+          <div className="contact-mail">
+            <a className="pill pill--solid" data-cursor-lock href={`mailto:${personalInfo.email}`}>
+              <span aria-hidden="true">→ </span>Email Kannan
+            </a>
+            <p className="contact-address">{personalInfo.email}</p>
+          </div>
+        </div>
+        <nav className="contact-side" aria-label="Other ways to connect">
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+          <a href="/KSCV7R.pdf" download="Kannan-Sekar-CV.pdf">
+            Download CV <span aria-hidden="true">↓</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="wrap footer-grid">
+        <div className="footer-brand">
+          <p className="footer-name">
+            <span>SA</span>Kannan
+          </p>
+          <p className="footer-meta">
+            Based in London
+            <br />
+            Hi. <span className="tamil">வணக்கம்.</span> Hola.
+          </p>
+        </div>
+        <div className="footer-col">
+          <p>Work</p>
+          <a href="#work">Selected work</a>
+          <a href="https://github.com/KannanSA/NLPK" target="_blank" rel="noopener noreferrer">
+            Clinical NLP
+          </a>
+          <a href="https://globaltravelvaccinations.com" target="_blank" rel="noopener noreferrer">
+            Healthcare platforms
+          </a>
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+        </div>
+        <div className="footer-col">
+          <p>Record</p>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#skills">Technical skills</a>
+          <a href="#research">Research</a>
+        </div>
+        <div className="footer-col">
+          <p>Connect</p>
+          <a href={`mailto:${personalInfo.email}`}>Email</a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+          <a href="/KSCV7R.pdf" download="Kannan-Sekar-CV.pdf">
+            Download CV
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function Portfolio() {
+  return (
+    <>
+      <a className="skip" href="#work">
+        Skip to work
+      </a>
       <BootIntro />
       <CustomCursor />
-      <Intro />
-      <WorkGrid />
-      <Work />
-      <Study />
-      <Stack />
-      <Reach />
+      <Header />
+      <main id="top">
+        <Hero />
+        <Work />
+        <Figures />
+        <Records
+          id="experience"
+          title="Experience"
+          copy="Software engineering, healthcare technology, and computational research."
+          items={experience}
+        />
+        <Records
+          id="education"
+          title="Education"
+          copy="A background in physics and computer science, supported by continued professional development."
+          items={education}
+        />
+        <Skills />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
