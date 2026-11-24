@@ -504,43 +504,45 @@ function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className={scrolled ? 'site-header is-scrolled' : 'site-header'}>
-      <a className="wordmark" href="#top" data-cursor-lock>
-        <span>SA</span>Kannan
-      </a>
-      <nav className="site-nav" aria-label="Portfolio">
-        {nav.map((item) => (
-          <a key={item.href} href={item.href}>
-            {item.label}
+    <>
+      <header className={scrolled ? 'site-header is-scrolled' : 'site-header'}>
+        <a className="wordmark" href="#top" data-cursor-lock>
+          <span>SA</span>Kannan
+        </a>
+        <nav className="site-nav" aria-label="Portfolio">
+          {nav.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        <div className="header-actions">
+          <a
+            className="pill pill--ghost pill--sm header-github"
+            data-cursor-lock
+            href={personalInfo.github}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
           </a>
-        ))}
-      </nav>
-      <div className="header-actions">
-        <a
-          className="pill pill--ghost pill--sm header-github"
-          data-cursor-lock
-          href={personalInfo.github}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-        </a>
-        <a className="pill pill--solid pill--sm" href="#contact" data-cursor-lock>
-          Contact
-        </a>
-        <button
-          ref={toggleRef}
-          type="button"
-          className="menu-toggle"
-          data-cursor-lock
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
-          <MenuIcon open={open} />
-        </button>
-      </div>
+          <a className="pill pill--solid pill--sm" href="#contact" data-cursor-lock>
+            Contact
+          </a>
+          <button
+            ref={toggleRef}
+            type="button"
+            className="menu-toggle"
+            data-cursor-lock
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+            <MenuIcon open={open} />
+          </button>
+        </div>
+      </header>
       {open ? (
         <nav id="mobile-nav" className="nav-panel" aria-label="Portfolio">
           {nav.map((item) => (
@@ -559,7 +561,7 @@ function Header() {
           </a>
         </nav>
       ) : null}
-    </header>
+    </>
   );
 }
 
