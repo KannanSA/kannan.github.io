@@ -62,60 +62,88 @@ body {
 }
 
 :root {
-  --glass-frost: 0.1;
-  --glass-saturation: 1.2;
+  --glass-frost: 0.06;
+  --glass-saturation: 1.65;
   --filter-id: url(#glass-filter);
   --glass-shadow:
-    inset 0 0 2px 1px #ffffff59,
-    inset 0 0 10px 4px #ffffff26,
-    inset 0 4px 16px #11111a0d,
-    inset 0 8px 24px #11111a0d,
-    inset 0 6px 56px #11111a0d;
-}
-
-@supports (color: lab(100% 0 0)) {
-  :root {
-    --glass-shadow:
-      inset 0 0 2px 1px lab(100% 0 0 / 0.35),
-      inset 0 0 10px 4px lab(100% 0 0 / 0.15),
-      inset 0 4px 16px lab(5.32203% 1.61424 -5.88284 / 0.0509804),
-      inset 0 8px 24px lab(5.32203% 1.61424 -5.88284 / 0.0509804),
-      inset 0 6px 56px lab(5.32203% 1.61424 -5.88284 / 0.0509804);
-  }
+    inset 1px 1px 0 rgba(255, 255, 255, 0.72),
+    inset -1px -1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 16px rgba(255, 255, 255, 0.06),
+    0 10px 28px rgba(0, 0, 0, 0.28),
+    0 2px 8px rgba(0, 0, 0, 0.16);
 }
 
 .liquidglass {
-  background: hsl(0 0% 0% / var(--glass-frost, 0));
-  -webkit-backdrop-filter: blur(12px) saturate(1.2);
-  backdrop-filter: blur(12px) saturate(1.2);
+  position: relative;
+  background: hsl(0 0% 0% / var(--glass-frost, 0.06));
+  -webkit-backdrop-filter: blur(8px) saturate(1.8);
+  backdrop-filter: blur(8px) saturate(1.8);
   box-shadow: var(--glass-shadow);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+.liquidglass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    160px circle at var(--lx, 28%) var(--ly, 0%),
+    rgba(255, 255, 255, 0.34),
+    rgba(255, 255, 255, 0.05) 26%,
+    transparent 62%
+  );
+  opacity: 0;
+}
+
+.liquidglass > * {
+  position: relative;
+  z-index: 1;
 }
 
 html[data-glass='filter'] .liquidglass {
-  -webkit-backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1));
-  backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1));
+  -webkit-backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1.65));
+  backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1.65));
 }
 
-.site-header.liquidglass {
-  --glass-frost: 0.55;
+.site-header.liquidglass,
+.nav-panel.liquidglass {
+  --glass-frost: 0.1;
 }
 
 .menu-toggle.liquidglass,
-.pill--ghost.liquidglass {
-  --glass-frost: 0.32;
-}
-
-.nav-panel.liquidglass {
-  --glass-frost: 0.72;
-}
-
+.pill--ghost.liquidglass,
+.work-card.liquidglass,
 .composer.liquidglass,
 .figures-band.liquidglass {
-  --glass-frost: 0.46;
+  --glass-frost: 0.07;
 }
 
-.work-card.liquidglass {
-  --glass-frost: 0.36;
+@media (hover: hover) and (pointer: fine) {
+  .liquidglass:hover::after {
+    opacity: 1;
+  }
+
+  .pill.liquidglass,
+  .menu-toggle.liquidglass,
+  .work-card.liquidglass {
+    transition: transform 520ms cubic-bezier(0.22, 1.4, 0.36, 1), background-color 180ms ease, border-color 180ms ease;
+  }
+
+  .pill.liquidglass:hover,
+  .menu-toggle.liquidglass:hover,
+  .work-card.liquidglass:hover {
+    transform: scale(1.02);
+  }
+
+  .pill.liquidglass:active,
+  .menu-toggle.liquidglass:active,
+  .work-card.liquidglass:active {
+    transform: scale(0.98);
+    transition-duration: 140ms;
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -123,6 +151,11 @@ html[data-glass='filter'] .liquidglass {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: hsl(0 0% 7% / 0.94);
+    text-shadow: none;
+  }
+
+  .liquidglass::after {
+    opacity: 0;
   }
 }
 
@@ -258,7 +291,7 @@ textarea {
 }
 
 .menu-toggle:hover {
-  --glass-frost: 0.46;
+  --glass-frost: 0.1;
 }
 
 .nav-panel {
@@ -321,7 +354,7 @@ textarea {
 }
 
 .pill--ghost:hover {
-  --glass-frost: 0.46;
+  --glass-frost: 0.1;
 }
 
 .pill:disabled {
@@ -566,8 +599,8 @@ textarea {
 }
 
 .work-card:hover {
-  border-color: rgba(255, 255, 255, 0.32);
-  --glass-frost: 0.46;
+  border-color: rgba(255, 255, 255, 0.42);
+  --glass-frost: 0.1;
 }
 
 .stage {
@@ -1328,8 +1361,9 @@ body:has(:focus-visible) .boot-intro {
   .cycle-word,
   .card-go span,
   .pill,
-  .announce,
+  .menu-toggle,
   .work-card,
+  .announce,
   .work-card::before,
   .cursor-dot,
   [data-cursor-lock],
@@ -1364,5 +1398,11 @@ body:has(:focus-visible) .boot-intro {
 
   .boot-intro {
     display: none;
+  }
+
+  .pill.liquidglass,
+  .menu-toggle.liquidglass,
+  .work-card.liquidglass {
+    transform: none;
   }
 }

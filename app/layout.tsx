@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { LiquidGlass } from "./liquid-glass";
 import { SpaceBackdrop } from "./space-backdrop";
 import { description, personalInfo, siteUrl } from "./site";
 
@@ -96,6 +97,7 @@ export default function RootLayout({
       </head>
       <body>
         <SpaceBackdrop />
+        <LiquidGlass />
         <svg className="glass-surface__filter" aria-hidden="true" focusable="false">
           <filter id="glass-filter" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
             <feImage
@@ -115,7 +117,7 @@ export default function RootLayout({
             <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue" />
             <feBlend in="red" in2="green" mode="screen" result="rg" />
             <feBlend in="rg" in2="blue" mode="screen" result="output" />
-            <feGaussianBlur in="output" stdDeviation="3" />
+            <feGaussianBlur in="output" stdDeviation="0.65" />
           </filter>
         </svg>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
