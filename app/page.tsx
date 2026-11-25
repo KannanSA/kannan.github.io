@@ -597,6 +597,9 @@ function Hero() {
             <button type="button" className="pill pill--solid" data-cursor-lock onClick={() => setComposing(true)}>
               <span aria-hidden="true">→ </span>Get in touch
             </button>
+            <a className="pill pill--ghost liquidglass" data-cursor-lock href="https://www.kannanindustrials.com/">
+              Hire me
+            </a>
             <a className="pill pill--ghost liquidglass" data-cursor-lock href={personalInfo.cv} download="kannan-sekar-cv.pdf">
               <span aria-hidden="true">↓ </span>Download CV
             </a>
@@ -781,6 +784,9 @@ function Contact() {
           <div className="contact-mail">
             <a className="pill pill--solid" data-cursor-lock href={`mailto:${personalInfo.email}`}>
               <span aria-hidden="true">→ </span>Email Kannan
+            </a>
+            <a className="pill pill--ghost liquidglass" data-cursor-lock href="https://www.kannanindustrials.com/">
+              Hire me
             </a>
             <p className="contact-address">{personalInfo.email}</p>
           </div>

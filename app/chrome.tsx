@@ -84,6 +84,9 @@ export function Header() {
           >
             GitHub
           </a>
+          <a className="pill pill--ghost liquidglass pill--sm" data-cursor-lock href="https://www.kannanindustrials.com/">
+            Hire me
+          </a>
           <a className="pill pill--solid pill--sm" href="/#contact" data-cursor-lock>
             Contact
           </a>
@@ -110,6 +113,9 @@ export function Header() {
           ))}
           <a href="/#contact" onClick={close}>
             Contact
+          </a>
+          <a className="pill pill--ghost liquidglass nav-hire" href="https://www.kannanindustrials.com/" onClick={close}>
+            Hire me
           </a>
           <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" onClick={close}>
             GitHub
@@ -160,6 +166,7 @@ export function Footer() {
         <div className="footer-col">
           <p>Connect</p>
           <a href={`mailto:${personalInfo.email}`}>Email</a>
+          <a href="https://www.kannanindustrials.com/">Hire me</a>
           <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
