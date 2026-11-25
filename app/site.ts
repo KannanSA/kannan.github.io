@@ -19,4 +19,5 @@ export const caseStudyPaths = [
   '/work/global-travel-vaccinations',
   '/work/ipong',
   '/work/snap-ar',
+  '/work/dab-counter',
 ] as const;

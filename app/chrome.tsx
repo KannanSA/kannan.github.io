@@ -144,6 +144,7 @@ export function Footer() {
           <a href="/work/carbon-nanoclusters/">Carbon nanoclusters</a>
           <a href="/work/global-travel-vaccinations/">Healthcare platforms</a>
           <a href="/work/ipong/">iPong</a>
+          <a href="/work/dab-counter/">Dab Counter</a>
           <a href="/work/snap-ar/">AR lenses</a>
           <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
             GitHub

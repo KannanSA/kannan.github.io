@@ -66,9 +66,9 @@ const indexItems = [
     href: 'https://github.com/KannanSA/TetrisAI',
   },
   {
-    title: 'YoteCoin',
-    context: 'Smart contract',
-    href: 'https://github.com/KannanSA/YoteCoin',
+    title: 'Dab Counter',
+    context: 'Apple Watch app',
+    href: '/work/dab-counter/',
   },
   {
     title: 'SAKannan',
