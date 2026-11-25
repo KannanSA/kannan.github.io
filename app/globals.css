@@ -943,6 +943,18 @@ textarea {
   line-height: 1.65;
 }
 
+.record-points {
+  max-width: 62ch;
+  margin: 12px 0 0;
+  padding: 0 0 0 1.15em;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.record-points li + li {
+  margin-top: 8px;
+}
+
 .record:hover h3,
 .record:focus-visible h3 {
   text-decoration: underline;

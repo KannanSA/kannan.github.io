@@ -82,7 +82,8 @@ type EngagementItem = {
   title: string;
   organisation: string;
   dates?: string;
-  detail: string;
+  detail?: string;
+  points?: string[];
   link: string;
   logo: OrgLogoName | OrgLogoName[];
 };
@@ -117,12 +118,14 @@ const experience: EngagementItem[] = [
     link: 'https://www.kannanindustrials.com',
   },
   {
-    title: 'Research Intern',
+    title: 'Machine Learning Research Intern',
     logo: 'oxford',
-    organisation: 'Kennedy Institute of Rheumatology, Oxford',
+    organisation: 'University of Oxford, Kennedy Institute of Rheumatology, Oxford, UK',
     dates: 'Nov 2019',
-    detail:
-      'Conducted CNN experiments for biomedical imaging, alongside reinforcement learning and GPU training.',
+    points: [
+      'Implemented foundational neural networks and deep CNNs in TensorFlow while shadowing the Informatics Manager, benchmarking MNIST digit recognition before scaling to cellular image classification (+40% accuracy vs. linear baselines).',
+      'Developed an LSTM time-series forecasting and cryptocurrency trading bot in Python and TensorFlow to evaluate sequential recurrent models on high-volatility market data.',
+    ],
     link: 'https://www.kennedy.ox.ac.uk/',
   },
   {
@@ -735,7 +738,15 @@ function Records({
                     </span>
                   </h3>
                   <p className="record-org">{item.organisation}</p>
-                  <p className="record-detail">{item.detail}</p>
+                  {item.points ? (
+                    <ul className="record-points">
+                      {item.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="record-detail">{item.detail}</p>
+                  )}
                   </div>
                 </div>
               </a>
