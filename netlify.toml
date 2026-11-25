@@ -30,19 +30,6 @@
   status = 301
   force = true
 
-# Case studies export as directories. Hide the index.html duplicate.
-[[redirects]]
-  from = "/work/:name/index.html"
-  to = "/work/:name/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/work/:name.html"
-  to = "/work/:name/"
-  status = 301
-  force = true
-
 [[redirects]]
   from = "/KSCV7R.pdf"
   to = "/kannan-sekar-cv.pdf"
