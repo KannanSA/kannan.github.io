@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { SpaceBackdrop } from "./space-backdrop";
 import { description, personalInfo, siteUrl } from "./site";
 
 const title = "Kannan Sekar · Software Engineer & Physics Researcher";
@@ -86,8 +87,37 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Geist:wght@400..600&family=Geist+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400&display=swap"
           rel="stylesheet"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var ua=navigator.userAgent;var webkit=/AppleWebKit/.test(ua)&&!/Chrome|Chromium|Edg\\/|OPR\\//.test(ua);var ios=/CriOS|FxiOS|EdgiOS/.test(ua);var firefox=/Firefox\\//.test(ua);document.documentElement.setAttribute('data-glass',!webkit&&!ios&&!firefox?'filter':'blur');}catch(e){document.documentElement.setAttribute('data-glass','blur');}})();",
+          }}
+        />
       </head>
       <body>
+        <SpaceBackdrop />
+        <svg className="glass-surface__filter" aria-hidden="true" focusable="false">
+          <filter id="glass-filter" colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
+            <feImage
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="none"
+              result="map"
+              href="/glass-map.png"
+            />
+            <feDisplacementMap in="SourceGraphic" in2="map" result="dispRed" scale="-20" xChannelSelector="R" yChannelSelector="G" />
+            <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="red" />
+            <feDisplacementMap in="SourceGraphic" in2="map" result="dispGreen" scale="-24" xChannelSelector="R" yChannelSelector="G" />
+            <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green" />
+            <feDisplacementMap in="SourceGraphic" in2="map" result="dispBlue" scale="-28" xChannelSelector="R" yChannelSelector="G" />
+            <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="blue" />
+            <feBlend in="red" in2="green" mode="screen" result="rg" />
+            <feBlend in="rg" in2="blue" mode="screen" result="output" />
+            <feGaussianBlur in="output" stdDeviation="3" />
+          </filter>
+        </svg>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
         <div hidden dangerouslySetInnerHTML={{ __html: directionContract }} />
         {children}

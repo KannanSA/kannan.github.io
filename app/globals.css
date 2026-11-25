@@ -42,29 +42,88 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body::before,
-body::after {
-  content: "";
+.space-backdrop {
   position: fixed;
+  inset: 0;
   z-index: 0;
-  width: 46vw;
-  height: 46vw;
-  border-radius: 50%;
-  filter: blur(90px);
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  opacity: 0.55;
 }
 
-body::before {
-  top: -12vw;
-  left: -8vw;
-  background: #3d2d86;
+.glass-surface__filter {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
 }
 
-body::after {
-  right: -12vw;
-  bottom: 8vh;
-  background: #14506a;
+:root {
+  --glass-frost: 0.1;
+  --glass-saturation: 1.2;
+  --filter-id: url(#glass-filter);
+  --glass-shadow:
+    inset 0 0 2px 1px #ffffff59,
+    inset 0 0 10px 4px #ffffff26,
+    inset 0 4px 16px #11111a0d,
+    inset 0 8px 24px #11111a0d,
+    inset 0 6px 56px #11111a0d;
+}
+
+@supports (color: lab(100% 0 0)) {
+  :root {
+    --glass-shadow:
+      inset 0 0 2px 1px lab(100% 0 0 / 0.35),
+      inset 0 0 10px 4px lab(100% 0 0 / 0.15),
+      inset 0 4px 16px lab(5.32203% 1.61424 -5.88284 / 0.0509804),
+      inset 0 8px 24px lab(5.32203% 1.61424 -5.88284 / 0.0509804),
+      inset 0 6px 56px lab(5.32203% 1.61424 -5.88284 / 0.0509804);
+  }
+}
+
+.liquidglass {
+  background: hsl(0 0% 0% / var(--glass-frost, 0));
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  box-shadow: var(--glass-shadow);
+}
+
+html[data-glass='filter'] .liquidglass {
+  -webkit-backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1));
+  backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1));
+}
+
+.site-header.liquidglass {
+  --glass-frost: 0.55;
+}
+
+.menu-toggle.liquidglass,
+.pill--ghost.liquidglass {
+  --glass-frost: 0.32;
+}
+
+.nav-panel.liquidglass {
+  --glass-frost: 0.72;
+}
+
+.composer.liquidglass,
+.figures-band.liquidglass {
+  --glass-frost: 0.46;
+}
+
+.work-card.liquidglass {
+  --glass-frost: 0.36;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .liquidglass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: hsl(0 0% 7% / 0.94);
+  }
 }
 
 main,
@@ -140,17 +199,11 @@ textarea {
   gap: 8px;
   height: var(--header);
   padding: 0 22px 0 28px;
-  background: rgba(10, 10, 10, 0.42);
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 10px 30px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(22px) saturate(1.6);
-  -webkit-backdrop-filter: blur(22px) saturate(1.6);
 }
 
 .site-header.is-scrolled {
-  box-shadow: inset 0 -1px 0 var(--line);
+  box-shadow: var(--glass-shadow), inset 0 -1px 0 var(--line);
 }
 
 .wordmark {
@@ -198,18 +251,14 @@ textarea {
   height: 40px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
   color: var(--fg);
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(16px) saturate(1.5);
-  -webkit-backdrop-filter: blur(16px) saturate(1.5);
 }
 
 .menu-toggle:hover {
-  background: var(--chip-hover);
+  --glass-frost: 0.46;
 }
 
 .nav-panel {
@@ -220,10 +269,7 @@ textarea {
   flex-direction: column;
   gap: 4px;
   padding: 20px 24px 40px;
-  background: rgba(10, 10, 10, 0.72);
   overflow: auto;
-  backdrop-filter: blur(28px) saturate(1.5);
-  -webkit-backdrop-filter: blur(28px) saturate(1.5);
 }
 
 .nav-panel a {
@@ -271,17 +317,11 @@ textarea {
 
 .pill--ghost {
   color: var(--fg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06));
   border: 1px solid rgba(255, 255, 255, 0.24);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 8px 22px rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(16px) saturate(1.6);
-  -webkit-backdrop-filter: blur(16px) saturate(1.6);
 }
 
 .pill--ghost:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.1));
+  --glass-frost: 0.46;
 }
 
 .pill:disabled {
@@ -450,13 +490,9 @@ textarea {
   padding: 14px 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32);
   resize: vertical;
   outline: none;
   caret-color: #fff;
-  backdrop-filter: blur(18px) saturate(1.4);
-  -webkit-backdrop-filter: blur(18px) saturate(1.4);
 }
 
 .composer::placeholder {
@@ -519,26 +555,9 @@ textarea {
   overflow: hidden;
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 38%, rgba(18, 18, 22, 0.45));
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.42),
-    inset 0 -18px 30px rgba(255, 255, 255, 0.03),
-    0 18px 40px rgba(0, 0, 0, 0.32);
   color: var(--fg);
   text-decoration: none;
-  backdrop-filter: blur(18px) saturate(1.45);
-  -webkit-backdrop-filter: blur(18px) saturate(1.45);
   container-type: inline-size;
-}
-
-.work-card::before {
-  content: "";
-  position: absolute;
-  inset: -30% -20% auto;
-  height: 70%;
-  background: radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.38), transparent 58%);
-  pointer-events: none;
-  animation: liquid-drift 8s ease-in-out infinite;
 }
 
 .work-card > * {
@@ -548,17 +567,7 @@ textarea {
 
 .work-card:hover {
   border-color: rgba(255, 255, 255, 0.32);
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06) 38%, rgba(18, 18, 22, 0.4));
-}
-
-@keyframes liquid-drift {
-  0%,
-  100% {
-    transform: translate3d(-6%, 0, 0);
-  }
-  50% {
-    transform: translate3d(10%, 8%, 0);
-  }
+  --glass-frost: 0.46;
 }
 
 .stage {
@@ -740,10 +749,6 @@ textarea {
 .figures-band {
   margin-top: 56px;
   border-block: 1px solid rgba(255, 255, 255, 0.16);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
 }
 
 .marquee {

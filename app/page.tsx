@@ -577,13 +577,13 @@ function Hero() {
             <textarea
               id="message"
               ref={textareaRef}
-              className="composer"
+              className="composer liquidglass"
               placeholder="Type your message…"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
             />
             <div className="composer-actions">
-              <button type="button" className="pill pill--ghost" data-cursor-lock onClick={() => setComposing(false)}>
+              <button type="button" className="pill pill--ghost liquidglass" data-cursor-lock onClick={() => setComposing(false)}>
                 Go back
               </button>
               <button type="button" className="pill pill--solid" data-cursor-lock onClick={send} disabled={!message.trim()}>
@@ -597,7 +597,7 @@ function Hero() {
             <button type="button" className="pill pill--solid" data-cursor-lock onClick={() => setComposing(true)}>
               <span aria-hidden="true">→ </span>Get in touch
             </button>
-            <a className="pill pill--ghost" data-cursor-lock href={personalInfo.cv} download="kannan-sekar-cv.pdf">
+            <a className="pill pill--ghost liquidglass" data-cursor-lock href={personalInfo.cv} download="kannan-sekar-cv.pdf">
               <span aria-hidden="true">↓ </span>Download CV
             </a>
           </div>
@@ -623,7 +623,7 @@ function Work() {
         <ul className="work-grid">
           {featured.map((item) => (
             <li key={item.title} className={item.span}>
-              <a className="work-card" href={item.href} {...externalProps(item.href)}>
+              <a className="work-card liquidglass" href={item.href} {...externalProps(item.href)}>
                 <Scene kind={item.scene} />
                 <div className="card-foot">
                   <div>
@@ -658,7 +658,7 @@ function Work() {
           ))}
         </ul>
         <div className="work-more">
-          <a className="pill pill--ghost pill--sm" href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+          <a className="pill pill--ghost liquidglass pill--sm" href={personalInfo.github} target="_blank" rel="noopener noreferrer">
             More on GitHub
           </a>
         </div>
@@ -682,7 +682,7 @@ function FigureRow({ hidden = false }: { hidden?: boolean }) {
 
 function Figures() {
   return (
-    <section className="figures-band" aria-label="Selected figures">
+    <section className="figures-band liquidglass" aria-label="Selected figures">
       <div className="marquee">
         <div className="marquee-track">
           <FigureRow />

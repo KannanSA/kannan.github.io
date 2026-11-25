@@ -41,7 +41,7 @@ export function StudyShell({
               return (
                 <a
                   key={link.href}
-                  className={external ? 'pill pill--solid' : 'pill pill--ghost'}
+                  className={external ? 'pill pill--solid' : 'pill pill--ghost liquidglass'}
                   href={link.href}
                   {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 >

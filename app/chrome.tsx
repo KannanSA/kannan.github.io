@@ -63,7 +63,7 @@ export function Header() {
 
   return (
     <>
-      <header className={scrolled ? 'site-header is-scrolled' : 'site-header'}>
+      <header className={scrolled ? 'site-header liquidglass is-scrolled' : 'site-header liquidglass'}>
         <a className="wordmark" href="/#top" data-cursor-lock>
           <span>SA</span>Kannan
         </a>
@@ -76,7 +76,7 @@ export function Header() {
         </nav>
         <div className="header-actions">
           <a
-            className="pill pill--ghost pill--sm header-github"
+            className="pill pill--ghost liquidglass pill--sm header-github"
             data-cursor-lock
             href={personalInfo.github}
             target="_blank"
@@ -90,7 +90,7 @@ export function Header() {
           <button
             ref={toggleRef}
             type="button"
-            className="menu-toggle"
+            className="menu-toggle liquidglass"
             data-cursor-lock
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -102,7 +102,7 @@ export function Header() {
         </div>
       </header>
       {open ? (
-        <nav id="mobile-nav" className="nav-panel" aria-label="Portfolio">
+        <nav id="mobile-nav" className="nav-panel liquidglass" aria-label="Portfolio">
           {nav.map((item) => (
             <a key={item.href} href={item.href} onClick={close}>
               {item.label}
