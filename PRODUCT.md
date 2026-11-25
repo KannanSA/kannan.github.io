@@ -24,7 +24,7 @@ Visitors scan on a phone or laptop, then email, download a CV, or open GitHub, L
 
 ## Capabilities and Constraints
 
-Static Next.js export. Facts already on the page stay factual: roles, dates, organisations, the move from 42% to 71% ICD-9 accuracy, 2.5M+ AR views, 150K downloads, 5,000+ structures, prizes, and the listed stack. Do not invent customers, benchmarks, or employment. The CV path stays `/KSCV7R.pdf`. The mailto composer stays.
+Static Next.js export. Facts already on the page stay factual: roles, dates, organisations, the move from 42% to 71% ICD-9 accuracy, 2.5M+ AR views, 150K downloads, 5,000+ structures, prizes, and the listed stack. Do not invent customers, benchmarks, or employment. The CV path is `/kannan-sekar-cv.pdf` (the previous `/KSCV7R.pdf` redirects). The mailto composer stays.
 
 ## Brand Commitments
 

@@ -1,0 +1,22 @@
+export const siteUrl = 'https://www.sakannan.com';
+
+export const description =
+  "Kannan Sekar Annu Radha is a software engineer and physics student at King's College London, working on healthcare technology, GPU-accelerated research and iOS apps.";
+
+export const personalInfo = {
+  name: 'Kannan Sekar Annu Radha',
+  bio: "I'm a software engineer and physics student at King's College London. I lead healthcare technology projects and develop independent iOS apps. My research background spans carbon nanoclusters, GPU acceleration, and edge AI.",
+  email: 'kannansekara@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/kannan-sekar/',
+  github: 'https://github.com/KannanSA',
+  industrials: 'https://www.kannanindustrials.com',
+  cv: '/kannan-sekar-cv.pdf',
+};
+
+export const caseStudyPaths = [
+  '/work/clinical-nlp',
+  '/work/carbon-nanoclusters',
+  '/work/global-travel-vaccinations',
+  '/work/ipong',
+  '/work/snap-ar',
+] as const;

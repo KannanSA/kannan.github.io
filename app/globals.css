@@ -978,7 +978,65 @@ textarea {
   font-size: 14px;
 }
 
-/* Footer */
+.study {
+  padding: 128px 0 48px;
+}
+
+.study-kicker {
+  margin: 0 0 18px;
+  color: var(--stone);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.study-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.study-facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.study-facts strong {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.study-facts span {
+  color: var(--stone);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.study-body {
+  max-width: 42rem;
+  margin-top: 28px;
+}
+
+.study-body p {
+  margin: 0 0 18px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.study-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
 
 .site-footer {
   margin-top: 112px;
@@ -1058,8 +1116,13 @@ textarea {
 }
 
 @media (max-width: 720px) {
-  .hero {
+  .hero,
+  .study {
     padding-top: 108px;
+  }
+
+  .study-facts {
+    grid-template-columns: 1fr;
   }
 
   .index-row,

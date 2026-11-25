@@ -1,12 +1,61 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { description, personalInfo, siteUrl } from "./site";
+
+const title = "Kannan Sekar · Software Engineer & Physics Researcher";
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: personalInfo.name,
+  url: `${siteUrl}/`,
+  jobTitle: "Software Engineer and Physics Researcher",
+  affiliation: {
+    "@type": "Organization",
+    name: "King's College London",
+  },
+  sameAs: [personalInfo.linkedin, personalInfo.github, personalInfo.industrials],
+};
 
 export const metadata: Metadata = {
-  title: "Kannan Sekar · Software Engineer & Physics Researcher",
-  description:
-    "Portfolio for Kannan Sekar Annu Radha, a software engineer and physics student at King's College London, building healthcare technology, GPU-accelerated research, and intelligent iOS apps.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: title,
+    template: "%s · Kannan Sekar",
+  },
+  description,
+  alternates: {
+    canonical: `${siteUrl}/`,
+  },
+  openGraph: {
+    type: "profile",
+    firstName: "Kannan",
+    lastName: "Sekar",
+    title,
+    description,
+    url: `${siteUrl}/`,
+    siteName: "Kannan Sekar",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Kannan Sekar, software engineer and physics researcher",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og.png"],
+  },
   icons: {
-    icon: "/mark.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/mark.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
 };
 
@@ -39,6 +88,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
         <div hidden dangerouslySetInnerHTML={{ __html: directionContract }} />
         {children}
       </body>

@@ -23,7 +23,7 @@ The headline swaps clinics, clusters, watches, and lenses. The first work panel 
 
 ## Constraints
 
-Keep every fact already on the page. CV href stays `/KSCV7R.pdf`. Mailto composer stays. Do not invent metrics.
+Keep every fact already on the page. CV href is `/kannan-sekar-cv.pdf`. Mailto composer stays. Do not invent metrics.
 
 ## Unresolved
 
