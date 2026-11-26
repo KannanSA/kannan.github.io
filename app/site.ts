@@ -9,6 +9,7 @@ export const personalInfo = {
   email: 'kannansekara@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kannan-sekar/',
   github: 'https://github.com/KannanSA',
+  orcid: 'https://orcid.org/0009-0005-7168-9348',
   industrials: 'https://www.kannanindustrials.com/',
   cv: '/kannan-sekar-cv.pdf',
 };

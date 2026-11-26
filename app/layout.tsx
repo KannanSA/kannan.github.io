@@ -10,6 +10,7 @@ const sameAs = [
   personalInfo.github,
   personalInfo.linkedin,
   personalInfo.industrials,
+  personalInfo.orcid,
 ];
 
 const jsonLd = {
@@ -19,7 +20,16 @@ const jsonLd = {
       "@type": "Person",
       "@id": `${siteUrl}/#kannan`,
       name: "Kannan Sekar",
-      alternateName: ["Kannan", "Kannan S", "Kannan S A", "sakannan"],
+      alternateName: [
+        "Kannan Sekar Annu Radha",
+        "Kannan S A",
+        "S. A. Kannan",
+        "S.A. Kannan",
+        "Kannan S",
+        "sakannan",
+        "Kannan SAR",
+        "Kannan",
+      ],
       url: `${siteUrl}/`,
       jobTitle: "Software Engineer and Physics Researcher",
       worksFor: {
