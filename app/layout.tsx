@@ -11,6 +11,7 @@ const sameAs = [
   personalInfo.linkedin,
   personalInfo.industrials,
   personalInfo.orcid,
+  personalInfo.crunchbase,
 ];
 
 const jsonLd = {
@@ -36,6 +37,7 @@ const jsonLd = {
         "@type": "Organization",
         name: "Kannan Industrials",
         url: personalInfo.industrials,
+        sameAs: ["https://www.crunchbase.com/organization/kannan-industrials"],
       },
       affiliation: {
         "@type": "CollegeOrUniversity",

@@ -10,6 +10,7 @@ export const personalInfo = {
   linkedin: 'https://www.linkedin.com/in/kannan-sekar/',
   github: 'https://github.com/KannanSA',
   orcid: 'https://orcid.org/0009-0005-7168-9348',
+  crunchbase: 'https://www.crunchbase.com/person/kannan-sekar-86e1',
   industrials: 'https://www.kannanindustrials.com/',
   cv: '/kannan-sekar-cv.pdf',
 };
