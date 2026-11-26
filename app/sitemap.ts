@@ -4,7 +4,7 @@ import { caseStudyPaths, siteUrl } from './site';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ['/', ...caseStudyPaths];
+  const paths = ['/', '/pong', ...caseStudyPaths];
   return paths.map((path) => ({
     url: path === '/' ? `${siteUrl}/` : `${siteUrl}${path}/`,
     lastModified: new Date('2026-11-25'),

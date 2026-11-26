@@ -1433,3 +1433,89 @@ body:has(:focus-visible) .boot-intro {
     transform: none;
   }
 }
+
+.pong-page {
+  position: relative;
+  z-index: 1;
+  padding: 112px 0 72px;
+}
+
+.pong-hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 18px;
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 20px;
+}
+
+.pong-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+}
+
+.pong-stats p {
+  margin: 0;
+}
+
+.pong-stats strong {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pong-stats span {
+  color: var(--stone);
+  font-size: 12px;
+}
+
+.pong-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pong-stage {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 22px;
+}
+
+.pong-stage canvas {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.pong-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin-top: 14px;
+  color: var(--stone);
+  font-size: 14px;
+}
+
+.pong-links a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.pong-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pong-help {
+  margin: 8px 0 0;
+  color: var(--stone);
+  font-size: 13px;
+}

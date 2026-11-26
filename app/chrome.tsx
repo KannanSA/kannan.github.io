@@ -154,6 +154,7 @@ export function Footer() {
           <a href="/work/ipong/">iPong</a>
           <a href="/work/dab-counter/">Dab Counter</a>
           <a href="/work/snap-ar/">AR lenses</a>
+          <a href="/pong/">Contribution Pong</a>
           <a href={personalInfo.github} target="_blank" rel="me noopener noreferrer">
             GitHub
           </a>
