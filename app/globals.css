@@ -1519,3 +1519,20 @@ body:has(:focus-visible) .boot-intro {
   color: var(--stone);
   font-size: 13px;
 }
+
+.pong-page--missing {
+  padding-top: 48px;
+}
+
+.pong-missing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.pong-missing .section-title {
+  max-width: 36rem;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+}

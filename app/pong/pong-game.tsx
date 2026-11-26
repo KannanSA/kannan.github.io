@@ -60,7 +60,7 @@ function gridFromContributions(items: { date: string; level: number }[]) {
 
 type Burst = { col: number; row: number; life: number };
 
-export function PongGame() {
+export function PongGame({ missing = false }: { missing?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [running, setRunning] = useState(false);
@@ -436,11 +436,22 @@ export function PongGame() {
 
   return (
     <div className="wrap">
-      <p className="study-kicker">Kannan S A · sakannan</p>
-      <h1 className="section-title">Contribution Pong</h1>
-      <p className="section-copy">
-        Rally across a year of Kannan&apos;s GitHub contributions. Light a tile every time the ball crosses it.
-      </p>
+      {missing ? (
+        <div className="pong-missing">
+          <h1 className="section-title">404 · Page not found — play Contribution Pong instead</h1>
+          <a className="pill pill--solid" data-cursor-lock href="/">
+            Back to sakannan.com
+          </a>
+        </div>
+      ) : (
+        <>
+          <p className="study-kicker">Kannan S A · sakannan</p>
+          <h1 className="section-title">Contribution Pong</h1>
+          <p className="section-copy">
+            Rally across a year of Kannan&apos;s GitHub contributions. Light a tile every time the ball crosses it.
+          </p>
+        </>
+      )}
       <div className="pong-hud liquidglass">
         <div className="pong-stats">
           <p>

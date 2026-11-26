@@ -123,6 +123,9 @@ export function Header() {
           <a href={personalInfo.linkedin} target="_blank" rel="me noopener noreferrer" onClick={close}>
             LinkedIn
           </a>
+          <a href="/pong/" onClick={close}>
+            Play game
+          </a>
         </nav>
       ) : null}
     </>
