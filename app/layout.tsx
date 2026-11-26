@@ -4,19 +4,44 @@ import { LiquidGlass } from "./liquid-glass";
 import { SpaceBackdrop } from "./space-backdrop";
 import { description, personalInfo, siteUrl } from "./site";
 
-const title = "Kannan Sekar · Software Engineer & Physics Researcher";
+const title = "Kannan S A (sakannan) · Software Engineer";
 
-const personJsonLd = {
+const sameAs = [
+  personalInfo.github,
+  personalInfo.linkedin,
+  personalInfo.industrials,
+];
+
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: personalInfo.name,
-  url: `${siteUrl}/`,
-  jobTitle: "Software Engineer and Physics Researcher",
-  affiliation: {
-    "@type": "Organization",
-    name: "King's College London",
-  },
-  sameAs: [personalInfo.linkedin, personalInfo.github, personalInfo.industrials],
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#kannan`,
+      name: "Kannan Sekar",
+      alternateName: ["Kannan", "Kannan S", "Kannan S A", "sakannan"],
+      url: `${siteUrl}/`,
+      jobTitle: "Software Engineer and Physics Researcher",
+      worksFor: {
+        "@type": "Organization",
+        name: "Kannan Industrials",
+        url: personalInfo.industrials,
+      },
+      affiliation: {
+        "@type": "CollegeOrUniversity",
+        name: "King's College London",
+      },
+      sameAs,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      name: "sakannan — Kannan S A",
+      alternateName: ["Kannan", "Kannan S", "Kannan S A", "sakannan"],
+      url: `${siteUrl}/`,
+      publisher: { "@id": `${siteUrl}/#kannan` },
+    },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -36,7 +61,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: `${siteUrl}/`,
-    siteName: "Kannan Sekar",
+    siteName: "sakannan — Kannan S A",
     images: [
       {
         url: "/og.png",
@@ -120,7 +145,7 @@ export default function RootLayout({
             <feGaussianBlur in="output" stdDeviation="0.65" />
           </filter>
         </svg>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <div hidden dangerouslySetInnerHTML={{ __html: directionContract }} />
         {children}
       </body>

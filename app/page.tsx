@@ -115,7 +115,7 @@ const experience: EngagementItem[] = [
     dates: 'Feb 2021 – Present',
     detail:
       'Developed 1minuteDOEShelp, iPong, DabCounter, and OK Gym. Technical work includes Core ML and Apple Watch motion classification. Other projects include Face Rift AR, IceFiSh Browser, and GrokTube.',
-    link: 'https://www.kannanindustrials.com',
+    link: 'https://www.kannanindustrials.com/',
   },
   {
     title: 'Machine Learning Research Intern',
@@ -215,8 +215,16 @@ const figures = [
   { value: 'A* A* A*', label: 'Maths, Further Maths, Physics' },
 ];
 
+function linkRel(href: string) {
+  const bare = href.replace(/\/$/, '');
+  const profiles = [personalInfo.github, personalInfo.linkedin, personalInfo.industrials].map((url) =>
+    url.replace(/\/$/, ''),
+  );
+  return profiles.includes(bare) ? 'me noopener noreferrer' : 'noopener noreferrer';
+}
+
 function externalProps(href: string) {
-  return href.startsWith('http') ? { target: '_blank' as const, rel: 'noopener noreferrer' } : {};
+  return href.startsWith('http') ? { target: '_blank' as const, rel: linkRel(href) } : {};
 }
 
 function useDomainCycle() {
@@ -600,7 +608,7 @@ function Hero() {
             <button type="button" className="pill pill--solid" data-cursor-lock onClick={() => setComposing(true)}>
               <span aria-hidden="true">→ </span>Get in touch
             </button>
-            <a className="pill pill--ghost liquidglass" data-cursor-lock href="https://www.kannanindustrials.com/">
+            <a className="pill pill--ghost liquidglass" data-cursor-lock href="https://www.kannanindustrials.com/" rel="me">
               Hire me
             </a>
             <a className="pill pill--ghost liquidglass" data-cursor-lock href={personalInfo.cv} download="kannan-sekar-cv.pdf">
@@ -664,7 +672,7 @@ function Work() {
           ))}
         </ul>
         <div className="work-more">
-          <a className="pill pill--ghost liquidglass pill--sm" href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+          <a className="pill pill--ghost liquidglass pill--sm" href={personalInfo.github} target="_blank" rel="me noopener noreferrer">
             More on GitHub
           </a>
         </div>
@@ -725,7 +733,7 @@ function Records({
                 className="record"
                 href={item.link}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel={linkRel(item.link)}
               >
                 <p className="record-date">{item.dates ?? ''}</p>
                 <div className="record-body">
@@ -796,17 +804,17 @@ function Contact() {
             <a className="pill pill--solid" data-cursor-lock href={`mailto:${personalInfo.email}`}>
               <span aria-hidden="true">→ </span>Email Kannan
             </a>
-            <a className="pill pill--ghost liquidglass" data-cursor-lock href="https://www.kannanindustrials.com/">
+            <a className="pill pill--ghost liquidglass" data-cursor-lock href="https://www.kannanindustrials.com/" rel="me">
               Hire me
             </a>
             <p className="contact-address">{personalInfo.email}</p>
           </div>
         </div>
         <nav className="contact-side" aria-label="Other ways to connect">
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+          <a href={personalInfo.github} target="_blank" rel="me noopener noreferrer">
             GitHub <span aria-hidden="true">↗</span>
           </a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
+          <a href={personalInfo.linkedin} target="_blank" rel="me noopener noreferrer">
             LinkedIn <span aria-hidden="true">↗</span>
           </a>
           <a href={personalInfo.cv} download="kannan-sekar-cv.pdf">

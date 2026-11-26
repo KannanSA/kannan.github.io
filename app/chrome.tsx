@@ -80,11 +80,11 @@ export function Header() {
             data-cursor-lock
             href={personalInfo.github}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
           >
             GitHub
           </a>
-          <a className="pill pill--ghost liquidglass pill--sm" data-cursor-lock href="https://www.kannanindustrials.com/">
+          <a className="pill pill--ghost liquidglass pill--sm" data-cursor-lock href="https://www.kannanindustrials.com/" rel="me">
             Hire me
           </a>
           <a className="pill pill--solid pill--sm" href="/#contact" data-cursor-lock>
@@ -114,13 +114,13 @@ export function Header() {
           <a href="/#contact" onClick={close}>
             Contact
           </a>
-          <a className="pill pill--ghost liquidglass nav-hire" href="https://www.kannanindustrials.com/" onClick={close}>
+          <a className="pill pill--ghost liquidglass nav-hire" href="https://www.kannanindustrials.com/" rel="me" onClick={close}>
             Hire me
           </a>
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" onClick={close}>
+          <a href={personalInfo.github} target="_blank" rel="me noopener noreferrer" onClick={close}>
             GitHub
           </a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" onClick={close}>
+          <a href={personalInfo.linkedin} target="_blank" rel="me noopener noreferrer" onClick={close}>
             LinkedIn
           </a>
         </nav>
@@ -138,6 +138,8 @@ export function Footer() {
             <span>SA</span>Kannan
           </p>
           <p className="footer-meta">
+            Kannan S A · sakannan
+            <br />
             Based in London
             <br />
             Hi. <span className="tamil">வணக்கம்.</span> Hola.
@@ -152,7 +154,7 @@ export function Footer() {
           <a href="/work/ipong/">iPong</a>
           <a href="/work/dab-counter/">Dab Counter</a>
           <a href="/work/snap-ar/">AR lenses</a>
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer">
+          <a href={personalInfo.github} target="_blank" rel="me noopener noreferrer">
             GitHub
           </a>
         </div>
@@ -166,8 +168,8 @@ export function Footer() {
         <div className="footer-col">
           <p>Connect</p>
           <a href={`mailto:${personalInfo.email}`}>Email</a>
-          <a href="https://www.kannanindustrials.com/">Hire me</a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
+          <a href="https://www.kannanindustrials.com/" rel="me">Hire me</a>
+          <a href={personalInfo.linkedin} target="_blank" rel="me noopener noreferrer">
             LinkedIn
           </a>
           <a href={personalInfo.cv} download="kannan-sekar-cv.pdf">
