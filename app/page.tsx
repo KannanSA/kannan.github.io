@@ -231,8 +231,8 @@ function useDomainCycle() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (media.matches) return;
+    const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (!media || media.matches) return;
     const id = window.setInterval(() => {
       setIndex((current) => (current + 1) % DOMAINS.length);
     }, 2600);
@@ -245,9 +245,13 @@ function useDomainCycle() {
 const GREETINGS = ['Hi.', 'வணக்கம்.', 'Hola.'];
 
 function graphemes(text: string): string[] {
-  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
-    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-    return Array.from(segmenter.segment(text), (part) => part.segment);
+  try {
+    if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+      const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+      return Array.from(segmenter.segment(text), (part) => part.segment);
+    }
+  } catch {
+    /* fall through to code points */
   }
   return Array.from(text);
 }
@@ -258,8 +262,8 @@ function useGreeting() {
   const [cursorOn, setCursorOn] = useState(true);
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (media.matches) {
+    const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (media?.matches) {
       setGreeting(GREETINGS[0]);
       setCount(GREETINGS[0].length);
       setCursorOn(false);
@@ -314,7 +318,7 @@ function CustomCursor() {
   useEffect(() => {
     const cursor = ref.current;
     if (!cursor) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (!window.matchMedia?.('(hover: hover) and (pointer: fine)').matches) return;
 
     document.documentElement.classList.add('has-custom-cursor');
 

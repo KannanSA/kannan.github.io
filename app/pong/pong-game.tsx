@@ -92,7 +92,7 @@ export function PongGame({ missing = false }: { missing?: boolean }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     let width = 960;
     let height = 420;
     let raf = 0;

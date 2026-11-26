@@ -11,7 +11,7 @@ void main(){ gl_Position = vec4(a, 0.0, 1.0); }
 `;
 
 const FRAG = `
-precision highp float;
+precision mediump float;
 uniform vec2 u_res;
 uniform float u_time;
 uniform vec2 u_par;
@@ -89,6 +89,34 @@ void main(){
 }
 `;
 
+function fallbackMedia(): MediaQueryList {
+  return {
+    matches: false,
+    media: '',
+    onchange: null,
+    addListener() {},
+    removeListener() {},
+    addEventListener() {},
+    removeEventListener() {},
+    dispatchEvent() {
+      return false;
+    },
+  };
+}
+
+function onMediaChange(query: MediaQueryList, listener: () => void) {
+  if (typeof query.addEventListener === 'function') {
+    query.addEventListener('change', listener);
+    return () => query.removeEventListener('change', listener);
+  }
+  const legacy = query as MediaQueryList & {
+    addListener?: (fn: () => void) => void;
+    removeListener?: (fn: () => void) => void;
+  };
+  legacy.addListener?.(listener);
+  return () => legacy.removeListener?.(listener);
+}
+
 function compile(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type);
   if (!shader) return null;
@@ -112,8 +140,8 @@ export function SpaceBackdrop() {
     const starCtx = starsCanvas.getContext('2d', { alpha: true });
     if (!starCtx) return;
 
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)') ?? fallbackMedia();
+    const fine = window.matchMedia?.('(hover: hover) and (pointer: fine)') ?? fallbackMedia();
     let width = 0;
     let height = 0;
     let raf = 0;
@@ -124,14 +152,19 @@ export function SpaceBackdrop() {
     const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
     let scroll = 0;
 
-    const gl = nebula.getContext('webgl', {
-      alpha: false,
-      antialias: false,
-      depth: false,
-      stencil: false,
-      powerPreference: 'low-power',
-      preserveDrawingBuffer: false,
-    });
+    let gl: WebGLRenderingContext | null = null;
+    try {
+      gl = nebula.getContext('webgl', {
+        alpha: false,
+        antialias: false,
+        depth: false,
+        stencil: false,
+        powerPreference: 'low-power',
+        preserveDrawingBuffer: false,
+      });
+    } catch {
+      gl = null;
+    }
 
     let program: WebGLProgram | null = null;
     let uRes: WebGLUniformLocation | null = null;
@@ -163,7 +196,18 @@ export function SpaceBackdrop() {
     }
 
     const flat = !program || !gl;
-    const flatCtx = flat ? nebula.getContext('2d', { alpha: false }) : null;
+    // A canvas only has one context. Requesting 2d after webgl returns null in
+    // Chromium and throws InvalidStateError in WebKit. React 19 reports that
+    // effect exception as the full-page "Application error" screen, which is
+    // what a Google result click showed when the fragment shader could not compile.
+    let flatCtx: CanvasRenderingContext2D | null = null;
+    if (!gl) {
+      try {
+        flatCtx = nebula.getContext('2d', { alpha: false });
+      } catch {
+        flatCtx = null;
+      }
+    }
 
     const makeStars = () => {
       const area = width * height;
@@ -191,8 +235,9 @@ export function SpaceBackdrop() {
     };
 
     const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      width = window.innerWidth || 0;
+      height = window.innerHeight || 0;
+      if (width < 1 || height < 1) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const nebulaScale = flat ? dpr : Math.min(dpr, 1) * 0.62;
       const long = Math.max(width, height);
@@ -206,8 +251,18 @@ export function SpaceBackdrop() {
     };
 
     const drawFlat = (time: number) => {
-      if (!flatCtx) return;
-      flatCtx.setTransform(nebula.width / width, 0, 0, nebula.height / height, 0, 0);
+      if (!flatCtx) {
+        if (!gl || nebula.width < 1 || nebula.height < 1) return;
+        gl.viewport(0, 0, nebula.width, nebula.height);
+        gl.clearColor(0.012, 0.016, 0.035, 1);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        return;
+      }
+      if (width < 1 || height < 1) return;
+      const scaleX = nebula.width / width;
+      const scaleY = nebula.height / height;
+      if (!Number.isFinite(scaleX) || !Number.isFinite(scaleY)) return;
+      flatCtx.setTransform(scaleX, 0, 0, scaleY, 0, 0);
       flatCtx.fillStyle = '#05060d';
       flatCtx.fillRect(0, 0, width, height);
       const blobs: [number, number, number, string][] = [
@@ -313,12 +368,17 @@ export function SpaceBackdrop() {
 
     const frame = (now: number) => {
       if (!running || document.hidden) return;
-      if (fine.matches) {
-        pointer.x += (pointer.tx - pointer.x) * 0.06;
-        pointer.y += (pointer.ty - pointer.y) * 0.06;
+      try {
+        if (fine.matches) {
+          pointer.x += (pointer.tx - pointer.x) * 0.06;
+          pointer.y += (pointer.ty - pointer.y) * 0.06;
+        }
+        drawNebula(now);
+        drawStars(now);
+      } catch {
+        running = false;
+        return;
       }
-      drawNebula(now);
-      drawStars(now);
       if (!motion.matches) raf = window.requestAnimationFrame(frame);
     };
 
@@ -334,8 +394,12 @@ export function SpaceBackdrop() {
     };
 
     const onResize = () => {
-      resize();
-      paint();
+      try {
+        resize();
+        paint();
+      } catch {
+        running = false;
+      }
     };
     const onScroll = () => {
       scroll = window.scrollY || 0;
@@ -355,14 +419,18 @@ export function SpaceBackdrop() {
       start();
     };
 
-    resize();
-    paint();
-    start();
+    try {
+      resize();
+      paint();
+      start();
+    } catch {
+      running = false;
+    }
     window.addEventListener('resize', onResize);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('pointermove', onPointer, { passive: true });
     document.addEventListener('visibilitychange', onVis);
-    motion.addEventListener('change', onMotion);
+    const stopMotion = onMediaChange(motion, onMotion);
     return () => {
       running = false;
       window.cancelAnimationFrame(raf);
@@ -370,7 +438,7 @@ export function SpaceBackdrop() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pointermove', onPointer);
       document.removeEventListener('visibilitychange', onVis);
-      motion.removeEventListener('change', onMotion);
+      stopMotion();
       if (gl) {
         if (buffer) gl.deleteBuffer(buffer);
         if (program) gl.deleteProgram(program);

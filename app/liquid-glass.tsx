@@ -81,9 +81,9 @@ export function LiquidGlass() {
   const [filters, setFilters] = useState<GlassFilter[]>([]);
 
   useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-transparency: reduce)');
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
-    if (reduce.matches) return;
+    const reduce = window.matchMedia?.('(prefers-reduced-transparency: reduce)');
+    const fine = window.matchMedia?.('(hover: hover) and (pointer: fine)');
+    if (reduce?.matches) return;
 
     const seen = new WeakSet<Element>();
     const observers: ResizeObserver[] = [];
@@ -94,26 +94,32 @@ export function LiquidGlass() {
       seen.add(element);
       const id = `glass-el-${seq++}`;
       const refresh = () => {
-        const rect = element.getBoundingClientRect();
-        if (rect.width < 2 || rect.height < 2) return;
-        const radius = parseRadius(getComputedStyle(element).borderTopLeftRadius, rect);
-        const key = `${Math.round(rect.width / 4)}:${Math.round(rect.height / 4)}:${Math.round(radius)}`;
-        if (element.dataset.glassKey === key) return;
-        element.dataset.glassKey = key;
-        const map = buildMap(rect.width, rect.height, radius);
-        element.style.setProperty('--filter-id', `url(#${id})`);
-        setFilters((current) => {
-          const next = current.filter((item) => item.id !== id);
-          next.push({ id, href: map.href, red: map.red, green: map.green, blue: map.blue });
-          return next;
-        });
+        try {
+          const rect = element.getBoundingClientRect();
+          if (rect.width < 2 || rect.height < 2) return;
+          const radius = parseRadius(getComputedStyle(element).borderTopLeftRadius, rect);
+          const key = `${Math.round(rect.width / 4)}:${Math.round(rect.height / 4)}:${Math.round(radius)}`;
+          if (element.dataset.glassKey === key) return;
+          element.dataset.glassKey = key;
+          const map = buildMap(rect.width, rect.height, radius);
+          element.style.setProperty('--filter-id', `url(#${id})`);
+          setFilters((current) => {
+            const next = current.filter((item) => item.id !== id);
+            next.push({ id, href: map.href, red: map.red, green: map.green, blue: map.blue });
+            return next;
+          });
+        } catch {
+          element.dataset.glassKey = 'static';
+        }
       };
-      const observer = new ResizeObserver(() => refresh());
-      observer.observe(element);
-      observers.push(observer);
+      if (typeof ResizeObserver === 'function') {
+        const observer = new ResizeObserver(() => refresh());
+        observer.observe(element);
+        observers.push(observer);
+      }
       refresh();
 
-      if (!fine.matches) return;
+      if (!fine?.matches) return;
       const move = (event: PointerEvent) => {
         const box = element.getBoundingClientRect();
         element.style.setProperty('--lx', `${event.clientX - box.left}px`);
