@@ -1033,16 +1033,6 @@ textarea {
   font-size: 14px;
 }
 
-.nav-panel a.nav-hire {
-  align-self: flex-start;
-  margin-top: 18px;
-  padding: 0 20px;
-  border-bottom: 0;
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: 1;
-}
-
 .study {
   padding: 128px 0 48px;
 }

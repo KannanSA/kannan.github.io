@@ -114,7 +114,7 @@ export function Header() {
           <a href="/#contact" onClick={close}>
             Contact
           </a>
-          <a className="pill pill--ghost liquidglass nav-hire" href="https://www.kannanindustrials.com/" rel="me" onClick={close}>
+          <a href="https://www.kannanindustrials.com/" rel="me" onClick={close}>
             Hire me
           </a>
           <a href={personalInfo.github} target="_blank" rel="me noopener noreferrer" onClick={close}>
